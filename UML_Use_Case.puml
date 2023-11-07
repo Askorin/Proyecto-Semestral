@@ -1,0 +1,38 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+
+actor Usuario as user
+
+' Package de zoológico.
+package Zoo {
+  usecase (Crear\nhabitat) as UC1
+  usecase (Seleccionar\nhabitat) as UC2
+  usecase (Seleccionar\ntipo de\nhabitat) as UC3
+  
+  usecase (Añadir\nanimal) as UC5
+  usecase (Añadir\ncomida) as UC6
+
+  usecase (Elegir\ntipo de\nanimal) as UC7
+}
+
+
+' Includes, un caso de uso incluye, implica, este otro caso de uso.
+
+' Esto podría expandirse en distintas elecciones.
+UC1 ..> UC3 : <<Include>>
+UC5 ..> UC7 : <<Include>>
+
+
+' Extends, estas son opciones opcionales que se ramifican de un caso de uso.
+UC2 <.. UC5 : <<Extend>>
+UC2 <.. UC6 : <<Extend>>
+
+
+' Casos de uso usuario principal.
+user --> UC1
+user --> UC2
+
+
+
+@enduml
