@@ -5,7 +5,9 @@ public class VentanaApp extends JFrame {
         super("Simulador de Zoológico");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(640, 640);
+        setSize(480, 480);
         setLocationRelativeTo(null);
+
+        add(new VistaZoo());
     }
 }
