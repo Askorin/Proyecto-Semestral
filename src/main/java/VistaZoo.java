@@ -22,6 +22,7 @@ class VistaZoo extends JPanel
         cameraHeight = getSize().height;
         cameraWidth = getSize().width;
 
+        // TODO: Esto en App o en un loop principal, no se.
         t = new Timer(1000/60, null);
         t.addActionListener(this);
         t.start();

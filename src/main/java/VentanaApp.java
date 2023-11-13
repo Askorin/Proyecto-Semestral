@@ -1,13 +1,23 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 
 public class VentanaApp extends JFrame {
+    private int width;
+    private int height;
     public VentanaApp() {
         super("Simulador de Zoológico");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(480, 480);
+        width = 480;
+        height = 480;
+        setSize(width, height);
         setLocationRelativeTo(null);
 
-        add(new VistaZoo());
+        setLayout(new BorderLayout());
+        add(new VistaZoo(), BorderLayout.CENTER);
+        // TODO: Cambiar nombres de PanelAnimal y PanelHabitat, ver si se generalizar a una clase.
+        add(new PanelHabitat(), BorderLayout.WEST);
+        add(new PanelAnimal(), BorderLayout.EAST);
     }
 }
