@@ -9,7 +9,8 @@ public class VentanaApp extends JFrame {
         super("Simulador de Zoológico");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        width = 480;
+        // Ratio 16:9
+        width = 850;
         height = 480;
         setSize(width, height);
         setLocationRelativeTo(null);
