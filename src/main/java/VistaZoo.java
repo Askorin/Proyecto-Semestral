@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 
 class VistaZoo extends JPanel
         implements MouseMotionListener, MouseListener, Timeable {
@@ -12,13 +13,14 @@ class VistaZoo extends JPanel
     public int cameraWidth; public int cameraHeight;
     public final int cameraTol = 24; public final int cameraSpeed = 5;
     public int mouseX; public int mouseY; public boolean mouseIn;
-    public Timer t;
-    public Image image;
-    public Habitat testHabitat;
+    public Image backgroundImage;
+    private ArrayList<Drawable> drawableComponents;
     public VistaZoo() {
-        image = loadImage("src/main/resources/testimage.jpg"); // Temporal
-        width = image.getWidth(null);
-        height = image.getHeight(null);
+        drawableComponents = new ArrayList<>();
+
+        backgroundImage = loadImage("src/main/resources/testimage.jpg"); // Temporal
+        width = backgroundImage.getWidth(null);
+        height = backgroundImage.getHeight(null);
 
         cameraHeight = getSize().height;
         cameraWidth = getSize().width;
@@ -27,11 +29,14 @@ class VistaZoo extends JPanel
         addMouseListener(this);
 
         //Temp
+        Habitat testHabitat; Animal testAnimal;
+
         testHabitat = new MeadowHabitat();
         testHabitat.x = 64; testHabitat.y = 128;
-        Animal animal = new Animal(testHabitat);
-        testHabitat.addDrawable(animal);
-        GlobalTimer.addTimeable(animal);
+        testAnimal = new Animal(testHabitat);
+        testHabitat.addDrawable(testAnimal);
+        GlobalTimer.addTimeable(testAnimal);
+        addDrawable(testHabitat);
     }
 
     @Override
@@ -41,7 +46,9 @@ class VistaZoo extends JPanel
         super.paintComponent(g);
 
         drawCamera(g);
-        testHabitat.draw(g, x, y);
+        for (Drawable d: drawableComponents) {
+            d.draw(g, x, y);
+        }
     }
 
     public void step() {
@@ -72,9 +79,16 @@ class VistaZoo extends JPanel
     }
 
     public void drawCamera(Graphics g) {
-        g.drawImage(image, -cameraX, -cameraY, null);
+        g.drawImage(backgroundImage, -cameraX, -cameraY, null);
     }
 
+    public void addDrawable(Drawable d) {
+        drawableComponents.add(d);
+    }
+
+    public void removeDrawable(Drawable d) {
+        drawableComponents.remove(d);
+    }
     private Image loadImage(String path) {
         BufferedImage buffImg = null;
         try {
