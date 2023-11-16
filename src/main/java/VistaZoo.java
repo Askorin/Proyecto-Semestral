@@ -27,10 +27,10 @@ class VistaZoo extends JPanel
         addMouseListener(this);
 
         //Temp
-        testHabitat = new Habitat();
+        testHabitat = new MeadowHabitat();
         testHabitat.x = 64; testHabitat.y = 128;
         Animal animal = new Animal(testHabitat);
-        testHabitat.animal = animal;
+        testHabitat.addDrawable(animal);
         GlobalTimer.addTimeable(animal);
     }
 

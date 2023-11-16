@@ -1,13 +1,13 @@
 import java.awt.*;
-public class Animal implements Timeable {
+public class Animal implements Timeable, Drawable {
     int x;
     int y;
     int speedX = 5; int speedY = 5;
     int width = 64;
     int height = 64;
-    Habitat habitat;
+    Habitat ownerHabitat;
     public Animal(Habitat habitat) {
-        this.habitat = habitat;
+        ownerHabitat = habitat;
     }
     public void draw(Graphics g, int absX, int absY) {
         int x = absX + this.x;
@@ -18,8 +18,8 @@ public class Animal implements Timeable {
     }
     public void step() {
         x += speedX;
-        if (x + width > habitat.width || x < 0) {speedX *= -1;}
+        if (x + width > ownerHabitat.width || x < 0) {speedX *= -1;}
         y += speedY;
-        if (x + height > habitat.height || x < 0) {speedY *= -1;}
+        if (x + height > ownerHabitat.height || x < 0) {speedY *= -1;}
     }
 }
