@@ -5,6 +5,7 @@ public class WalkingState implements State {
     public WalkingState(Animal animal) {
         targetX = (int) (Math.random()*(animal.ownerHabitat.width - animal.width));
         targetY = (int) (Math.random()*(animal.ownerHabitat.height - animal.height));
+        animal.setSprite(animal.getWalkSprite());
     }
     @Override
     public void stateBehavior(Animal animal) {
@@ -27,7 +28,8 @@ public class WalkingState implements State {
         }
 
         if (animal.x == targetX && animal.y == targetY) {
-            animal.currentState = new IdleState();
+            animal.currentState = new IdleState(animal);
+            return;
         }
     }
     private int getSpeedX(Animal animal) {

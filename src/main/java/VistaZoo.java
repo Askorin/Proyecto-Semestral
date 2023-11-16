@@ -33,7 +33,7 @@ class VistaZoo extends JPanel
 
         testHabitat = new MeadowHabitat();
         testHabitat.x = 64; testHabitat.y = 128;
-        testAnimal = new Animal(testHabitat);
+        testAnimal = new Gato(testHabitat);
         testHabitat.addDrawable(testAnimal);
         GlobalTimer.addTimeable(testAnimal);
         addDrawable(testHabitat);
