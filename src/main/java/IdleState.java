@@ -1,6 +1,6 @@
 public class IdleState implements State {
-    int idleDuration = (int) (Math.random()*900 + 100); // entre 1 y 10 s
-    int timeElapsed = 0;
+    private int idleDuration = (int) (Math.random()*900 + 100); // entre 1 y 10 s
+    private int timeElapsed = 0;
     public IdleState(Animal animal) {
         animal.setSprite(animal.getIdleSprite());
     }

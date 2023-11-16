@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 class VistaZoo extends JPanel
         implements MouseMotionListener, MouseListener, Timeable {
-    public int width; public int height;
-    public int cameraX; public int cameraY;
-    public int cameraWidth; public int cameraHeight;
-    public final int cameraTol = 24; public final int cameraSpeed = 5;
-    public int mouseX; public int mouseY; public boolean mouseIn;
-    public Image backgroundImage;
+    protected int width; protected int height;
+    private int cameraX; private int cameraY;
+    private int cameraWidth; private int cameraHeight;
+    private final int cameraTol = 24; private final int cameraSpeed = 5;
+    private int mouseX; private int mouseY; private boolean mouseIn;
+    private Image backgroundImage;
     private ArrayList<Drawable> drawableComponents;
     public VistaZoo() {
         drawableComponents = new ArrayList<>();
@@ -56,7 +56,7 @@ class VistaZoo extends JPanel
         repaint();
     }
 
-    public void updateCamera() {
+    private void updateCamera() {
         cameraHeight = getSize().height;
         cameraWidth = getSize().width;
 
@@ -78,7 +78,7 @@ class VistaZoo extends JPanel
         }
     }
 
-    public void drawCamera(Graphics g) {
+    private void drawCamera(Graphics g) {
         g.drawImage(backgroundImage, -cameraX, -cameraY, null);
     }
 

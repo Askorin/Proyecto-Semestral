@@ -5,12 +5,12 @@ import java.io.File;
 import java.util.ArrayList;
 
 public abstract class Habitat implements Drawable {
-    int x;
-    int y;
-    int width;
-    int height;
-    ArrayList<Drawable> drawableComponents;
-    Image habitatImage;
+    public int x;
+    public int y;
+    protected int width;
+    protected int height;
+    protected ArrayList<Drawable> drawableComponents;
+    protected Image habitatImage;
     public Habitat() {
         drawableComponents = new ArrayList<>();
     }
@@ -46,5 +46,12 @@ public abstract class Habitat implements Drawable {
         this.habitatImage = habitatImage;
         width = habitatImage.getWidth(null);
         height = habitatImage.getHeight(null);
+    }
+
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
     }
 }

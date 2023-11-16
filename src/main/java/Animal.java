@@ -1,13 +1,13 @@
 import java.awt.*;
 public abstract class Animal implements Timeable, Drawable {
-    int x;
-    int y;
-    int width;
-    int height;
-    private Sprite currentSprite;
-    State currentState;
-    Habitat ownerHabitat;
-    private int timeElapsed = 0;
+    public int x;
+    public int y;
+    protected int width;
+    protected int height;
+    protected Sprite currentSprite;
+    protected State currentState;
+    protected Habitat ownerHabitat;
+    protected int timeElapsed = 0;
     public Animal(Habitat habitat) {
         ownerHabitat = habitat;
     }
@@ -27,5 +27,11 @@ public abstract class Animal implements Timeable, Drawable {
 
     public void setSprite(Sprite sprite) {
         currentSprite = sprite;
+    }
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
     }
 }

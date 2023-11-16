@@ -1,7 +1,7 @@
 public class WalkingState implements State {
-    int targetX;
-    int targetY;
-    int speed = (int) (Math.random()*4 + 3); // entre 3 y 7;
+    private int targetX;
+    private int targetY;
+    private int speed = (int) (Math.random()*4 + 3); // entre 3 y 7;
     public WalkingState(Animal animal) {
         targetX = (int) (Math.random()*(animal.ownerHabitat.width - animal.width));
         targetY = (int) (Math.random()*(animal.ownerHabitat.height - animal.height));
