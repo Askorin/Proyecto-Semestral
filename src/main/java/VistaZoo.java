@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 class VistaZoo extends JPanel
-        implements ActionListener, MouseMotionListener, MouseListener {
+        implements MouseMotionListener, MouseListener, Timeable {
     public int width; public int height;
     public int cameraX; public int cameraY;
     public int cameraWidth; public int cameraHeight;
@@ -14,32 +14,34 @@ class VistaZoo extends JPanel
     public int mouseX; public int mouseY; public boolean mouseIn;
     public Timer t;
     public Image image;
+    public Habitat testHabitat;
     public VistaZoo() {
-        image = loadImage("src/main/rsc/testimage.jpg"); // Temporal
+        image = loadImage("src/main/resources/testimage.jpg"); // Temporal
         width = image.getWidth(null);
         height = image.getHeight(null);
 
         cameraHeight = getSize().height;
         cameraWidth = getSize().width;
 
-        // TODO: Esto en App o en un loop principal, no se.
-        t = new Timer(1000/60, null);
-        t.addActionListener(this);
-        t.start();
-
         addMouseMotionListener(this);
         addMouseListener(this);
+
+        //Temp
+        testHabitat = new Habitat();
+        testHabitat.x = 64; testHabitat.y = 128;
+        Animal animal = new Animal(testHabitat);
+        testHabitat.animal = animal;
+        GlobalTimer.addTimeable(animal);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+        int x = -cameraX;
+        int y = -cameraY;
         super.paintComponent(g);
-        drawCamera(g);
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        step();
+        drawCamera(g);
+        testHabitat.draw(g, x, y);
     }
 
     public void step() {
