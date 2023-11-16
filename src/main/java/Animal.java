@@ -7,6 +7,7 @@ public abstract class Animal implements Timeable, Drawable {
     private Sprite currentSprite;
     State currentState;
     Habitat ownerHabitat;
+    private int timeElapsed = 0;
     public Animal(Habitat habitat) {
         ownerHabitat = habitat;
     }
@@ -14,10 +15,11 @@ public abstract class Animal implements Timeable, Drawable {
         int x = absX + this.x;
         int y = absY + this.y;
 
-        g.drawImage(currentSprite.getImage(), x, y, null);
+        g.drawImage(currentSprite.getFrame(timeElapsed), x, y, null);
     }
     public void step() {
         currentState.stateBehavior(this);
+        timeElapsed += GlobalTimer.MS_PER_FRAME;
     }
 
     public abstract Sprite getIdleSprite();

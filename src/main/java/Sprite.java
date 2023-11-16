@@ -3,30 +3,48 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public enum Sprite {
-    CAT_IDLE("src/main/resources/catIdle.png"),
-    CAT_WALK("src/main/resources/catWalk.png");
+    CAT_IDLE("src/main/resources/catIdle", 6, 150),
+    CAT_WALK("src/main/resources/catWalk", 2, 50);
     public static final int scaleFactor = 4;
-    private Image image;
+    private ArrayList<Image> frames;
+    private int framesNumber;
+    private int timePerFrame;
     private int width;
     private int height;
-    Sprite(String path) {
-        BufferedImage buffImage = null;
-        try {
-            buffImage = ImageIO.read(new File(path));
-        }
-        catch (IOException e) {
-            System.out.println(e);
+    Sprite(String path, int framesNumber, int timePerFrame) {
+        this.framesNumber = framesNumber;
+        this.timePerFrame = timePerFrame;
+
+        frames = new ArrayList<>(framesNumber);
+        for (String p: getPaths(path, framesNumber)) {
+            BufferedImage buffImage = null;
+            try {
+                buffImage = ImageIO.read(new File(p));
+            }
+            catch (IOException e) {
+                System.out.println(e);
+            }
+            width = buffImage.getWidth() * scaleFactor;
+            height = buffImage.getHeight() * scaleFactor;
+            Image image = buffImage.getScaledInstance(width, height, Image.SCALE_FAST);
+            frames.add(image);
         }
 
-        width = buffImage.getWidth() * scaleFactor;
-        height = buffImage.getHeight() * scaleFactor;
-        image = buffImage.getScaledInstance(width, height, Image.SCALE_FAST);
     }
 
-    public Image getImage() {
-        return image;
+    private ArrayList<String> getPaths(String path, int framesNumber) {
+        ArrayList<String> paths = new ArrayList<>(framesNumber);
+        for (int i = 0; i < framesNumber; i++) {
+            paths.add(path + Integer.toString(i+1) + ".png");
+        }
+        return paths;
+    }
+
+    public Image getFrame(long time) {
+        return frames.get((int)((time / timePerFrame) % framesNumber));
     }
 
     public int getWidth() {
