@@ -18,7 +18,7 @@ public abstract class Habitat implements Drawable {
         int x = absX + this.x;
         int y = absY + this.y;
 
-        habitatSprite.drawSprite(g, x, y, getWidth(), getHeight(), 0);
+        habitatSprite.drawSprite(g, x, y, getWidth(), getHeight(), 0, 1.0f);
         for (Drawable d: drawableComponents) {
             d.draw(g, x, y);
         }
