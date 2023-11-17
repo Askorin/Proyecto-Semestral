@@ -28,6 +28,7 @@ public class LabelHabitat extends JLabel implements MouseInputListener {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         System.out.println("CLICKEADO WOW");
+
     }
 
     @Override
