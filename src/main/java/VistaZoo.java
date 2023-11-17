@@ -35,10 +35,11 @@ class VistaZoo extends JPanel
         testHabitat.x = 64; testHabitat.y = 128;
         testAnimal = new Gato(testHabitat);
         testHabitat.addDrawable(testAnimal);
-        GlobalTimer.addTimeable(testAnimal);
+        // GlobalTimer.addTimeable(testAnimal);
         addDrawable(testHabitat);
     }
 
+    // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
     protected void paintComponent(Graphics g) {
         int x = -cameraX;
@@ -53,7 +54,9 @@ class VistaZoo extends JPanel
 
     public void step() {
         updateCamera();
-        repaint();
+        for (Drawable d: drawableComponents) {
+            d.step();
+        }
     }
 
     private void updateCamera() {
