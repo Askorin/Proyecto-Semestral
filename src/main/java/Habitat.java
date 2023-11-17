@@ -10,7 +10,7 @@ public abstract class Habitat implements Drawable {
     protected int width;
     protected int height;
     protected ArrayList<Drawable> drawableComponents;
-    protected Image habitatImage;
+    protected Sprite habitatSprite;
     public Habitat() {
         drawableComponents = new ArrayList<>();
     }
@@ -18,7 +18,7 @@ public abstract class Habitat implements Drawable {
         int x = absX + this.x;
         int y = absY + this.y;
 
-        g.drawImage(habitatImage, x, y, null);
+        habitatSprite.drawSprite(g, x, y, getWidth(), getHeight(), 0);
         for (Drawable d: drawableComponents) {
             d.draw(g, x, y);
         }
@@ -48,16 +48,20 @@ public abstract class Habitat implements Drawable {
         }
         return buffImg;
     }
-    public void setHabitatImage(Image habitatImage) {
-        this.habitatImage = habitatImage;
-        width = habitatImage.getWidth(null);
-        height = habitatImage.getHeight(null);
+    public void setHabitatSprite(Sprite habitatSprite) {
+        this.habitatSprite = habitatSprite;
     }
 
     public int getWidth() {
         return width;
     }
+    public void setWidth(int width) {
+        this.width = width;
+    }
     public int getHeight() {
         return height;
+    }
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

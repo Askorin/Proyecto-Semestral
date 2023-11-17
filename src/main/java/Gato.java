@@ -1,8 +1,8 @@
 public class Gato extends Animal {
     public Gato(Habitat habitat) {
         super(habitat);
-        width = 64;
-        height = 64;
+        setWidth(80);
+        setHeight(80);
         //Importante que el estado se defina DESPUES de las dimensiones
         currentState =  new IdleState(this);
     }
