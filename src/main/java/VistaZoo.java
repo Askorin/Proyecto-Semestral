@@ -15,6 +15,7 @@ class VistaZoo extends JPanel
     private int mouseX; private int mouseY; private boolean mouseIn;
     private Image backgroundImage;
     private ArrayList<Drawable> drawableComponents;
+    private HabitatPlacementManager habitatPlacementManager;
     public VistaZoo() {
         drawableComponents = new ArrayList<>();
 
@@ -38,10 +39,9 @@ class VistaZoo extends JPanel
         addDrawable(testHabitat);
 
         // Esto para el posicionamiento de habitats.
-        HabitatPlacementManager habitatPlacementManager = new HabitatPlacementManager(this);
+        this.habitatPlacementManager = new HabitatPlacementManager(this);
         addMouseMotionListener(habitatPlacementManager);
         addMouseListener(habitatPlacementManager);
-        addDrawable(habitatPlacementManager);
     }
 
     // TODO: Pasar enumHabitat o Habitat? Es este método una buena idea siquiera?
@@ -51,7 +51,6 @@ class VistaZoo extends JPanel
         habitat.addDrawable(new Gato(habitat));
         habitat.x = x; habitat.y = y;
         addDrawable(habitat);
-
     }
     // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
@@ -65,6 +64,9 @@ class VistaZoo extends JPanel
             // Este check de null es medio quiche.
             if (d != null) {d.draw(g, x, y);}
         }
+        // TODO: Implementar un sistema de layers, posiblemente.
+        // Esto para que se dibuje al final.
+        habitatPlacementManager.draw(g, x, y);
     }
 
     public void step() {
