@@ -13,6 +13,7 @@ public final class App {
     private final String OS;
     private boolean isLinux;
     private App() {
+        // En linux ocurrían problemas de rendimiento, esto lo "arregla".
         OS = System.getProperty("os.name").toLowerCase();
         if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
             isLinux = true;
@@ -40,19 +41,6 @@ public final class App {
                 frame.repaint();
             }
         });
-
-
-       // gameLoop = new Thread(() -> {
-       //     while (corriendo) {
-       //         System.out.println("Hola.");
-       //         this.frame.step();
-       //         this.frame.repaint();
-       //         try {
-       //             Thread.sleep(15);
-       //         } catch (InterruptedException e) {
-       //         }
-       //     }
-       // });
     }
 
     public static void main(String[] args) {

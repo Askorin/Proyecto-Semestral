@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-//TODO: Hacer Singleton
+//TODO: Eliminar
 public class GlobalTimer implements ActionListener {
     private static ArrayList<Timeable> timeables;
     private static Timer timer;
