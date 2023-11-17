@@ -24,6 +24,12 @@ public abstract class Habitat implements Drawable {
         }
     }
 
+    public void step() {
+        for (Drawable d: drawableComponents) {
+            d.step();
+        }
+    }
+
     public void addDrawable(Drawable d) {
         drawableComponents.add(d);
     }
