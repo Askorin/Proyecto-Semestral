@@ -35,8 +35,12 @@ class VistaZoo extends JPanel
         testHabitat.x = 64; testHabitat.y = 128;
         testAnimal = new Gato(testHabitat);
         testHabitat.addDrawable(testAnimal);
-        // GlobalTimer.addTimeable(testAnimal);
         addDrawable(testHabitat);
+
+        // Esto para el posicionamiento de habitats.
+        HabitatPlacementManager habitatPlacementManager = new HabitatPlacementManager();
+        addMouseMotionListener(habitatPlacementManager);
+        addDrawable(habitatPlacementManager);
     }
 
     // TODO: El paintComponent lo debería llevar ventana en verdad?
@@ -48,14 +52,15 @@ class VistaZoo extends JPanel
 
         drawCamera(g);
         for (Drawable d: drawableComponents) {
-            d.draw(g, x, y);
+            // Este check de null es medio quiche.
+            if (d != null) {d.draw(g, x, y);}
         }
     }
 
     public void step() {
         updateCamera();
         for (Drawable d: drawableComponents) {
-            d.step();
+            if (d != null) {d.step();}
         }
     }
 
@@ -122,6 +127,10 @@ class VistaZoo extends JPanel
     @Override
     public void mouseDragged(MouseEvent e) {}
     public void mouseClicked(MouseEvent e) {}
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+        if (e.getButton() == MouseEvent.BUTTON3) {
+            HabitatPlacementManager.disablePlacement();
+        }
+    }
     public void mouseReleased(MouseEvent e) {}
 }

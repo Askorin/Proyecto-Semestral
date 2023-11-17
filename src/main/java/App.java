@@ -17,8 +17,8 @@ public final class App {
         OS = System.getProperty("os.name").toLowerCase();
         if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
             isLinux = true;
+            System.out.println("Sistema es linux.");
         }
-        System.out.println(isLinux);
         crearYMostrarUI();
     }
     private void crearYMostrarUI() {

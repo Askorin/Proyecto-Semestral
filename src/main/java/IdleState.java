@@ -6,7 +6,6 @@ public class IdleState implements State {
     }
     @Override
     public void stateBehavior(Animal animal) {
-        System.out.println(timeElapsed);
         timeElapsed += GlobalTimer.MS_PER_FRAME;
         if (timeElapsed >= idleDuration) {
             animal.changeState(this);

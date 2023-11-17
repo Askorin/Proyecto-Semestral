@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public enum Sprite {
-    CAT_IDLE("src/main/resources/catIdle.png", 6, 150, 13*4, 9*4),
-    CAT_WALK("src/main/resources/catWalk.png", 2, 90),
+    CAT_IDLE("src/main/resources/CatIdle.png", 6, 150, 13*4, 9*4),
+    CAT_WALK("src/main/resources/CatWalk.png", 2, 90),
     MEADOWHABITAT("src/main/resources/meadowHabitat.png", 1, 1);
     public static final int scaleFactor = 4;
     private ArrayList<Image> frames;
@@ -23,7 +23,6 @@ public enum Sprite {
 
         frames = new ArrayList<>(framesNumber);
         for (String p: getPaths(path, framesNumber)) {
-            System.out.println(p);
             BufferedImage buffImage = null;
             try {
                 buffImage = ImageIO.read(new File(p));

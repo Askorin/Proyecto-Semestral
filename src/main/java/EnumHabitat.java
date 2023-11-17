@@ -30,9 +30,9 @@ public enum EnumHabitat {
     public Habitat newInstance() {
         Habitat habitat = null;
         try {
-            habitat = (Habitat) tipo.getDeclaredConstructor(String.class).newInstance();
+            habitat = (Habitat) tipo.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
         return habitat;
     }

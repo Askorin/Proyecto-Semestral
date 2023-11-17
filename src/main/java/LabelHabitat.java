@@ -8,13 +8,15 @@ import java.io.IOException;
 
 public class LabelHabitat extends JLabel implements MouseInputListener {
 
+    private EnumHabitat enumHabitat;
     LabelHabitat(int width, int height, EnumHabitat enumHabitat) {
         super();
+        this.enumHabitat = enumHabitat;
         setSize(width, height);
         setPreferredSize(new Dimension(getWidth(), getHeight()));
         BufferedImage imagen = null;
         try {
-            imagen = ImageIO.read(getClass().getResource(enumHabitat.getPath()));
+            imagen = ImageIO.read(getClass().getResource(this.enumHabitat.getPath()));
             // imagen = ImageIO.read(getClass().getResource("/habitat.png"));
         } catch (IOException e) {
             System.err.println(e);
@@ -27,8 +29,8 @@ public class LabelHabitat extends JLabel implements MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        System.out.println("CLICKEADO WOW");
-
+        // Habilitamos posicionamiento de habitat.
+        HabitatPlacementManager.enablePlacement(this.enumHabitat);
     }
 
     @Override
