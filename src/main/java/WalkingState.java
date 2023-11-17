@@ -1,10 +1,10 @@
 public class WalkingState implements State {
     private int targetX;
     private int targetY;
-    private int speed = (int) (Math.random()*4 + 3); // entre 3 y 7;
+    private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public WalkingState(Animal animal) {
-        targetX = (int) (Math.random()*(animal.ownerHabitat.width - animal.width));
-        targetY = (int) (Math.random()*(animal.ownerHabitat.height - animal.height));
+        targetX = (int) (Math.random()*(animal.ownerHabitat.width - animal.getWidth()));
+        targetY = (int) (Math.random()*(animal.ownerHabitat.height - animal.getHeight()));
         animal.setSprite(animal.getWalkSprite());
     }
     @Override
@@ -28,7 +28,7 @@ public class WalkingState implements State {
         }
 
         if (animal.x == targetX && animal.y == targetY) {
-            animal.currentState = new IdleState(animal);
+            animal.changeState(this);
             return;
         }
     }
