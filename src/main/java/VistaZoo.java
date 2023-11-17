@@ -4,50 +4,62 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 
 class VistaZoo extends JPanel
-        implements ActionListener, MouseMotionListener, MouseListener {
-    public int width; public int height;
-    public int cameraX; public int cameraY;
-    public int cameraWidth; public int cameraHeight;
-    public final int cameraTol = 24; public final int cameraSpeed = 5;
-    public int mouseX; public int mouseY; public boolean mouseIn;
-    public Timer t;
-    public Image image;
+        implements MouseMotionListener, MouseListener, Timeable {
+    protected int width; protected int height;
+    private int cameraX; private int cameraY;
+    private int cameraWidth; private int cameraHeight;
+    private final int cameraTol = 24; private final int cameraSpeed = 5;
+    private int mouseX; private int mouseY; private boolean mouseIn;
+    private Image backgroundImage;
+    private ArrayList<Drawable> drawableComponents;
     public VistaZoo() {
-        image = loadImage("src/main/rsc/testimage.jpg"); // Temporal
-        width = image.getWidth(null);
-        height = image.getHeight(null);
+        drawableComponents = new ArrayList<>();
+
+        backgroundImage = loadImage("src/main/resources/testimage.jpg"); // Temporal
+        width = backgroundImage.getWidth(null);
+        height = backgroundImage.getHeight(null);
 
         cameraHeight = getSize().height;
         cameraWidth = getSize().width;
 
-        // TODO: Esto en App o en un loop principal, no se.
-        t = new Timer(1000/60, null);
-        t.addActionListener(this);
-        t.start();
-
         addMouseMotionListener(this);
         addMouseListener(this);
+
+        //Temp
+        Habitat testHabitat; Animal testAnimal;
+
+        testHabitat = new MeadowHabitat();
+        testHabitat.x = 64; testHabitat.y = 128;
+        testAnimal = new Gato(testHabitat);
+        testHabitat.addDrawable(testAnimal);
+        // GlobalTimer.addTimeable(testAnimal);
+        addDrawable(testHabitat);
     }
 
+    // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
     protected void paintComponent(Graphics g) {
+        int x = -cameraX;
+        int y = -cameraY;
         super.paintComponent(g);
-        drawCamera(g);
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        step();
+        drawCamera(g);
+        for (Drawable d: drawableComponents) {
+            d.draw(g, x, y);
+        }
     }
 
     public void step() {
         updateCamera();
-        repaint();
+        for (Drawable d: drawableComponents) {
+            d.step();
+        }
     }
 
-    public void updateCamera() {
+    private void updateCamera() {
         cameraHeight = getSize().height;
         cameraWidth = getSize().width;
 
@@ -69,10 +81,17 @@ class VistaZoo extends JPanel
         }
     }
 
-    public void drawCamera(Graphics g) {
-        g.drawImage(image, -cameraX, -cameraY, null);
+    private void drawCamera(Graphics g) {
+        g.drawImage(backgroundImage, -cameraX, -cameraY, null);
     }
 
+    public void addDrawable(Drawable d) {
+        drawableComponents.add(d);
+    }
+
+    public void removeDrawable(Drawable d) {
+        drawableComponents.remove(d);
+    }
     private Image loadImage(String path) {
         BufferedImage buffImg = null;
         try {
