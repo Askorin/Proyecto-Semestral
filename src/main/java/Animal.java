@@ -21,7 +21,7 @@ public abstract class Animal implements Timeable, Drawable {
             g.drawRect(x, y, width, height);
         }
 
-        currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), timeElapsed);
+        currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), timeElapsed, 1.0f);
     }
     public void step() {
         currentState.stateBehavior(this);
