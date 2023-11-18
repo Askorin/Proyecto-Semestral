@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class VistaZoo extends JPanel
-        implements MouseMotionListener, MouseListener, Timeable {
+        implements MouseMotionListener, MouseListener, Steps {
     protected int width; protected int height;
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;

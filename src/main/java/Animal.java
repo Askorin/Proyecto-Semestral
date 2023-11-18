@@ -1,5 +1,5 @@
 import java.awt.*;
-public abstract class Animal implements Timeable, Drawable {
+public abstract class Animal implements Steps, Drawable {
     public int x;
     public int y;
     private int width;

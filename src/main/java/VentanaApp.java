@@ -19,9 +19,7 @@ public class VentanaApp extends JFrame {
         setLayout(new BorderLayout());
 
 
-        new GlobalTimer();
         zoo = new VistaZoo();
-        // GlobalTimer.addTimeable(zoo);
         add(zoo, BorderLayout.CENTER);
 
         // TODO: Cambiar nombres de PanelAnimal y PanelHabitat, ver si se generalizar a una clase.
