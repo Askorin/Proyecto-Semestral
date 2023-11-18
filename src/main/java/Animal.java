@@ -30,6 +30,7 @@ public abstract class Animal implements Steps, Drawable {
         currentState.stateBehavior(this);
         currentMs = System.currentTimeMillis();
     }
+    //Administrador de estados, corresponde al grafo de estados en una maquina de estados finitos (No sé de que hablo)
     public void changeState(State currentState) {
         if (currentState.getClass() == IdleState.class) {
             this.currentState = new WalkingState(this);
@@ -41,6 +42,7 @@ public abstract class Animal implements Steps, Drawable {
         }
     }
 
+    //TODO: Actualmente es necesario que los hijos definan metodos para acceder a sus sprites
     public abstract Sprite getIdleSprite();
     public abstract Sprite getWalkSprite();
 
