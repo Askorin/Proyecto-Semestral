@@ -7,7 +7,7 @@ public abstract class Animal implements Steps, Drawable {
     protected Sprite currentSprite;
     protected State currentState;
     protected Habitat ownerHabitat;
-    protected int timeElapsed = 0;
+    protected int timeElapsed = 0; //Cuenta cuanto tiempo [ms] ha pasado desde la creación de la instancia
     public Animal(Habitat habitat) {
         ownerHabitat = habitat;
     }
@@ -27,6 +27,7 @@ public abstract class Animal implements Steps, Drawable {
         currentState.stateBehavior(this);
         timeElapsed += GlobalTimer.MS_PER_FRAME;
     }
+    //Administrador de estados, corresponde al grafo de estados en una maquina de estados finitos (No sé de que hablo)
     public void changeState(State currentState) {
         if (currentState.getClass() == IdleState.class) {
             this.currentState = new WalkingState(this);
@@ -38,6 +39,7 @@ public abstract class Animal implements Steps, Drawable {
         }
     }
 
+    //TODO: Actualmente es necesario que los hijos definan metodos para acceder a sus sprites
     public abstract Sprite getIdleSprite();
     public abstract Sprite getWalkSprite();
 
