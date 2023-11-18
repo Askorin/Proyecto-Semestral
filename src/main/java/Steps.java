@@ -1,3 +1,3 @@
-interface Timeable {
+interface Steps {
     public void step();
 }

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 //TODO: Eliminar
 public class GlobalTimer implements ActionListener {
-    private static ArrayList<Timeable> timeables;
+    private static ArrayList<Steps> steps;
     private static Timer timer;
     public static final int MS_PER_FRAME = 1000/60;
     public GlobalTimer() {
-        timeables = new ArrayList<>();
+        steps = new ArrayList<>();
 
         timer = new Timer(MS_PER_FRAME, null);
         timer.addActionListener(this);
@@ -17,16 +17,16 @@ public class GlobalTimer implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (Timeable t: timeables) {
+        for (Steps t: steps) {
             t.step();
         }
     }
-    public static void addTimeable(Timeable t) {
-        timeables.add(t);
+    public static void addTimeable(Steps t) {
+        steps.add(t);
     }
 
-    public static void removeTimeable(Timeable t) {
-        timeables.remove(t);
+    public static void removeTimeable(Steps t) {
+        steps.remove(t);
     }
 }
 
