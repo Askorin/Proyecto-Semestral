@@ -66,7 +66,7 @@ public enum Sprite {
         return frames.get((int)((time / timePerFrame) % framesNumber));
     }
 
-    public void drawSprite(Graphics g, int x, int y, int hitboxWidth, int hitboxHeight, int timeElapsed, float opacidad) {
+    public void drawSprite(Graphics g, int x, int y, int hitboxWidth, int hitboxHeight, long timeElapsed, float opacidad) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacidad));
         int hitboxCenterX = x + (hitboxWidth/2);

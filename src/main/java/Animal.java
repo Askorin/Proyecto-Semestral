@@ -7,9 +7,12 @@ public abstract class Animal implements Steps, Drawable {
     protected Sprite currentSprite;
     protected State currentState;
     protected Habitat ownerHabitat;
-    protected int timeElapsed = 0;
+    private final long initMs;
+    private long currentMs;
     public Animal(Habitat habitat) {
         ownerHabitat = habitat;
+        initMs = System.currentTimeMillis();
+        currentMs = initMs;
     }
     public void draw(Graphics g, int absX, int absY) {
         int x = absX + this.x;
@@ -20,12 +23,12 @@ public abstract class Animal implements Steps, Drawable {
             g.setColor(Color.RED);
             g.drawRect(x, y, width, height);
         }
-
+        long timeElapsed = currentMs - initMs;
         currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), timeElapsed, 1.0f);
     }
     public void step() {
         currentState.stateBehavior(this);
-        timeElapsed += GlobalTimer.MS_PER_FRAME;
+        currentMs = System.currentTimeMillis();
     }
     public void changeState(State currentState) {
         if (currentState.getClass() == IdleState.class) {
