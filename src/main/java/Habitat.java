@@ -9,7 +9,7 @@ public abstract class Habitat implements Drawable {
     public int y;
     protected int width;
     protected int height;
-    protected ArrayList<Drawable> drawableComponents;
+    protected ArrayList<Drawable> drawableComponents; //Habitat es un contenedor de elementos dibujables
     protected Sprite habitatSprite;
     public Habitat() {
         drawableComponents = new ArrayList<>();
@@ -30,14 +30,17 @@ public abstract class Habitat implements Drawable {
         }
     }
 
+    // Es publico por ahora, pero supongo que eventualmente deberia ser privado
+    // y por ejemplo, un metodo publico addAnimal, deberia llamar a este metodo
     public void addDrawable(Drawable d) {
         drawableComponents.add(d);
     }
-
+    // lo mismo
     public void removeDrawable(Drawable d) {
         drawableComponents.remove(d);
     }
-
+    //TODO: quizas seria mejor dejar este tipo de metodos en una clase Utilities
+    //Este metodo ya no se usa, no lo borro porque me gustaria dejar el to-do (se usa en sprite por ej)
     protected Image loadImage(String path) {
         BufferedImage buffImg = null;
         try {
@@ -48,6 +51,7 @@ public abstract class Habitat implements Drawable {
         }
         return buffImg;
     }
+    //Es necesario llamar a este metodo en el constructor de los hijos, para sobreescribir el sprite del padre
     public void setHabitatSprite(Sprite habitatSprite) {
         this.habitatSprite = habitatSprite;
     }
