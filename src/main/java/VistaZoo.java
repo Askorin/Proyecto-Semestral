@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
-class VistaZoo extends JPanel
+public class VistaZoo extends JPanel
         implements MouseMotionListener, MouseListener, Timeable {
     protected int width; protected int height;
     private int cameraX; private int cameraY;

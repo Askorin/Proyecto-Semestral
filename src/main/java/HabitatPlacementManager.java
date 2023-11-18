@@ -8,9 +8,9 @@ public class HabitatPlacementManager implements Drawable, MouseMotionListener, M
     // Esto sería innecesario por ahora.
     private static Habitat habitat = null;
     private static EnumHabitat enumHabitat;
-    private int x, y;
     private static boolean activo = false;
-    private VistaZoo vistaZoo;
+    private int x, y;
+    private final VistaZoo vistaZoo;
     public HabitatPlacementManager(VistaZoo vistaZoo) {
         this.vistaZoo = vistaZoo;
     }
@@ -64,16 +64,8 @@ public class HabitatPlacementManager implements Drawable, MouseMotionListener, M
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         if (HabitatPlacementManager.isActivo()) {
-            switch (mouseEvent.getButton()) {
-                case MouseEvent.BUTTON3:
-                    disablePlacement();
-                    break;
-                case MouseEvent.BUTTON1:
-                    disablePlacement();
-                    place();
-                    break;
-                default:
-            }
+            if (mouseEvent.getButton() == MouseEvent.BUTTON1) {place();}
+            disablePlacement();
         }
     }
 
