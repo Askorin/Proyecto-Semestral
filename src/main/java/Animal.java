@@ -7,9 +7,12 @@ public abstract class Animal implements Steps, Drawable {
     protected Sprite currentSprite;
     protected State currentState;
     protected Habitat ownerHabitat;
-    protected int timeElapsed = 0; //Cuenta cuanto tiempo [ms] ha pasado desde la creación de la instancia
+    private final long initMs;
+    private long currentMs;
     public Animal(Habitat habitat) {
         ownerHabitat = habitat;
+        initMs = System.currentTimeMillis();
+        currentMs = initMs;
     }
     public void draw(Graphics g, int absX, int absY) {
         int x = absX + this.x;
@@ -20,12 +23,12 @@ public abstract class Animal implements Steps, Drawable {
             g.setColor(Color.RED);
             g.drawRect(x, y, width, height);
         }
-
+        long timeElapsed = currentMs - initMs;
         currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), timeElapsed, 1.0f);
     }
     public void step() {
         currentState.stateBehavior(this);
-        timeElapsed += GlobalTimer.MS_PER_FRAME;
+        currentMs = System.currentTimeMillis();
     }
     //Administrador de estados, corresponde al grafo de estados en una maquina de estados finitos (No sé de que hablo)
     public void changeState(State currentState) {

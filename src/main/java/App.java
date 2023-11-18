@@ -7,6 +7,7 @@ public final class App {
     private Timer gameLoop;
     // En milisegundos
     private final float FPS = 60;
+    public final float MS_PER_FRAME = 1.0f / FPS * 1000;
     private boolean corriendo;
     private VentanaApp frame;
 
@@ -31,8 +32,7 @@ public final class App {
 
     private void setupGameLoop() {
 
-        int frecuenciaUpdate = (int) (1.0f / FPS * 1000);
-        gameLoop = new Timer(frecuenciaUpdate, (ActionEvent e) -> {
+        gameLoop = new Timer((int) MS_PER_FRAME, (ActionEvent e) -> {
             if (corriendo) {
                 frame.step();
                 if (isLinux) {
