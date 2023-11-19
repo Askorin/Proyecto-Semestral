@@ -46,7 +46,7 @@ public final class App {
 
         gameLoop = new Timer((int) MS_PER_FRAME, (ActionEvent e) -> {
             if (corriendo) {
-                escenaZoo.step();
+                escenaZoo.update();
                 if (isLinux) {
                     Toolkit.getDefaultToolkit().sync();
                 }

@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class EscenaZoo extends JPanel implements Steps {
+public class EscenaZoo extends JPanel implements Updatable {
     private final VistaZoo zoo;
     private final HabitatPlacementManager habitatPlacementManager;
     public EscenaZoo() {
@@ -37,8 +37,8 @@ public class EscenaZoo extends JPanel implements Steps {
         super.paintComponent(g);
     }
 
-    public void step() {
-        zoo.step();
+    public void update() {
+        zoo.update();
     }
 
 }

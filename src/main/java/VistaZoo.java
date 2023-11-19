@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class VistaZoo extends JPanel
-        implements MouseMotionListener, MouseListener, Steps, Drawable {
+        implements MouseMotionListener, MouseListener, Updatable, Drawable {
     protected int width; protected int height;
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
@@ -15,9 +15,11 @@ public class VistaZoo extends JPanel
     private int mouseX; private int mouseY; private boolean mouseIn;
     private Image backgroundImage;
     private ArrayList<Drawable> drawableComponents;
+    private ArrayList<Updatable> updatableComponents;
     private HabitatPlacementManager habitatPlacementManager;
     public VistaZoo(HabitatPlacementManager habitatPlacementManager) {
         drawableComponents = new ArrayList<>();
+        updatableComponents = new ArrayList<>();
 
         backgroundImage = loadImage("src/main/resources/testimage.jpg"); // Temporal
         width = backgroundImage.getWidth(null);
@@ -33,23 +35,21 @@ public class VistaZoo extends JPanel
         addMouseMotionListener(this.habitatPlacementManager);
         addMouseListener(this.habitatPlacementManager);
 
-        // //Temp
-        // Habitat testHabitat; Animal testAnimal;
-
-        // testHabitat = new MeadowHabitat();
-        // testHabitat.x = 64; testHabitat.y = 128;
-        // testAnimal = new Gato(testHabitat);
-        // testHabitat.addDrawable(testAnimal);
-        // addDrawable(testHabitat);
+        //TODO: Temp
+        addHabitat(64, 128, EnumHabitat.MEADOW);
     }
 
     // TODO: Pasar enumHabitat o Habitat? Es este método una buena idea siquiera?
     public void addHabitat(int x, int y, EnumHabitat enumHabitat) {
         Habitat habitat = enumHabitat.newInstance();
+
         // TODO: Esto es pal meme.
-        habitat.addDrawable(new Gato(habitat));
+        Animal testAnimal = new Gato(habitat);
+        habitat.addDrawable(testAnimal);
+        habitat.addUpdatable(testAnimal);
         habitat.x = x; habitat.y = y;
         addDrawable(habitat);
+        addUpdatable(habitat);
     }
     // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
@@ -60,7 +60,6 @@ public class VistaZoo extends JPanel
     public void draw(Graphics g, int absX, int absY) {
         int x = -cameraX;
         int y = -cameraY;
-
         drawCamera(g);
         for (Drawable d: drawableComponents) {
             // Este check de null es medio quiche.
@@ -70,10 +69,10 @@ public class VistaZoo extends JPanel
         habitatPlacementManager.draw(g, 0, 0);
     }
 
-    public void step() {
+    public void update() {
         updateCamera();
-        for (Drawable d: drawableComponents) {
-            if (d != null) {d.step();}
+        for (Updatable u: updatableComponents) {
+            if (u != null) {u.update();}
         }
     }
 
@@ -109,6 +108,13 @@ public class VistaZoo extends JPanel
 
     public void removeDrawable(Drawable d) {
         drawableComponents.remove(d);
+    }
+    public void addUpdatable(Updatable u) {
+        updatableComponents.add(u);
+    }
+
+    public void removeUpdatable(Updatable u) {
+        updatableComponents.remove(u);
     }
     private Image loadImage(String path) {
         BufferedImage buffImg = null;
