@@ -5,40 +5,37 @@ import java.awt.event.MouseMotionListener;
 
 
 
-public class HabitatPlacementManager implements Drawable, MouseMotionListener, MouseListener {
+public class HabitatPlacementManager extends PlacementManager<EnumHabitat> implements Drawable, MouseMotionListener, MouseListener {
     private Habitat habitat = null;
     private EnumHabitat enumHabitat;
-    private boolean activo;
-    private int mouseX, mouseY;
-    private VistaZoo vistaZoo;
     public HabitatPlacementManager() {
-        activo = false;
+        super();
     }
 
+    @Override
     public void enablePlacement(EnumHabitat enumHabitat) {
         this.enumHabitat = enumHabitat;
         habitat = enumHabitat.newInstance();
-        activo = true;
+        setActivo(true);
     }
 
-    public void setVistaZoo(VistaZoo vistaZoo) {
-        this.vistaZoo = vistaZoo;
-    }
-
+    @Override
     public void disablePlacement() {
         enumHabitat = null;
         habitat = null;
-        activo = false;
+        setActivo(false);
     }
 
+    @Override
     public void place() {
-        vistaZoo.addHabitat(mouseX, mouseY, enumHabitat);
+        getVistaZoo().addHabitat(getMouseX(), getMouseY(), enumHabitat);
     }
 
 
+    @Override
     public void draw(Graphics g, int x, int y) {
-        if (activo) {
-            enumHabitat.getSprite().drawSprite(g, mouseX, mouseY, habitat.getWidth(), habitat.getHeight(), 0, 0.45f);
+        if (isActivo()) {
+            enumHabitat.getSprite().drawSprite(g, getMouseX(), getMouseY(), habitat.getWidth(), habitat.getHeight(), 0, 0.45f);
             // TODO: Otra manera de hacerlo, pero habría que añadir parámetro de opacidad a draw.
             // habitat.draw(g, mouseX, mouseY);
         }
@@ -51,8 +48,8 @@ public class HabitatPlacementManager implements Drawable, MouseMotionListener, M
          * Esto no chequea si está activo el Manager, ya que en ese caso se guardaría la última
          * posición del mouse, y eso es algo raro.
          */
-        this.mouseX = mouseEvent.getX();
-        this.mouseY = mouseEvent.getY();
+        setMouseX(mouseEvent.getX());
+        setMouseY(mouseEvent.getY());
     }
 
     @Override
@@ -62,7 +59,7 @@ public class HabitatPlacementManager implements Drawable, MouseMotionListener, M
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        if (activo) {
+        if (isActivo()) {
             if (mouseEvent.getButton() == MouseEvent.BUTTON1) {place();}
             disablePlacement();
         }
