@@ -3,17 +3,18 @@ public class GatheringState implements State {
     private int targetY;
     private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public GatheringState(Animal animal) {
-        FoodContainer targetContainer = FoodContainer.searchFoodContainer(animal.ownerHabitat);
-        if (targetContainer == null) {
+        FoodContainer targetFood = FoodContainer.searchFoodContainer(animal.ownerHabitat);
+        if (targetFood == null) {
             System.err.println("TARGETCONTAINER NULL, OJITO"); //TODO: Ver que hacer en este caso
             targetX = animal.x;
             targetY = animal.y;
         }
         else {
-            int x = animal.x; int y = animal.y;
-            int width = animal.getWidth(); int height = animal.getHeight();
-            targetX = targetContainer.getCloserPointToHitbox_coordX(x, y, width, height);
-            targetY = targetContainer.getCloserPointToHitbox_coordY(x, y, width, height);
+            Hitbox animalHitbox = new Hitbox(animal.x, animal.y, animal.getWidth(), animal.getHeight());
+            Hitbox foodHitbox = targetFood.getHitbox();
+            Point targetPoint = Hitbox.getCloserPointToHitbox(animalHitbox, foodHitbox);
+            targetX = targetPoint.x;
+            targetY = targetPoint.y;
         }
         animal.setSprite(animal.getWalkSprite());
     }
