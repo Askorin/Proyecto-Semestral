@@ -4,15 +4,17 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
-public abstract class Habitat implements Drawable {
+public abstract class Habitat implements Updatable, Drawable {
     public int x;
     public int y;
     protected int width;
     protected int height;
     protected ArrayList<Drawable> drawableComponents; //Habitat es un contenedor de elementos dibujables
+    protected ArrayList<Updatable> updatableComponents; //Habitat.update() llama al update de sus componentes
     protected Sprite habitatSprite;
     public Habitat() {
         drawableComponents = new ArrayList<>();
+        updatableComponents = new ArrayList<>();
     }
     public void draw(Graphics g, int absX, int absY) {
         int x = absX + this.x;
@@ -24,9 +26,9 @@ public abstract class Habitat implements Drawable {
         }
     }
 
-    public void step() {
-        for (Drawable d: drawableComponents) {
-            d.step();
+    public void update() {
+        for (Updatable u: updatableComponents) {
+            if (u != null) {u.update();}
         }
     }
 
@@ -38,6 +40,13 @@ public abstract class Habitat implements Drawable {
     // lo mismo
     public void removeDrawable(Drawable d) {
         drawableComponents.remove(d);
+    }
+    public void addUpdatable(Updatable u) {
+        updatableComponents.add(u);
+    }
+
+    public void removeUpdatable(Updatable u) {
+        updatableComponents.remove(u);
     }
     //TODO: quizas seria mejor dejar este tipo de metodos en una clase Utilities
     //Este metodo ya no se usa, no lo borro porque me gustaria dejar el to-do (se usa en sprite por ej)

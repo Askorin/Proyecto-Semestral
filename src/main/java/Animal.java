@@ -1,5 +1,5 @@
 import java.awt.*;
-public abstract class Animal implements Steps, Drawable {
+public abstract class Animal implements Updatable, Drawable {
     public int x;
     public int y;
     private int width;
@@ -26,7 +26,7 @@ public abstract class Animal implements Steps, Drawable {
         long timeElapsed = currentMs - initMs;
         currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), timeElapsed, 1.0f);
     }
-    public void step() {
+    public void update() {
         currentState.stateBehavior(this);
         currentMs = System.currentTimeMillis();
     }
