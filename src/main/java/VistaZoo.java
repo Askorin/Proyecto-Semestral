@@ -17,7 +17,8 @@ public class VistaZoo extends JPanel
     private ArrayList<Drawable> drawableComponents;
     private ArrayList<Updatable> updatableComponents;
     private HabitatPlacementManager habitatPlacementManager;
-    public VistaZoo(HabitatPlacementManager habitatPlacementManager) {
+    private AnimalPlacementManager animalPlacementManager;
+    public VistaZoo(HabitatPlacementManager habitatPlacementManager, AnimalPlacementManager animalPlacementManager) {
         drawableComponents = new ArrayList<>();
         updatableComponents = new ArrayList<>();
 
@@ -35,6 +36,10 @@ public class VistaZoo extends JPanel
         addMouseMotionListener(this.habitatPlacementManager);
         addMouseListener(this.habitatPlacementManager);
 
+        this.animalPlacementManager = animalPlacementManager;
+        addMouseMotionListener(this.animalPlacementManager);
+        addMouseListener(this.animalPlacementManager);
+
         //TODO: Temp
         addHabitat(64, 128, EnumHabitat.MEADOW);
     }
@@ -43,10 +48,6 @@ public class VistaZoo extends JPanel
     public void addHabitat(int x, int y, EnumHabitat enumHabitat) {
         Habitat habitat = enumHabitat.newInstance();
 
-        // TODO: Esto es pal meme.
-        Animal testAnimal = new Gato(habitat);
-        habitat.addDrawable(testAnimal);
-        habitat.addUpdatable(testAnimal);
         habitat.x = x + cameraX; habitat.y = y + cameraY;
         addDrawable(habitat);
         addUpdatable(habitat);
@@ -67,6 +68,7 @@ public class VistaZoo extends JPanel
         }
         // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
         habitatPlacementManager.draw(g, 0, 0);
+        animalPlacementManager.draw(g, 0, 0);
     }
 
     public void update() {

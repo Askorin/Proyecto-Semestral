@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public abstract class Habitat implements Updatable, Drawable {
     public int x;
     public int y;
-    protected int width;
-    protected int height;
+    public int width;
+    public int height;
     protected ArrayList<Drawable> drawableComponents; //Habitat es un contenedor de elementos dibujables
     protected ArrayList<Updatable> updatableComponents; //Habitat.update() llama al update de sus componentes
     protected Sprite habitatSprite;
@@ -30,6 +30,11 @@ public abstract class Habitat implements Updatable, Drawable {
         for (Updatable u: updatableComponents) {
             if (u != null) {u.update();}
         }
+    }
+
+    public void addAnimal(Animal a) {
+        addUpdatable(a);
+        addDrawable(a);
     }
 
     // Es publico por ahora, pero supongo que eventualmente deberia ser privado

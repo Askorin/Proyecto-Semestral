@@ -1,3 +1,4 @@
+// TODO: Hacer que agarre de cosas se produzca al centro, no en la esquina.
 abstract public class PlacementManager<T> {
     private boolean activo;
     private int mouseX, mouseY;
