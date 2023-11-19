@@ -6,21 +6,24 @@ public class WalkingState implements State {
     private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public WalkingState(Animal animal) {
         while (true) {
-            FoodContainer col = FoodContainer.searchFoodContainer(animal.ownerHabitat);
             //es importante que el target no esta fuera de los limites del habitat
             targetX = (int) (Math.random() * (animal.ownerHabitat.width - animal.getWidth()));
             targetY = (int) (Math.random()*(animal.ownerHabitat.height - animal.getHeight()));
 
+            //es importante que exista un camino al target donde pueda ir el animal
             //TODO: IMPORTANTE TENER EN CUENTA QUE:
             /*Actualmente el State no calcula si el camino a seguir esta despejado,
               solo se fija si el punto final esta despejado (despejado = sin colisiones)
              */
-            //es importante que el target no sea un punto de colision
+            boolean collisionFound = false;
             Hitbox hitbox1 = new Hitbox(targetX, targetY, animal.getWidth(), animal.getHeight());
-            Hitbox hitbox2 = new Hitbox(col.x, col.y, col.width, col.height);
-            if ( ! Hitbox.checkHitboxCollision(hitbox1, hitbox2) ) {
-                break;
+            for (Unblockable u: animal.ownerHabitat.getContainables().getUnblockables()) {
+                Hitbox hitbox2 = u.getHitbox();
+                if ( Hitbox.checkHitboxCollision(hitbox1, hitbox2) ) {
+                    collisionFound = true;
+                }
             }
+            if ( ! collisionFound ) {break;}
         }
         animal.setSprite(animal.getWalkSprite());
     }
