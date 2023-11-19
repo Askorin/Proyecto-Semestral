@@ -6,7 +6,6 @@ import java.awt.event.MouseMotionListener;
 
 
 public class HabitatPlacementManager implements Drawable, MouseMotionListener, MouseListener {
-    // Esto sería innecesario por ahora.
     private Habitat habitat = null;
     private EnumHabitat enumHabitat;
     private boolean activo;
@@ -32,17 +31,11 @@ public class HabitatPlacementManager implements Drawable, MouseMotionListener, M
         activo = false;
     }
 
-    public boolean isActivo() {
-        return activo;
-    }
-
     public void place() {
         vistaZoo.addHabitat(mouseX, mouseY, enumHabitat);
     }
 
 
-    public void step() {
-    }
     public void draw(Graphics g, int x, int y) {
         if (activo) {
             enumHabitat.getSprite().drawSprite(g, mouseX, mouseY, habitat.getWidth(), habitat.getHeight(), 0, 0.45f);
