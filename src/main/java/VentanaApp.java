@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class VentanaApp extends JFrame {
@@ -28,8 +27,8 @@ public class VentanaApp extends JFrame {
 
         this.setVisible(true);
     }
-    public void step() {
-        zoo.step();
+    public void update() {
+        zoo.update();
     }
 
 }

@@ -34,7 +34,7 @@ public final class App {
 
         gameLoop = new Timer((int) MS_PER_FRAME, (ActionEvent e) -> {
             if (corriendo) {
-                frame.step();
+                frame.update();
                 if (isLinux) {
                     Toolkit.getDefaultToolkit().sync();
                 }
