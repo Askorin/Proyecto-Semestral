@@ -9,7 +9,8 @@ public final class App {
     private final float FPS = 60;
     public final float MS_PER_FRAME = 1.0f / FPS * 1000;
     private boolean corriendo;
-    private VentanaApp frame;
+    private JFrame frame;
+    private EscenaZoo escenaZoo;
 
     private final String OS;
     private boolean isLinux;
@@ -23,9 +24,20 @@ public final class App {
         crearYMostrarUI();
     }
     private void crearYMostrarUI() {
-        frame = new VentanaApp();
-
+        escenaZoo = new EscenaZoo();
         this.setupGameLoop();
+
+        frame = new JFrame("Zoo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // Ratio 16:9
+        int width = 850;
+        int height = 480;
+        frame.setSize(width, height);
+        frame.setLocationRelativeTo(null);
+        frame.setContentPane(escenaZoo);
+        frame.setVisible(true);
+
+
         this.corriendo = true;
         this.gameLoop.start();
     }
@@ -34,21 +46,16 @@ public final class App {
 
         gameLoop = new Timer((int) MS_PER_FRAME, (ActionEvent e) -> {
             if (corriendo) {
-                frame.step();
+                escenaZoo.step();
                 if (isLinux) {
                     Toolkit.getDefaultToolkit().sync();
                 }
-                frame.repaint();
+                escenaZoo.repaint();
             }
         });
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new App();
-            }
-        });
+        SwingUtilities.invokeLater(App::new);
     }
 }

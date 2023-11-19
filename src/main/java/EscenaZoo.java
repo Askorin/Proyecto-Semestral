@@ -2,41 +2,37 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EscenaZoo extends JPanel implements Steps {
-    private final VistaZoo vistaZoo;
-    private final PanelHabitat panelHabitat;
-    private final PanelAnimal panelAnimal;
+    private final VistaZoo zoo;
     private final HabitatPlacementManager habitatPlacementManager;
     public EscenaZoo() {
         setIgnoreRepaint(true);
+
+        habitatPlacementManager = new HabitatPlacementManager();
+        zoo = new VistaZoo(habitatPlacementManager);
+        habitatPlacementManager.setVistaZoo(zoo);
+
+
         setLayout(new BorderLayout());
 
-        this.vistaZoo = new VistaZoo();
 
-        this.habitatPlacementManager = new HabitatPlacementManager(vistaZoo);
-        addMouseMotionListener(habitatPlacementManager);
-        addMouseListener(habitatPlacementManager);
+        add(zoo, BorderLayout.CENTER);
 
-        this.panelHabitat = new PanelHabitat();
-
-        this.panelAnimal = new PanelAnimal();
-
-        add(this.vistaZoo, BorderLayout.CENTER);
-        add(this.panelHabitat, BorderLayout.WEST);
-        add(this.panelAnimal, BorderLayout.EAST);
-
+        // TODO: Cambiar nombres de PanelAnimal y PanelHabitat, ver si se generalizar a una clase.
+        add(new PanelHabitat(habitatPlacementManager), BorderLayout.WEST);
+        add(new PanelAnimal(), BorderLayout.EAST);
     }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        vistaZoo.draw(g, 0, 0);
 
         // TODO: Implementar un sistema de layers, posiblemente.
         // Esto para que se dibuje al final.
+        // zoo.draw(g, 0, 0);
         habitatPlacementManager.draw(g, 0, 0);
     }
 
     public void step() {
-        vistaZoo.step();
+        zoo.step();
     }
 
 }

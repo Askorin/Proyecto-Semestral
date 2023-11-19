@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class VistaZoo extends JPanel
-        implements MouseMotionListener, MouseListener, Steps {
+        implements MouseMotionListener, MouseListener, Steps, Drawable {
     protected int width; protected int height;
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
@@ -15,8 +15,7 @@ public class VistaZoo extends JPanel
     private int mouseX; private int mouseY; private boolean mouseIn;
     private Image backgroundImage;
     private ArrayList<Drawable> drawableComponents;
-    private HabitatPlacementManager habitatPlacementManager;
-    public VistaZoo() {
+    public VistaZoo(HabitatPlacementManager habitatPlacementManager) {
         drawableComponents = new ArrayList<>();
 
         backgroundImage = loadImage("src/main/resources/testimage.jpg"); // Temporal
@@ -29,19 +28,17 @@ public class VistaZoo extends JPanel
         addMouseMotionListener(this);
         addMouseListener(this);
 
-        //Temp
-        Habitat testHabitat; Animal testAnimal;
-
-        testHabitat = new MeadowHabitat();
-        testHabitat.x = 64; testHabitat.y = 128;
-        testAnimal = new Gato(testHabitat);
-        testHabitat.addDrawable(testAnimal);
-        addDrawable(testHabitat);
-
-        // Esto para el posicionamiento de habitats.
-        this.habitatPlacementManager = new HabitatPlacementManager(this);
         addMouseMotionListener(habitatPlacementManager);
         addMouseListener(habitatPlacementManager);
+
+        // //Temp
+        // Habitat testHabitat; Animal testAnimal;
+
+        // testHabitat = new MeadowHabitat();
+        // testHabitat.x = 64; testHabitat.y = 128;
+        // testAnimal = new Gato(testHabitat);
+        // testHabitat.addDrawable(testAnimal);
+        // addDrawable(testHabitat);
     }
 
     // TODO: Pasar enumHabitat o Habitat? Es este método una buena idea siquiera?
@@ -55,18 +52,18 @@ public class VistaZoo extends JPanel
     // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        draw(g, 0, 0);
+    }
+    public void draw(Graphics g, int absX, int absY) {
         int x = -cameraX;
         int y = -cameraY;
-        super.paintComponent(g);
 
         drawCamera(g);
         for (Drawable d: drawableComponents) {
             // Este check de null es medio quiche.
             if (d != null) {d.draw(g, x, y);}
         }
-        // TODO: Implementar un sistema de layers, posiblemente.
-        // Esto para que se dibuje al final.
-        habitatPlacementManager.draw(g, x, y);
     }
 
     public void step() {
@@ -138,7 +135,8 @@ public class VistaZoo extends JPanel
 
     @Override
     public void mouseDragged(MouseEvent e) {}
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+    }
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
 }

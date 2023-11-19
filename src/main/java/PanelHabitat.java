@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class PanelHabitat extends JPanel {
 
     private ArrayList<LabelHabitat> labels;
-    PanelHabitat() {
+    public PanelHabitat(HabitatPlacementManager habitatPlacementManager) {
         super();
-        crearLabelsHabitat();
+        crearLabelsHabitat(habitatPlacementManager);
     }
 
-    private void crearLabelsHabitat() {
+    private void crearLabelsHabitat(HabitatPlacementManager habitatPlacementManager) {
         for (EnumHabitat enumHabitat : EnumHabitat.values()) {
-            add(new LabelHabitat(100, 100, enumHabitat));
+            add(new LabelHabitat(100, 100, enumHabitat, habitatPlacementManager));
         }
     }
 }
