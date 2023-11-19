@@ -60,4 +60,47 @@ public class FoodContainer implements Drawable {
         }
         return targetY;
     }
+    public boolean checkHitboxCollision(int x, int y, int width, int height) {
+        boolean cond1 = false;
+        boolean cond2 = false;
+
+        /* Que dos rectangulos esten en contacto implica que:
+           Sea el primer rectangulo de origen (xa , ya) y dimensiones (ha, wa)
+           y el segundo rectangulo de origen (xb, yb) y dimensiones (hb, wb)
+           entonces, que esten colisionando es que se cumplan dos condiciones:
+           cond 1: en el caso de xa < xb se debe cumplir xa + ha >= xb
+           en el caso de xb < xa se debe cumplir xb + hb >= xa
+           o bien que sea el caso de que xa == xb
+           cond 2: analogo para y */
+
+        if (this.x < x) {
+            if (this.x + this.width > x) {cond1 = true;}
+        }
+        else if (x < this.x) {
+            if (x + width > this.x) {cond1 = true;}
+        }
+        else {cond1 = true;}
+
+        if (this.y < y) {
+            if (this.y + this.height > y) {cond2 = true;}
+        }
+        else if (y < this.y) {
+            if (y + height > this.y) {cond2 = true;}
+        }
+        else {cond2 = true;}
+
+        return (cond1 && cond2);
+    }
+
+    //Detectar el FoodContainer de un habitat
+    static public FoodContainer searchFoodContainer(Habitat habitat) {
+        //TODO: No es bueno usar typecasting, quizas Habitat podria tener como variable el FoodContainer
+        FoodContainer container = null;
+        for (Drawable d: habitat.drawableComponents) {
+            if (d.getClass() == FoodContainer.class) {
+                container = (FoodContainer) d;
+            }
+        }
+        return container;
+    }
 }

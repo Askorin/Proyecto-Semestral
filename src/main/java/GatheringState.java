@@ -3,16 +3,9 @@ public class GatheringState implements State {
     private int targetY;
     private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public GatheringState(Animal animal) {
-        //TODO: No es bueno usar typecasting, quizas Habitat podria tener como variable el FoodContainer
-        //Detectar el FoodContainer
-        FoodContainer targetContainer = null;
-        for (Drawable d: animal.ownerHabitat.drawableComponents) {
-            if (d.getClass() == FoodContainer.class) {
-                targetContainer = (FoodContainer) d;
-            }
-        }
+        FoodContainer targetContainer = FoodContainer.searchFoodContainer(animal.ownerHabitat);
         if (targetContainer == null) {
-            System.err.println("TARGETCONTAINER NULL, OJITO"); //TODO: Crear excepción
+            System.err.println("TARGETCONTAINER NULL, OJITO"); //TODO: Ver que hacer en este caso
             targetX = animal.x;
             targetY = animal.y;
         }
@@ -27,7 +20,6 @@ public class GatheringState implements State {
     @Override
     public void stateBehavior(Animal animal) {
         //el animal se mueve hasta que coincida con el target
-        System.out.println(targetX + " | " + targetY);
         if (animal.x < targetX) {
             animal.x += getSpeedX(animal);
             if (animal.x > targetX) animal.x = targetX;

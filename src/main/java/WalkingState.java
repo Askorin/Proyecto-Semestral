@@ -5,9 +5,16 @@ public class WalkingState implements State {
     private int targetY;
     private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public WalkingState(Animal animal) {
-        //es importante que el target no esta fuera de los limites del habitat
-        targetX = (int) (Math.random()*(animal.ownerHabitat.width - animal.getWidth()));
-        targetY = (int) (Math.random()*(animal.ownerHabitat.height - animal.getHeight()));
+        //es importante que el target no sea un punto de colision
+        while (true) {
+            FoodContainer col = FoodContainer.searchFoodContainer(animal.ownerHabitat);
+            //es importante que el target no esta fuera de los limites del habitat
+            targetX = (int) (Math.random() * (animal.ownerHabitat.width - animal.getWidth()));
+            targetY = (int) (Math.random()*(animal.ownerHabitat.height - animal.getHeight()));
+            if (!col.checkHitboxCollision(targetX, targetY, animal.getWidth(), animal.getHeight())) {
+                break;
+            }
+        }
         animal.setSprite(animal.getWalkSprite());
     }
     @Override
