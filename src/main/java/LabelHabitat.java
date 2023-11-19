@@ -30,6 +30,7 @@ public class LabelHabitat extends JLabel implements MouseInputListener {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         // Habilitamos posicionamiento de habitat.
+        System.out.println("Hola");
         HabitatPlacementManager.enablePlacement(this.enumHabitat);
     }
 
