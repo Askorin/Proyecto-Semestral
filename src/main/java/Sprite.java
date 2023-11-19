@@ -81,7 +81,7 @@ public enum Sprite {
 
     public void drawSprite(Graphics g, int x, int y, int hitboxWidth, int hitboxHeight, long timeElapsed, float opacidad) {
         Graphics2D g2d = (Graphics2D) g;
-        //g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacidad));
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacidad));
 
         //Calculos para centrar el sprite, de forma que se imprima al centro de la hitbox del objeto que lo llama
         int hitboxCenterX = x + (hitboxWidth/2);

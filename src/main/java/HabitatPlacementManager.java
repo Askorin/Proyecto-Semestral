@@ -45,9 +45,9 @@ public class HabitatPlacementManager implements Drawable, MouseMotionListener, M
     }
     public void draw(Graphics g, int x, int y) {
         if (activo) {
-            // enumHabitat.getSprite().drawSprite(g, mouseX, mouseY, habitat.getWidth(), habitat.getHeight(), 0, 0.45f);
+            enumHabitat.getSprite().drawSprite(g, mouseX, mouseY, habitat.getWidth(), habitat.getHeight(), 0, 0.45f);
             // TODO: Otra manera de hacerlo, pero habría que añadir parámetro de opacidad a draw.
-            habitat.draw(g, mouseX, mouseY);
+            // habitat.draw(g, mouseX, mouseY);
         }
     }
 

@@ -7,6 +7,17 @@ public class EscenaZoo extends JPanel implements Steps {
     public EscenaZoo() {
         setIgnoreRepaint(true);
 
+        /*
+        Resulta necesario pasarle habitatPlacementManager al constructor de VistaZoo.
+         * Esto por dos razones:
+         * 1- De no ser así, VistaZoo intercepta los eventos (de click y movimiento) que
+         * queremos que le lleguen a habitatPlacementManager. Esto podría ser solucionado
+         * utilizando keybindings o algún otro sistema de registro de eventos.
+         * 2- Para dibujar encima del panel de vistazoo. Si llamaramos draw con los Graphics
+         * de EscenaZoo, no se dibujaría correctamente encima de VistaZoo, por lo que
+         * resulta necesario utilizar los Graphics de VistaZoo en su paintComponent.
+         */
+
         habitatPlacementManager = new HabitatPlacementManager();
         zoo = new VistaZoo(habitatPlacementManager);
         habitatPlacementManager.setVistaZoo(zoo);
@@ -24,11 +35,6 @@ public class EscenaZoo extends JPanel implements Steps {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        // TODO: Implementar un sistema de layers, posiblemente.
-        // Esto para que se dibuje al final.
-        // zoo.draw(g, 0, 0);
-        habitatPlacementManager.draw(g, 0, 0);
     }
 
     public void step() {

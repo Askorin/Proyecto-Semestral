@@ -15,6 +15,7 @@ public class VistaZoo extends JPanel
     private int mouseX; private int mouseY; private boolean mouseIn;
     private Image backgroundImage;
     private ArrayList<Drawable> drawableComponents;
+    private HabitatPlacementManager habitatPlacementManager;
     public VistaZoo(HabitatPlacementManager habitatPlacementManager) {
         drawableComponents = new ArrayList<>();
 
@@ -28,8 +29,9 @@ public class VistaZoo extends JPanel
         addMouseMotionListener(this);
         addMouseListener(this);
 
-        addMouseMotionListener(habitatPlacementManager);
-        addMouseListener(habitatPlacementManager);
+        this.habitatPlacementManager = habitatPlacementManager;
+        addMouseMotionListener(this.habitatPlacementManager);
+        addMouseListener(this.habitatPlacementManager);
 
         // //Temp
         // Habitat testHabitat; Animal testAnimal;
@@ -64,6 +66,8 @@ public class VistaZoo extends JPanel
             // Este check de null es medio quiche.
             if (d != null) {d.draw(g, x, y);}
         }
+        // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
+        habitatPlacementManager.draw(g, 0, 0);
     }
 
     public void step() {
