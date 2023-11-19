@@ -22,12 +22,12 @@ public class FoodContainer implements Drawable, Unblockable {
     //Detectar el FoodContainer de un habitat
     static public FoodContainer searchFoodContainer(Habitat habitat) {
         //TODO: No es bueno usar typecasting, quizas Habitat podria tener como variable el FoodContainer
-        FoodContainer container = null;
-        for (Drawable d: habitat.drawableComponents) {
-            if (d.getClass() == FoodContainer.class) {
-                container = (FoodContainer) d;
+        FoodContainer targetFood = null;
+        for (Unblockable u: habitat.getContainables().getUnblockables()) {
+            if (u.getClass() == FoodContainer.class) {
+                targetFood = (FoodContainer) u;
             }
         }
-        return container;
+        return targetFood;
     }
 }

@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
 
 public class VistaZoo extends JPanel
         implements MouseMotionListener, MouseListener, Updatable, Drawable {
@@ -14,12 +13,10 @@ public class VistaZoo extends JPanel
     private final int cameraTol = 24; private final int cameraSpeed = 5;
     private int mouseX; private int mouseY; private boolean mouseIn;
     private Image backgroundImage;
-    private ArrayList<Drawable> drawableComponents;
-    private ArrayList<Updatable> updatableComponents;
+    private Containables containables;
     private HabitatPlacementManager habitatPlacementManager;
     public VistaZoo() {
-        drawableComponents = new ArrayList<>();
-        updatableComponents = new ArrayList<>();
+        containables = new Containables();
 
         backgroundImage = loadImage("src/main/resources/testimage.jpg"); // Temporal
         width = backgroundImage.getWidth(null);
@@ -46,16 +43,12 @@ public class VistaZoo extends JPanel
 
         // TODO: Esto es pal meme.
         {
-            habitat.addDrawable(new FoodContainer());
-
-            Animal testAnimal = new Gato(habitat, 0, 100);
-            habitat.addDrawable(testAnimal);
-            habitat.addUpdatable(testAnimal);
+            habitat.getContainables().addComponent(new FoodContainer());
+            habitat.getContainables().addComponent(new Gato(habitat, 0, 100));
         }
 
         habitat.x = x; habitat.y = y;
-        addDrawable(habitat);
-        addUpdatable(habitat);
+        getContainables().addComponent(habitat);
     }
     // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
@@ -69,7 +62,7 @@ public class VistaZoo extends JPanel
         int x = -cameraX;
         int y = -cameraY;
         drawCamera(g);
-        for (Drawable d: drawableComponents) {
+        for (Drawable d: getContainables().getDrawables()) {
             // Este check de null es medio quiche.
             if (d != null) {d.draw(g, x, y);}
         }
@@ -80,7 +73,7 @@ public class VistaZoo extends JPanel
 
     public void update() {
         updateCamera();
-        for (Updatable u: updatableComponents) {
+        for (Updatable u: getContainables().getUpdatables()) {
             if (u != null) {u.update();}
         }
     }
@@ -111,19 +104,8 @@ public class VistaZoo extends JPanel
         g.drawImage(backgroundImage, -cameraX, -cameraY, null);
     }
 
-    public void addDrawable(Drawable d) {
-        drawableComponents.add(d);
-    }
-
-    public void removeDrawable(Drawable d) {
-        drawableComponents.remove(d);
-    }
-    public void addUpdatable(Updatable u) {
-        updatableComponents.add(u);
-    }
-
-    public void removeUpdatable(Updatable u) {
-        updatableComponents.remove(u);
+    public Containables getContainables() {
+        return containables;
     }
     private Image loadImage(String path) {
         BufferedImage buffImg = null;

@@ -2,51 +2,34 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
 
 public abstract class Habitat implements Updatable, Drawable {
     public int x;
     public int y;
     protected int width;
     protected int height;
-    protected ArrayList<Drawable> drawableComponents; //Habitat es un contenedor de elementos dibujables
-    protected ArrayList<Updatable> updatableComponents; //Habitat.update() llama al update de sus componentes
     protected Sprite habitatSprite;
+    private Containables containables;
     public Habitat() {
-        drawableComponents = new ArrayList<>();
-        updatableComponents = new ArrayList<>();
+        containables = new Containables();
     }
     public void draw(Graphics g, int absX, int absY) {
         int x = absX + this.x;
         int y = absY + this.y;
 
         habitatSprite.drawSprite(g, x, y, getWidth(), getHeight(), 0, 1.0f);
-        for (Drawable d: drawableComponents) {
+        for (Drawable d: getContainables().getDrawables()) {
             d.draw(g, x, y);
         }
     }
 
     public void update() {
-        for (Updatable u: updatableComponents) {
+        for (Updatable u: getContainables().getUpdatables()) {
             if (u != null) {u.update();}
         }
     }
-
-    // Es publico por ahora, pero supongo que eventualmente deberia ser privado
-    // y por ejemplo, un metodo publico addAnimal, deberia llamar a este metodo
-    public void addDrawable(Drawable d) {
-        drawableComponents.add(d);
-    }
-    // lo mismo
-    public void removeDrawable(Drawable d) {
-        drawableComponents.remove(d);
-    }
-    public void addUpdatable(Updatable u) {
-        updatableComponents.add(u);
-    }
-
-    public void removeUpdatable(Updatable u) {
-        updatableComponents.remove(u);
+    public Containables getContainables() {
+        return containables;
     }
     //TODO: quizas seria mejor dejar este tipo de metodos en una clase Utilities
     //Este metodo ya no se usa, no lo borro porque me gustaria dejar el to-do (se usa en sprite por ej)
@@ -64,7 +47,6 @@ public abstract class Habitat implements Updatable, Drawable {
     public void setHabitatSprite(Sprite habitatSprite) {
         this.habitatSprite = habitatSprite;
     }
-
     public int getWidth() {
         return width;
     }
