@@ -47,7 +47,7 @@ public class VistaZoo extends JPanel
         Animal testAnimal = new Gato(habitat);
         habitat.addDrawable(testAnimal);
         habitat.addUpdatable(testAnimal);
-        habitat.x = x; habitat.y = y;
+        habitat.x = x + cameraX; habitat.y = y + cameraY;
         addDrawable(habitat);
         addUpdatable(habitat);
     }
@@ -131,6 +131,7 @@ public class VistaZoo extends JPanel
     public void mouseMoved(MouseEvent e) {
         mouseX = e.getX();
         mouseY = e.getY();
+        // System.out.println("(" + mouseX + ", " + mouseY + ")");
     }
 
     @Override
