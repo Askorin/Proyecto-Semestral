@@ -17,7 +17,7 @@ public class VistaZoo extends JPanel
     private ArrayList<Drawable> drawableComponents;
     private ArrayList<Updatable> updatableComponents;
     private HabitatPlacementManager habitatPlacementManager;
-    public VistaZoo() {
+    public VistaZoo(HabitatPlacementManager habitatPlacementManager) {
         drawableComponents = new ArrayList<>();
         updatableComponents = new ArrayList<>();
 
@@ -31,13 +31,12 @@ public class VistaZoo extends JPanel
         addMouseMotionListener(this);
         addMouseListener(this);
 
+        this.habitatPlacementManager = habitatPlacementManager;
+        addMouseMotionListener(this.habitatPlacementManager);
+        addMouseListener(this.habitatPlacementManager);
+
         //TODO: Temp
         addHabitat(64, 128, EnumHabitat.MEADOW);
-
-        // Esto para el posicionamiento de habitats.
-        this.habitatPlacementManager = new HabitatPlacementManager(this);
-        addMouseMotionListener(habitatPlacementManager);
-        addMouseListener(habitatPlacementManager);
     }
 
     // TODO: Pasar enumHabitat o Habitat? Es este método una buena idea siquiera?
@@ -58,8 +57,6 @@ public class VistaZoo extends JPanel
         super.paintComponent(g);
         draw(g, 0, 0);
     }
-
-    @Override
     public void draw(Graphics g, int absX, int absY) {
         int x = -cameraX;
         int y = -cameraY;
@@ -68,9 +65,8 @@ public class VistaZoo extends JPanel
             // Este check de null es medio quiche.
             if (d != null) {d.draw(g, x, y);}
         }
-        // TODO: Implementar un sistema de layers, posiblemente.
-        // Esto para que se dibuje al final.
-        habitatPlacementManager.draw(g, x, y);
+        // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
+        habitatPlacementManager.draw(g, 0, 0);
     }
 
     public void update() {
@@ -149,7 +145,8 @@ public class VistaZoo extends JPanel
 
     @Override
     public void mouseDragged(MouseEvent e) {}
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+    }
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
 }

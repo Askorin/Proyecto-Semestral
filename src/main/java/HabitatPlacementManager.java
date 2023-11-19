@@ -3,45 +3,51 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-// TODO: Hacer todo estático es un mal hábito, ver cómo arreglarlo.
+
+
 public class HabitatPlacementManager implements Drawable, MouseMotionListener, MouseListener {
     // Esto sería innecesario por ahora.
-    private static Habitat habitat = null;
-    private static EnumHabitat enumHabitat;
-    private static boolean activo = false;
-    private int x, y;
-    private final VistaZoo vistaZoo;
-    public HabitatPlacementManager(VistaZoo vistaZoo) {
+    private Habitat habitat = null;
+    private EnumHabitat enumHabitat;
+    private boolean activo;
+    private int mouseX, mouseY;
+    private VistaZoo vistaZoo;
+    public HabitatPlacementManager() {
+        activo = false;
+    }
+
+    public void enablePlacement(EnumHabitat enumHabitat) {
+        this.enumHabitat = enumHabitat;
+        habitat = enumHabitat.newInstance();
+        activo = true;
+    }
+
+    public void setVistaZoo(VistaZoo vistaZoo) {
         this.vistaZoo = vistaZoo;
     }
 
-    public static void enablePlacement(EnumHabitat enumHabitat) {
-        HabitatPlacementManager.enumHabitat = enumHabitat;
-        HabitatPlacementManager.habitat = enumHabitat.newInstance();
-        HabitatPlacementManager.activo = true;
+    public void disablePlacement() {
+        enumHabitat = null;
+        habitat = null;
+        activo = false;
     }
 
-    public void disablePlacement() {
-        HabitatPlacementManager.habitat = null;
-        HabitatPlacementManager.activo = false;
+    public boolean isActivo() {
+        return activo;
     }
 
     public void place() {
-        vistaZoo.addHabitat(x, y, enumHabitat);
-    }
-
-    public static boolean isActivo() {
-        return HabitatPlacementManager.activo;
+        vistaZoo.addHabitat(mouseX, mouseY, enumHabitat);
     }
 
 
     public void step() {
     }
     public void draw(Graphics g, int x, int y) {
-        if (isActivo()) {
-            enumHabitat.getSprite().drawSprite(g, this.x, this.y, habitat.getWidth(), habitat.getHeight(), 0, 0.45f);
+        if (activo) {
+            enumHabitat.getSprite().drawSprite(g, mouseX, mouseY, habitat.getWidth(), habitat.getHeight(), 0, 0.45f);
             // TODO: Otra manera de hacerlo, pero habría que añadir parámetro de opacidad a draw.
-            // habitat.draw(g, this.x, this.y);
+            // habitat.draw(g, mouseX, mouseY);
         }
     }
 
@@ -52,8 +58,8 @@ public class HabitatPlacementManager implements Drawable, MouseMotionListener, M
          * Esto no chequea si está activo el Manager, ya que en ese caso se guardaría la última
          * posición del mouse, y eso es algo raro.
          */
-        this.x = mouseEvent.getX();
-        this.y = mouseEvent.getY();
+        this.mouseX = mouseEvent.getX();
+        this.mouseY = mouseEvent.getY();
     }
 
     @Override
@@ -63,7 +69,7 @@ public class HabitatPlacementManager implements Drawable, MouseMotionListener, M
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        if (HabitatPlacementManager.isActivo()) {
+        if (activo) {
             if (mouseEvent.getButton() == MouseEvent.BUTTON1) {place();}
             disablePlacement();
         }
@@ -71,7 +77,6 @@ public class HabitatPlacementManager implements Drawable, MouseMotionListener, M
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-
     }
 
     @Override
