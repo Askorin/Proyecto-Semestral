@@ -9,8 +9,10 @@ public abstract class Animal implements Updatable, Drawable {
     protected Habitat ownerHabitat;
     private final long initMs;
     private long currentMs;
-    public Animal(Habitat habitat) {
+    public Animal(Habitat habitat, int x , int y) {
         ownerHabitat = habitat;
+        this.x = x;
+        this.y = y;
         initMs = System.currentTimeMillis();
         currentMs = initMs;
     }
@@ -37,7 +39,15 @@ public abstract class Animal implements Updatable, Drawable {
             return;
         }
         if (currentState.getClass() == WalkingState.class) {
-            this.currentState = new IdleState(this);
+            this.currentState = new GatheringState(this);
+            return;
+        }
+        if (currentState.getClass() == GatheringState.class) {
+            this.currentState = new EatingState(this);
+            return;
+        }
+        else {
+            this.currentState = new WalkingState(this);
             return;
         }
     }
@@ -45,6 +55,7 @@ public abstract class Animal implements Updatable, Drawable {
     //TODO: Actualmente es necesario que los hijos definan metodos para acceder a sus sprites
     public abstract Sprite getIdleSprite();
     public abstract Sprite getWalkSprite();
+    public abstract Sprite getEatSprite();
 
     public void setSprite(Sprite sprite) {
         currentSprite = sprite;

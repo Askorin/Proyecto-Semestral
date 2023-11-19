@@ -45,9 +45,14 @@ public class VistaZoo extends JPanel
         Habitat habitat = enumHabitat.newInstance();
 
         // TODO: Esto es pal meme.
-        Animal testAnimal = new Gato(habitat);
-        habitat.addDrawable(testAnimal);
-        habitat.addUpdatable(testAnimal);
+        {
+            habitat.addDrawable(new FoodContainer());
+
+            Animal testAnimal = new Gato(habitat, 0, 100);
+            habitat.addDrawable(testAnimal);
+            habitat.addUpdatable(testAnimal);
+        }
+
         habitat.x = x; habitat.y = y;
         addDrawable(habitat);
         addUpdatable(habitat);
