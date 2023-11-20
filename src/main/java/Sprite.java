@@ -13,7 +13,7 @@ public enum Sprite {
     CAT_HUNGRY("src/main/resources/CatHungry.png", 6, 220, 13*4, 24*4),
     MEADOWHABITAT("src/main/resources/meadowHabitat.png", 1, 1),
     FISH_INGAME("src/main/resources/FishInGame.png", 1, 1);
-    public static final int scaleFactor = 4; //Util si queremos hacer pixelart
+    public static final int SCALE_FACTOR = 4; //Util si queremos hacer pixelart
     private ArrayList<Image> frames; //Conjunto de las imagenes individuales de la animacion
     private int framesNumber; //Numero de frames
     private int timePerFrame; //Velocidad (mas bien el reciproco) de la animacion
@@ -33,17 +33,7 @@ public enum Sprite {
 
         frames = new ArrayList<>(framesNumber);
         for (String p: getPaths(path, framesNumber)) {
-            BufferedImage buffImage = null;
-            try {
-                buffImage = ImageIO.read(new File(p));
-            }
-            catch (IOException e) {
-                System.out.println(e);
-            }
-            int width = buffImage.getWidth() * scaleFactor;
-            int height = buffImage.getHeight() * scaleFactor;
-            Image image = buffImage.getScaledInstance(width, height, Image.SCALE_FAST);
-            frames.add(image);
+            frames.add( Utilities.loadImage(p, SCALE_FACTOR) );
         }
 
         //Necesitamos un width y height para fijar un centro por defecto

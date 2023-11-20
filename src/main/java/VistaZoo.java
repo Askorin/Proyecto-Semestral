@@ -18,7 +18,7 @@ public class VistaZoo extends JPanel
     public VistaZoo() {
         containables = new Containables();
 
-        backgroundImage = loadImage("src/main/resources/testimage.jpg"); // Temporal
+        backgroundImage = Utilities.loadImage("src/main/resources/testimage.jpg"); // Temporal
         width = backgroundImage.getWidth(null);
         height = backgroundImage.getHeight(null);
 
@@ -106,17 +106,6 @@ public class VistaZoo extends JPanel
     public Containables getContainables() {
         return containables;
     }
-    private Image loadImage(String path) {
-        BufferedImage buffImg = null;
-        try {
-            buffImg = ImageIO.read(new File(path));
-        }
-        catch (Exception e) {
-            System.err.println(e);
-        }
-        return buffImg;
-    }
-
     @Override
     public void mouseMoved(MouseEvent e) {
         mouseX = e.getX();

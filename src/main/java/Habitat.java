@@ -31,18 +31,6 @@ public abstract class Habitat implements Updatable, Drawable {
     public Containables getContainables() {
         return containables;
     }
-    //TODO: quizas seria mejor dejar este tipo de metodos en una clase Utilities
-    //Este metodo ya no se usa, no lo borro porque me gustaria dejar el to-do (se usa en sprite por ej)
-    protected Image loadImage(String path) {
-        BufferedImage buffImg = null;
-        try {
-            buffImg = ImageIO.read(new File(path));
-        }
-        catch (Exception e) {
-            System.err.println(e);
-        }
-        return buffImg;
-    }
     //Es necesario llamar a este metodo en el constructor de los hijos, para sobreescribir el sprite del padre
     public void setHabitatSprite(Sprite habitatSprite) {
         this.habitatSprite = habitatSprite;
