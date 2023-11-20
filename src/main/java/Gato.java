@@ -1,6 +1,6 @@
 public class Gato extends Animal {
-    int width = 80;
-    int height = 80;
+    public static int width = 80;
+    public static int height = 80;
     public Gato(Habitat habitat) {
         super(habitat);
         //Hay que entregar las dimensiones del hijo para sobreescribir las dimensiones del padre

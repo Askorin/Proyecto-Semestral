@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class LabelHabitat extends JLabel implements MouseInputListener {
+public class LabelHabitat extends JLabel {
 
     private EnumHabitat enumHabitat;
     private HabitatPlacementManager habitatPlacementManager;
@@ -25,42 +25,9 @@ public class LabelHabitat extends JLabel implements MouseInputListener {
         }
         Image reImg = imagen.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
         setIcon(new ImageIcon(reImg));
-        this.addMouseListener(this);
-        this.addMouseMotionListener(this);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        // Habilitamos posicionamiento de habitat.
-        habitatPlacementManager.enablePlacement(this.enumHabitat);
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
-
+    public EnumHabitat getEnumHabitat() {
+        return enumHabitat;
     }
 }
