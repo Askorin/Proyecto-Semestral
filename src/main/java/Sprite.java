@@ -10,6 +10,8 @@ public enum Sprite {
     CAT_IDLE("src/main/resources/CatIdle.png", 6, 150, 13*4, 9*4),
     CAT_WALK("src/main/resources/CatWalk.png", 2, 90),
     CAT_EAT("src/main/resources/CatEat.png", 4, 90, 16*4, 2*4),
+    ANIMAL_DEAD("src/main/resources/AnimalDead.png", 1, 1),
+    ANIMAL_DEAD_ANIM("src/main/resources/AnimalDeadAnim.png", 6, 100),
     CAT_HUNGRY("src/main/resources/CatHungry.png", 6, 220, 13*4, 24*4),
     MEADOWHABITAT("src/main/resources/meadowHabitat.png", 1, 1),
     FISH_INGAME("src/main/resources/FishInGame.png", 1, 1);
