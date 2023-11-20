@@ -6,8 +6,8 @@ import java.io.File;
 public abstract class Habitat implements Updatable, Drawable {
     public int x;
     public int y;
-    protected int width;
-    protected int height;
+    public int width;
+    public int height;
     protected Sprite habitatSprite;
     private Containables containables;
     public Habitat() {
@@ -28,9 +28,15 @@ public abstract class Habitat implements Updatable, Drawable {
             if (u != null) {u.update();}
         }
     }
+  
     public Containables getContainables() {
         return containables;
     }
+
+    public void addAnimal(Animal a) {
+        getContainables().addComponent(a);
+    }
+  
     //Es necesario llamar a este metodo en el constructor de los hijos, para sobreescribir el sprite del padre
     public void setHabitatSprite(Sprite habitatSprite) {
         this.habitatSprite = habitatSprite;

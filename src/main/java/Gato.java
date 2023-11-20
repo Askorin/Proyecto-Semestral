@@ -1,6 +1,6 @@
 public class Gato extends Animal {
-    private int width = 80;
-    private int height = 80;
+    public static int width = 80;
+    public static int height = 80;
     private long HUNGER_LIMIT_MS = 5000;
     private long HUNGER_MAX_LIMIT_MS = 18000;
     public Gato(Habitat habitat, int x, int y) {
