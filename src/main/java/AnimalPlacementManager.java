@@ -4,7 +4,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.lang.reflect.Field;
 
-public class AnimalPlacementManager extends PlacementManager<EnumAnimal> implements Drawable, MouseMotionListener, MouseListener {
+public class AnimalPlacementManager extends PlacementManager<EnumAnimal> implements Drawable {
 
     private EnumAnimal enumAnimal;
     public AnimalPlacementManager() {
@@ -42,44 +42,5 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
         if (isActivo()) {
             enumAnimal.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
         }
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
-        setMouseX(mouseEvent.getX());
-        setMouseY(mouseEvent.getY());
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        if (isActivo()) {
-            if (mouseEvent.getButton() == MouseEvent.BUTTON1) {place();}
-            disablePlacement();
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
     }
 }

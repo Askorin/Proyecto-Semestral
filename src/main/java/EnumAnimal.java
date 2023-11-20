@@ -1,5 +1,5 @@
 public enum EnumAnimal {
-    GATO("Gato", Gato.class, Sprite.CAT_IDLE, "/gato.png");
+    GATO("Gato", Gato.class, Sprite.CAT_IDLE, "/CatIdle1.png");
     private final String nombre;
     private final Class<?> tipo;
     private final Sprite sprite;

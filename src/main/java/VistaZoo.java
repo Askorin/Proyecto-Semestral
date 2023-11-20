@@ -6,8 +6,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 
+import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
+
 public class VistaZoo extends JPanel
-        implements MouseMotionListener, MouseListener, Updatable, Drawable {
+        implements Updatable, Drawable {
     protected int width; protected int height;
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
@@ -29,16 +31,8 @@ public class VistaZoo extends JPanel
         cameraHeight = getSize().height;
         cameraWidth = getSize().width;
 
-        addMouseMotionListener(this);
-        addMouseListener(this);
-
         this.habitatPlacementManager = habitatPlacementManager;
-        addMouseMotionListener(this.habitatPlacementManager);
-        addMouseListener(this.habitatPlacementManager);
-
         this.animalPlacementManager = animalPlacementManager;
-        addMouseMotionListener(this.animalPlacementManager);
-        addMouseListener(this.animalPlacementManager);
 
         //TODO: Temp
         addHabitat(64, 128, EnumHabitat.MEADOW);
@@ -129,27 +123,16 @@ public class VistaZoo extends JPanel
         return buffImg;
     }
 
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
-        // System.out.println("(" + mouseX + ", " + mouseY + ")");
+
+    public void setMouseX(int mouseX) {
+        this.mouseX = mouseX;
     }
 
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        mouseIn = true;
+    public void setMouseY(int mouseY) {
+        this.mouseY = mouseY;
     }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
-        mouseIn = false;
+    public void setMouseIn(boolean mouseIn) {
+        this.mouseIn = mouseIn;
     }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {}
-    public void mouseClicked(MouseEvent e) {
-    }
-    public void mousePressed(MouseEvent e) {}
-    public void mouseReleased(MouseEvent e) {}
 }

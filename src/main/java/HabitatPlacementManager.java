@@ -5,7 +5,7 @@ import java.awt.event.MouseMotionListener;
 import java.lang.reflect.Field;
 
 
-public class HabitatPlacementManager extends PlacementManager<EnumHabitat> implements Drawable, MouseMotionListener, MouseListener {
+public class HabitatPlacementManager extends PlacementManager<EnumHabitat> implements Drawable {
     private EnumHabitat enumHabitat;
     public HabitatPlacementManager() {
         super();
@@ -48,48 +48,5 @@ public class HabitatPlacementManager extends PlacementManager<EnumHabitat> imple
         if (isActivo()) {
             enumHabitat.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
         }
-    }
-
-    // TODO: Arreglar del desastre de los listeners.
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
-        /*
-         * Esto no chequea si está activo el Manager, ya que en ese caso se guardaría la última
-         * posición del mouse, y eso es algo raro.
-         */
-        setMouseX(mouseEvent.getX());
-        setMouseY(mouseEvent.getY());
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        if (isActivo()) {
-            if (mouseEvent.getButton() == MouseEvent.BUTTON1) {place();}
-            disablePlacement();
-        }
-    }
-
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent mouseEvent) {
-
     }
 }
