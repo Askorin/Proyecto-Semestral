@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -12,8 +13,9 @@ public class EscenaZoo extends JPanel implements Updatable {
         /* No queremos que swing llame repaint. */
         setIgnoreRepaint(true);
 
-        /* Creamos el Listener de eventos para VistaZoo */
+        /* Creamos los listeners para eventos */
         ZooListener zooListener = new ZooListener();
+        PanelListener panelListener = new PanelListener();
 
         /*
          * Resulta necesario entregarle habitatPlacementManager al constructor de VistaZoo.
@@ -41,9 +43,14 @@ public class EscenaZoo extends JPanel implements Updatable {
         add(zoo, BorderLayout.CENTER);
 
         /* Paneles. */
+        PanelHabitat panelHabitat = new PanelHabitat(habitatPlacementManager, panelListener);
+        PanelAnimal panelAnimal = new PanelAnimal(animalPlacementManager, panelListener);
+        panelHabitat.addMouseListener(panelListener);
+        panelAnimal.addMouseListener(panelListener);
+
         // TODO: Cambiar nombres de PanelAnimal y PanelHabitat, ver si se generalizar a una clase.
-        add(new PanelHabitat(habitatPlacementManager), BorderLayout.WEST);
-        add(new PanelAnimal(animalPlacementManager), BorderLayout.EAST);
+        add(panelHabitat, BorderLayout.WEST);
+        add(panelAnimal, BorderLayout.EAST);
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -54,7 +61,7 @@ public class EscenaZoo extends JPanel implements Updatable {
         zoo.update();
     }
 
-    private class ZooListener implements MouseListener, MouseMotionListener {
+    public class ZooListener implements MouseInputListener, MouseMotionListener {
         @Override
         public void mouseReleased(MouseEvent mouseEvent) {
 
@@ -89,7 +96,6 @@ public class EscenaZoo extends JPanel implements Updatable {
 
         @Override
         public void mouseEntered(MouseEvent mouseEvent) {
-            System.out.println("HOLA!");
             zoo.setMouseIn(true);
         }
 
@@ -111,6 +117,47 @@ public class EscenaZoo extends JPanel implements Updatable {
 
             zoo.setMouseX(mouseX);
             zoo.setMouseY(mouseY);
+        }
+    }
+    public class PanelListener implements MouseInputListener {
+        @Override
+        public void mouseClicked(MouseEvent mouseEvent) {
+            Component source = mouseEvent.getComponent();
+            if (source instanceof LabelHabitat label) {
+                habitatPlacementManager.enablePlacement(label.getEnumHabitat());
+            } else if (source instanceof LabelAnimal label) {
+                animalPlacementManager.enablePlacement(label.getEnumAnimal());
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent mouseEvent) {
+
         }
     }
 }
