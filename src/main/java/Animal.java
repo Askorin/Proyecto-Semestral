@@ -38,7 +38,7 @@ public abstract class Animal implements Updatable, Drawable {
     public void update() {
         System.out.println("HungerTime: " + getHungerTimeElapsed());
         System.out.println("Estado: " + currentState);
-        currentState.stateBehavior(this);
+        currentState.stateBehavior();
         currentMs = System.currentTimeMillis();
         hungerCurrentMs = System.currentTimeMillis();
     }

@@ -1,8 +1,10 @@
 public class EatingState implements State {
+    private Animal animal;
     private final int EATING_DURATION = (int) (Math.random()*3000 + 2000); // entre 2 y 5 s
     private final long initMs;
     private long currentMs;
     public EatingState(Animal animal) {
+        this.animal = animal;
         FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
         initMs = System.currentTimeMillis();
         currentMs = initMs;
@@ -21,7 +23,7 @@ public class EatingState implements State {
         animal.changeState(this);
     }
     @Override
-    public void stateBehavior(Animal animal) {
+    public void stateBehavior() {
         currentMs = System.currentTimeMillis();
         long timeElapsed = currentMs - initMs;
         if (timeElapsed >= EATING_DURATION) {

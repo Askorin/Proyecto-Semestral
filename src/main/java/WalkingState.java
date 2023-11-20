@@ -1,9 +1,11 @@
 //Este estado corresponde a caminar a un punto aleatorio
 //es util para tener un comportamiente "por defecto" y no quedarse quieto
 public class WalkingState implements State {
+    private Animal animal;
     private Point target; //punto aleatorio el cual es a donde se dirige el animal
     private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public WalkingState(Animal animal) {
+        this.animal = animal;
         int targetX;
         int targetY;
         while (true) {
@@ -30,7 +32,7 @@ public class WalkingState implements State {
         animal.setSprite(animal.getWalkSprite());
     }
     @Override
-    public void stateBehavior(Animal animal) {
+    public void stateBehavior() {
         Point direction = Point.getDifference(target, new Point(animal.x, animal.y));
         Point velocity = Utilities.getNormalizedVector(direction, speed);
 

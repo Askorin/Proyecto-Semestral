@@ -1,8 +1,10 @@
 public class GatheringState implements State {
+    private Animal animal;
     private int targetX;
     private int targetY;
     private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public GatheringState(Animal animal) {
+        this.animal = animal;
         FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
         if (targetFood == null) {
             targetX = animal.x;
@@ -18,7 +20,7 @@ public class GatheringState implements State {
         animal.setSprite(animal.getWalkSprite());
     }
     @Override
-    public void stateBehavior(Animal animal) {
+    public void stateBehavior() {
         //el animal se mueve hasta que coincida con el target
         if (animal.x < targetX) {
             animal.x += getSpeedX(animal);

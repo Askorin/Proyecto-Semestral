@@ -1,22 +1,36 @@
 public class StarvingState implements State {
+    private Animal animal;
     public StarvingState(Animal animal) {
+        this.animal = animal;
+        //Hacemos una busqueda inicial
+        if (searchForFood(animal)) {
+            animal.changeState(this);
+            return;
+        }
+        animal.setSprite(animal.getHungrySprite());
     }
     @Override
-    public void stateBehavior(Animal animal) {
-        FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
-
+    public void stateBehavior() {
         //Este estado se mantiene hasta que encuentra comida
-        if (targetFood != null) {
-            if (targetFood.find(Food.FISH)) {
-                animal.changeState(this);
-                return;
-            }
+        if (searchForFood(animal)) {
+            animal.changeState(this);
+            return;
         }
+
         //A menos que haya pasado mucho tiempo sin comer
         if (animal.getHungerTimeElapsed() >= animal.getHungerMaxLimitMs()) {
             animal.changeState(this);
             return;
         }
-        animal.setSprite(animal.getHungrySprite());
+    }
+    private boolean searchForFood(Animal animal) {
+        FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
+
+        if (targetFood != null) {
+            if (targetFood.find(Food.FISH)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
