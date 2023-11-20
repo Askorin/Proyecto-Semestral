@@ -9,12 +9,19 @@ public abstract class Animal implements Updatable, Drawable {
     protected Habitat ownerHabitat;
     private final long initMs;
     private long currentMs;
+    private long hungerInitMs;
+    private long hungerCurrentMs;
+    private long HUNGER_LIMIT_MS;
+    private long HUNGER_MAX_LIMIT_MS;
     public Animal(Habitat habitat, int x , int y) {
         ownerHabitat = habitat;
         this.x = x;
         this.y = y;
+
         initMs = System.currentTimeMillis();
         currentMs = initMs;
+        hungerInitMs = initMs;
+        hungerCurrentMs = initMs;
     }
     public void draw(Graphics g, int absX, int absY) {
         int x = absX + this.x;
@@ -25,38 +32,77 @@ public abstract class Animal implements Updatable, Drawable {
             g.setColor(Color.RED);
             g.drawRect(x, y, width, height);
         }
-        long timeElapsed = currentMs - initMs;
-        currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), timeElapsed, 1.0f);
+
+        currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), getTimeElapsed(), 1.0f);
     }
     public void update() {
+        System.out.println("HungerTime: " + getHungerTimeElapsed());
+        System.out.println("Estado: " + currentState);
         currentState.stateBehavior(this);
         currentMs = System.currentTimeMillis();
+        hungerCurrentMs = System.currentTimeMillis();
     }
     //Administrador de estados, corresponde al grafo de estados en una maquina de estados finitos (No sé de que hablo)
     public void changeState(State currentState) {
-        if (currentState.getClass() == IdleState.class) {
-            this.currentState = new WalkingState(this);
+        if (getHungerTimeElapsed() >= getHungerMaxLimitMs()) {
+            //Default
+            this.currentState = new DeadState(this);
+            return;
+        }
+        if (getHungerTimeElapsed() >= getHungerLimitMs()) {
+            if (currentState.getClass() == EatingState.class) {
+                this.currentState = new StarvingState(this);
+                return;
+            }
+            if (currentState.getClass() == StarvingState.class) {
+                this.currentState = new GatheringState(this);
+                return;
+            }
+            if (currentState.getClass() == GatheringState.class) {
+                this.currentState = new EatingState(this);
+                return;
+            }
+            //Default
+            this.currentState = new StarvingState(this);
             return;
         }
         if (currentState.getClass() == WalkingState.class) {
-            this.currentState = new GatheringState(this);
+            this.currentState = new IdleState(this);
             return;
         }
-        if (currentState.getClass() == GatheringState.class) {
-            this.currentState = new EatingState(this);
-            return;
-        }
-        else {
-            this.currentState = new WalkingState(this);
-            return;
-        }
+        //Default
+        this.currentState = new WalkingState(this);
+        return;
     }
 
     //TODO: Actualmente es necesario que los hijos definan metodos para acceder a sus sprites
     public abstract Sprite getIdleSprite();
     public abstract Sprite getWalkSprite();
     public abstract Sprite getEatSprite();
+    public abstract Sprite getHungrySprite();
 
+    public long getTimeElapsed() {
+        return currentMs - initMs;
+    }
+    public long getHungerTimeElapsed() {
+        return hungerCurrentMs - hungerInitMs;
+    }
+    public void restartHungerTimeElapsed() {
+        hungerInitMs = System.currentTimeMillis();
+        hungerCurrentMs = initMs;
+    }
+    public long getHungerLimitMs() {
+        return HUNGER_LIMIT_MS;
+    }
+    protected void setHungerLimitMs(long timeMs) {
+        this.HUNGER_LIMIT_MS = timeMs;
+    }
+    public long getHungerMaxLimitMs() {
+        return HUNGER_MAX_LIMIT_MS;
+    }
+    protected void setHungerMaxLimitMs(long timeMs) {
+        this.HUNGER_MAX_LIMIT_MS = timeMs;
+    }
     public void setSprite(Sprite sprite) {
         currentSprite = sprite;
     }

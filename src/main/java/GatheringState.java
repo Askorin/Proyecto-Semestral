@@ -3,9 +3,8 @@ public class GatheringState implements State {
     private int targetY;
     private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public GatheringState(Animal animal) {
-        FoodContainer targetFood = FoodContainer.searchFoodContainer(animal.ownerHabitat);
+        FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
         if (targetFood == null) {
-            System.err.println("TARGETCONTAINER NULL, OJITO"); //TODO: Ver que hacer en este caso
             targetX = animal.x;
             targetY = animal.y;
         }

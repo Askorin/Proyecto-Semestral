@@ -1,13 +1,17 @@
 public class Gato extends Animal {
-    int width = 80;
-    int height = 80;
+    private int width = 80;
+    private int height = 80;
+    private long HUNGER_LIMIT_MS = 5000;
+    private long HUNGER_MAX_LIMIT_MS = 18000;
     public Gato(Habitat habitat, int x, int y) {
         super(habitat, x, y);
         //Hay que entregar las dimensiones del hijo para sobreescribir las dimensiones del padre
         setWidth(width);
         setHeight(height);
+        setHungerLimitMs(HUNGER_LIMIT_MS);
+        setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);
         //Importante que el estado se defina DESPUES de las dimensiones
-        currentState =  new GatheringState(this);
+        currentState =  new WalkingState(this);
     }
 
     @Override
@@ -16,4 +20,6 @@ public class Gato extends Animal {
     public Sprite getWalkSprite() {return Sprite.CAT_WALK;}
     @Override
     public Sprite getEatSprite() {return Sprite.CAT_EAT;}
+    @Override
+    public Sprite getHungrySprite() {return Sprite.CAT_HUNGRY;}
 }

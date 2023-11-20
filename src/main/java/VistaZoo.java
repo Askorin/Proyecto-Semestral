@@ -43,7 +43,6 @@ public class VistaZoo extends JPanel
 
         // TODO: Esto es pal meme.
         {
-            habitat.getContainables().addComponent(new FoodContainer());
             habitat.getContainables().addComponent(new Gato(habitat, 0, 100));
         }
 
