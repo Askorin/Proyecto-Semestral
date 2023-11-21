@@ -47,7 +47,7 @@ public class HabitatPlacementManager extends PlacementManager<EnumHabitat> imple
 
     @Override
     public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitHabitatPlacementManager(this, g, absPoint);
+        v.visitHabitatPlacementManager(this, absPoint);
         // if (isActivo()) {
         //     enumHabitat.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
         // }

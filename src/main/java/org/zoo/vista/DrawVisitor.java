@@ -6,19 +6,23 @@ import org.zoo.Point;
 import java.awt.*;
 
 public class DrawVisitor implements Visitor {
-    public void visitAnimal(Animal animal, Graphics g, Point absPoint) {
+    private Graphics g;
+    public DrawVisitor(Graphics g) {
+        this.g = g;
+    }
+    public void visitAnimal(Animal animal, Point absPoint) {
         int x = absPoint.x + animal.x;
         int y = absPoint.y + animal.y;
 
         //Dibujar org.zoo.Hitbox (Borrar luego)
-        if (true) {
+        if (App.SEE_HITBOX) {
             g.setColor(Color.RED);
             g.drawRect(x, y, animal.getWidth(), animal.getHeight());
         }
         animal.getCurrentSprite().drawSprite(g, x, y, animal.getWidth(), animal.getHeight(), animal.getTimeElapsed(), 1.0f);
     }
 
-    public void visitHabitat(Habitat habitat, Graphics g, Point absPoint) {
+    public void visitHabitat(Habitat habitat, Point absPoint) {
         int x = absPoint.x + habitat.x;
         int y = absPoint.y + habitat.y;
 
@@ -29,7 +33,7 @@ public class DrawVisitor implements Visitor {
 
     }
 
-    public void visitVistaZoo(VistaZoo zoo, Graphics g, Point absPoint) {
+    public void visitVistaZoo(VistaZoo zoo, Point absPoint) {
         int cameraX = zoo.getCameraX();
         int cameraY = zoo.getCameraY();
         Point p = new Point(-cameraX, -cameraY);
@@ -48,33 +52,33 @@ public class DrawVisitor implements Visitor {
         zoo.getAnimalPlacementManager().draw(g, p, this);
     }
 
-    public void visitHabitatPlacementManager(HabitatPlacementManager hpm, Graphics g, Point absPoint) {
+    public void visitHabitatPlacementManager(HabitatPlacementManager hpm, Point absPoint) {
         if (hpm.isActivo()) {
             hpm.getEnumHabitat().getSprite().drawSprite(g, hpm.getMouseX(), hpm.getMouseY(), 0, 0, 0, 0.45f);
         }
     }
 
-    public void visitAnimalPlacementManager(AnimalPlacementManager apm, Graphics g, Point absPoint) {
+    public void visitAnimalPlacementManager(AnimalPlacementManager apm, Point absPoint) {
         if (apm.isActivo()) {
             apm.getEnumAnimal().getSprite().drawSprite(g, apm.getMouseX(), apm.getMouseY(), 0, 0, 0, 0.7f);
         }
     }
 
-    public void visitFoodDisplay(FoodArea.FoodDisplay foodDisplay, Graphics g, Point absPoint) {
+    public void visitFoodDisplay(FoodArea.FoodDisplay foodDisplay, Point absPoint) {
         int x = foodDisplay.getX() + absPoint.x;
         int y = foodDisplay.getY() + absPoint.y;
 
         int width = foodDisplay.getWidth();
         int height = foodDisplay.getHeight();
 
-        if (true) {//Borrar luego
+        if (App.SEE_HITBOX) {//Borrar luego
             g.setColor(Color.CYAN);
             g.drawRect(x, y, width, height);
         }
         foodDisplay.getFood().getInGameSprite().drawSprite(g, x, y, width, height, 0, 1.0f);
     }
 
-    public void visitFoodArea(FoodArea foodArea, Graphics g, Point absPoint) {
+    public void visitFoodArea(FoodArea foodArea, Point absPoint) {
         int x = foodArea.getX() + absPoint.x;
         int y = foodArea.getY() + absPoint.y;
         int width = foodArea.getWidth();

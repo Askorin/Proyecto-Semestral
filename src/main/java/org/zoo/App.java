@@ -3,6 +3,8 @@ package org.zoo;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public final class App {
 
@@ -16,6 +18,7 @@ public final class App {
 
     private final String OS;
     private boolean isLinux;
+    public static boolean SEE_HITBOX = false;
     private App() {
         // En linux ocurrían problemas de rendimiento, esto lo "arregla".
         OS = System.getProperty("os.name").toLowerCase();
@@ -58,6 +61,10 @@ public final class App {
     }
 
     public static void main(String[] args) {
+        if (args.length == 1) {
+            String hitboxParam = args[0];
+            App.SEE_HITBOX = (Integer.parseInt(args[0]) != 0);
+        }
         SwingUtilities.invokeLater(App::new);
     }
 }

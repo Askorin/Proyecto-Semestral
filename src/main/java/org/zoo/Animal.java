@@ -29,7 +29,7 @@ public abstract class Animal implements Updatable, Drawable {
         hungerCurrentMs = initMs;
     }
     public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitAnimal(this, g, absPoint);
+        v.visitAnimal(this, absPoint);
 
         // int x = absPoint.x+ this.x;
         // int y = absPoint.y + this.y;
@@ -43,8 +43,6 @@ public abstract class Animal implements Updatable, Drawable {
         // currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), getTimeElapsed(), 1.0f);
     }
     public void update() {
-        System.out.println("HungerTime: " + getHungerTimeElapsed());
-        System.out.println("Estado: " + currentState);
         currentState.stateBehavior();
         currentMs = System.currentTimeMillis();
         hungerCurrentMs = System.currentTimeMillis();

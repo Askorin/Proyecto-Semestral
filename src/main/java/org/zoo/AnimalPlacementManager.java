@@ -41,7 +41,7 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
     }
     @Override
     public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitAnimalPlacementManager(this, g, absPoint);
+        v.visitAnimalPlacementManager(this, absPoint);
         // if (isActivo()) {
         //     enumAnimal.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
         // }

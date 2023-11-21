@@ -54,7 +54,7 @@ public class FoodArea implements Drawable, Unblockable {
     }
     @Override
     public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitFoodArea(this, g, absPoint);
+        v.visitFoodArea(this, absPoint);
         // int x = this.x + absX;
         // int y = this.y + absY;
         // g.setColor(new Color(85, 28, 19));
@@ -122,7 +122,7 @@ public class FoodArea implements Drawable, Unblockable {
         }
         @Override
         public void draw(Graphics g, Point absPoint, Visitor v) {
-            v.visitFoodDisplay(this, g, absPoint);
+            v.visitFoodDisplay(this, absPoint);
 
             // int x = this.x + absX;
             // int y = this.y + absY;

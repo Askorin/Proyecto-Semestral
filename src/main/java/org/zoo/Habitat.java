@@ -16,7 +16,7 @@ public abstract class Habitat implements Updatable, Drawable {
         containables = new Containables();
     }
     public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitHabitat(this, g, absPoint);
+        v.visitHabitat(this, absPoint);
         // int x = absPoint.x + this.x;
         // int y = absPoint.y + this.y;
 

@@ -52,10 +52,10 @@ public class VistaZoo extends JPanel
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        draw(g, new Point(0, 0), new DrawVisitor());
+        draw(g, new Point(0, 0), new DrawVisitor(g));
     }
     public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitVistaZoo(this, g, absPoint);
+        v.visitVistaZoo(this, absPoint);
 
         // int x = -cameraX;
         // int y = -cameraY;
