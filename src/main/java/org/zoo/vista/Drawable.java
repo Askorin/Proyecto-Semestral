@@ -1,3 +1,5 @@
+package org.zoo;
+
 import java.awt.*;
 
 public interface Drawable {

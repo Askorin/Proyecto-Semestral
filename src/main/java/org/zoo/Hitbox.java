@@ -14,14 +14,16 @@ public class Hitbox {
         boolean cond1 = false;
         boolean cond2 = false;
 
-        /* Que dos rectangulos esten en contacto implica que:
-           Sea el primer rectangulo de origen (xa , ya) y dimensiones (ha, wa)
-           y el segundo rectangulo de origen (xb, yb) y dimensiones (hb, wb)
-           entonces, que esten colisionando es que se cumplan dos condiciones:
-           cond 1: en el caso de xa < xb se debe cumplir xa + ha >= xb
-           en el caso de xb < xa se debe cumplir xb + hb >= xa
-           o bien que sea el caso de que xa == xb
-           cond 2: analogo para y */
+        /*
+         * Que dos rectángulos estén en contacto implica que:
+         * Sea el primer rectángulo de origen (xa , ya) y dimensiones (ha, wa)
+         * y el segundo rectángulo de origen (xb, yb) y dimensiones (hb, wb)
+         * entonces, que estén colisionando es que se cumplan dos condiciones:
+         * cond 1: en el caso de xa < xb se debe cumplir xa + ha >= xb
+         * en el caso de xb < xa se debe cumplir xb + hb >= xa
+         * o bien que sea el caso de que xa == xb
+         * cond 2: análogo para y.
+         */
 
         if (hitbox1.x < hitbox2.x) {
             if (hitbox1.x + hitbox1.width > hitbox2.x) {cond1 = true;}
