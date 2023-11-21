@@ -1,3 +1,5 @@
+package org.zoo;
+
 public class EatingState implements State {
     private Animal animal;
     private final int EATING_DURATION = (int) (Math.random()*3000 + 2000); // entre 2 y 5 s

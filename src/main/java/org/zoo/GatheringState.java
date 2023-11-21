@@ -1,3 +1,5 @@
+package org.zoo;
+
 public class GatheringState implements State {
     private Animal animal;
     private int targetX;

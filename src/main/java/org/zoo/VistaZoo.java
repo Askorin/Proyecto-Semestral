@@ -1,11 +1,11 @@
-import javax.imageio.ImageIO;
+package org.zoo;
+
+import org.zoo.vista.DrawVisitor;
+import org.zoo.vista.Drawable;
+import org.zoo.vista.Visitor;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
 
 public class VistaZoo extends JPanel
         implements Updatable, Drawable {
@@ -36,7 +36,7 @@ public class VistaZoo extends JPanel
         addHabitat(64, 128, EnumHabitat.MEADOW);
     }
 
-    // TODO: Pasar enumHabitat o Habitat? Es este método una buena idea siquiera?
+    // TODO: Pasar enumHabitat o org.zoo.Habitat? Es este método una buena idea siquiera?
     public void addHabitat(int x, int y, EnumHabitat enumHabitat) {
     
         Habitat habitat = enumHabitat.newInstance();
@@ -52,19 +52,21 @@ public class VistaZoo extends JPanel
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        draw(g, 0, 0);
+        draw(g, new Point(0, 0), new DrawVisitor());
     }
-    public void draw(Graphics g, int absX, int absY) {
-        int x = -cameraX;
-        int y = -cameraY;
-        drawCamera(g);
-        for (Drawable d: getContainables().getDrawables()) {
-            // Este check de null es medio quiche.
-            if (d != null) {d.draw(g, x, y);}
-        }
-        // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
-        habitatPlacementManager.draw(g, 0, 0);
-        animalPlacementManager.draw(g, 0, 0);
+    public void draw(Graphics g, Point absPoint, Visitor v) {
+        v.visitVistaZoo(this, g, absPoint);
+
+        // int x = -cameraX;
+        // int y = -cameraY;
+        // drawCamera(g);
+        // for (Drawable d: getContainables().getDrawables()) {
+        //     // Este check de null es medio quiche.
+        //     if (d != null) {d.draw(g, x, y);}
+        // }
+        // // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
+        // habitatPlacementManager.draw(g, 0, 0);
+        // animalPlacementManager.draw(g, 0, 0);
     }
 
     public void update() {
@@ -114,5 +116,25 @@ public class VistaZoo extends JPanel
 
     public void setMouseIn(boolean mouseIn) {
         this.mouseIn = mouseIn;
+    }
+
+    public int getCameraX() {
+        return cameraX;
+    }
+
+    public int getCameraY() {
+        return cameraY;
+    }
+
+    public HabitatPlacementManager getHabitatPlacementManager() {
+        return habitatPlacementManager;
+    }
+
+    public AnimalPlacementManager getAnimalPlacementManager() {
+        return animalPlacementManager;
+    }
+
+    public Image getBackgroundImage() {
+        return backgroundImage;
     }
 }

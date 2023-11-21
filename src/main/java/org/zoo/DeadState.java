@@ -1,3 +1,5 @@
+package org.zoo;
+
 public class DeadState implements State {
     private Animal animal;
     public DeadState(Animal animal) {

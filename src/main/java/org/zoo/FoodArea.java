@@ -1,3 +1,8 @@
+package org.zoo;
+
+import org.zoo.vista.Drawable;
+import org.zoo.vista.Visitor;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -38,7 +43,7 @@ public class FoodArea implements Drawable, Unblockable {
     }
     //Detectar el FoodContainer de un habitat
     static public FoodArea searchFoodContainer(Habitat habitat) {
-        //TODO: No es bueno usar typecasting, quizas Habitat podria tener como variable el FoodContainer
+        //TODO: No es bueno usar typecasting, quizas org.zoo.Habitat podria tener como variable el FoodContainer
         FoodArea targetFood = null;
         for (Unblockable u: habitat.getContainables().getUnblockables()) {
             if (u.getClass() == FoodArea.class) {
@@ -48,32 +53,58 @@ public class FoodArea implements Drawable, Unblockable {
         return targetFood;
     }
     @Override
-    public void draw(Graphics g, int absX, int absY) {
-        int x = this.x + absX;
-        int y = this.y + absY;
-        g.setColor(new Color(85, 28, 19));
-        g.fillRect(x, y, width, height);
-        g.setColor(new Color(137, 58, 27));
-        g.fillRect(x, y, width, 8);
-        g.fillRect(x, y + height - 8, width, 8);
-        g.fillRect(x, y, 8, height);
-        g.fillRect(x + width - 8, y, 8, height);
+    public void draw(Graphics g, Point absPoint, Visitor v) {
+        v.visitFoodArea(this, g, absPoint);
+        // int x = this.x + absX;
+        // int y = this.y + absY;
+        // g.setColor(new Color(85, 28, 19));
+        // g.fillRect(x, y, width, height);
+        // g.setColor(new Color(137, 58, 27));
+        // g.fillRect(x, y, width, 8);
+        // g.fillRect(x, y + height - 8, width, 8);
+        // g.fillRect(x, y, 8, height);
+        // g.fillRect(x + width - 8, y, 8, height);
 
-        for (FoodDisplay fd: allFoodDisplays) {
-            fd.draw(g, x, y);
-        }
+        // for (FoodDisplay fd: allFoodDisplays) {
+        //     fd.draw(g, x, y);
+        // }
 
-        g.setColor(new Color(195, 95, 29));
-        g.fillRect(x, y, width, 4);
-        g.fillRect(x, y + height - 4, width, 4);
-        g.fillRect(x, y, 4, height);
-        g.fillRect(x + width - 4, y, 4, height);
+        // g.setColor(new Color(195, 95, 29));
+        // g.fillRect(x, y, width, 4);
+        // g.fillRect(x, y + height - 4, width, 4);
+        // g.fillRect(x, y, 4, height);
+        // g.fillRect(x + width - 4, y, 4, height);
     }
     @Override
     public Hitbox getHitbox() {
         return new Hitbox(x, y, width, height);
     }
-    private class FoodDisplay implements Drawable {
+
+    public ArrayList<FoodDisplay> getAllFoodDisplays() {
+        return allFoodDisplays;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int[] getFoodQuantity() {
+        return foodQuantity;
+    }
+
+    public class FoodDisplay implements Drawable {
         private Food food;
         private int x;
         private int y;
@@ -81,7 +112,7 @@ public class FoodArea implements Drawable, Unblockable {
         private int height = 32;
         private int rotation;
         public FoodDisplay(Food food) {
-            //es importante que la comida se imprima dentro de FoodArea
+            //es importante que la comida se imprima dentro de org.zoo.FoodArea
             x = (int) (Math.random() * (FoodArea.this.width - width));
             y = (int) (Math.random() * (FoodArea.this.height - height));
 
@@ -90,14 +121,36 @@ public class FoodArea implements Drawable, Unblockable {
             this.food = food;
         }
         @Override
-        public void draw(Graphics g, int absX, int absY) {
-            int x = this.x + absX;
-            int y = this.y + absY;
-            if (true) {//Borrar luego
-                g.setColor(Color.CYAN);
-                g.drawRect(x, y, width, height);
-            }
-            food.getInGameSprite().drawSprite(g, x, y, width, height, 0, 1.0f);
+        public void draw(Graphics g, Point absPoint, Visitor v) {
+            v.visitFoodDisplay(this, g, absPoint);
+
+            // int x = this.x + absX;
+            // int y = this.y + absY;
+            // if (true) {//Borrar luego
+            //     g.setColor(Color.CYAN);
+            //     g.drawRect(x, y, width, height);
+            // }
+            // food.getInGameSprite().drawSprite(g, x, y, width, height, 0, 1.0f);
+        }
+
+        public Food getFood() {
+            return food;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public int getWidth() {
+            return width;
+        }
+
+        public int getHeight() {
+            return height;
         }
     }
 }

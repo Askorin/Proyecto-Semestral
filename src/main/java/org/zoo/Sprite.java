@@ -1,11 +1,9 @@
-import javax.imageio.ImageIO;
+package org.zoo;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-//Sprite almacena una animacion, es decir, una coleccion de imagenes
+//org.zoo.Sprite almacena una animacion, es decir, una coleccion de imagenes
 public enum Sprite {
     CAT_IDLE("src/main/resources/CatIdle.png", 6, 150, 13*4, 9*4),
     CAT_WALK("src/main/resources/CatWalk.png", 2, 90),

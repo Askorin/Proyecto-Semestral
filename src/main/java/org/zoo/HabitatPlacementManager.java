@@ -1,7 +1,9 @@
+package org.zoo;
+
+import org.zoo.vista.Drawable;
+import org.zoo.vista.Visitor;
+
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.lang.reflect.Field;
 
 
@@ -44,9 +46,14 @@ public class HabitatPlacementManager extends PlacementManager<EnumHabitat> imple
 
 
     @Override
-    public void draw(Graphics g, int absX, int absY) {
-        if (isActivo()) {
-            enumHabitat.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
-        }
+    public void draw(Graphics g, Point absPoint, Visitor v) {
+        v.visitHabitatPlacementManager(this, g, absPoint);
+        // if (isActivo()) {
+        //     enumHabitat.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
+        // }
+    }
+
+    public EnumHabitat getEnumHabitat() {
+        return enumHabitat;
     }
 }

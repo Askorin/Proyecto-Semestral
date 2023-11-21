@@ -1,3 +1,5 @@
+package org.zoo;
+
 //Este estado corresponde a caminar a un punto aleatorio
 //es util para tener un comportamiente "por defecto" y no quedarse quieto
 public class WalkingState implements State {
@@ -15,7 +17,7 @@ public class WalkingState implements State {
 
             //es importante que exista un camino al target donde pueda ir el animal
             //TODO: IMPORTANTE TENER EN CUENTA QUE:
-            /*Actualmente el State no calcula si el camino a seguir esta despejado,
+            /*Actualmente el org.zoo.State no calcula si el camino a seguir esta despejado,
               solo se fija si el punto final esta despejado (despejado = sin colisiones)
              */
             boolean collisionFound = false;

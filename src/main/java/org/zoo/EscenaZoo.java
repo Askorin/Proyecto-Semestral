@@ -1,9 +1,9 @@
+package org.zoo;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
 
 public class EscenaZoo extends JPanel implements Updatable {
     private final VistaZoo zoo;
@@ -18,19 +18,19 @@ public class EscenaZoo extends JPanel implements Updatable {
         PanelListener panelListener = new PanelListener();
 
         /*
-         * Resulta necesario entregarle habitatPlacementManager al constructor de VistaZoo.
+         * Resulta necesario entregarle habitatPlacementManager al constructor de org.zoo.VistaZoo.
          * Esto por dos razones:
-         * 1- De no ser así, VistaZoo intercepta los eventos (de click y movimiento) que
+         * 1- De no ser así, org.zoo.VistaZoo intercepta los eventos (de click y movimiento) que
          * queremos que le lleguen a habitatPlacementManager. Esto podría ser solucionado
          * utilizando keybindings o algún otro sistema de registro de eventos.
          * 2- Para dibujar encima del panel de vistazoo. Si llamaramos draw con los Graphics
-         * de EscenaZoo, no se dibujaría correctamente encima de VistaZoo, por lo que
-         * resulta necesario utilizar los Graphics de VistaZoo en su paintComponent.
+         * de org.zoo.EscenaZoo, no se dibujaría correctamente encima de org.zoo.VistaZoo, por lo que
+         * resulta necesario utilizar los Graphics de org.zoo.VistaZoo en su paintComponent.
          */
         habitatPlacementManager = new HabitatPlacementManager();
         animalPlacementManager = new AnimalPlacementManager();
 
-        /* Creamos el panel de VistaZoo */
+        /* Creamos el panel de org.zoo.VistaZoo */
         zoo = new VistaZoo(habitatPlacementManager, animalPlacementManager);
         zoo.addMouseListener(zooListener);
         zoo.addMouseMotionListener(zooListener);
@@ -48,7 +48,7 @@ public class EscenaZoo extends JPanel implements Updatable {
         panelHabitat.addMouseListener(panelListener);
         panelAnimal.addMouseListener(panelListener);
 
-        // TODO: Cambiar nombres de PanelAnimal y PanelHabitat, ver si se generalizar a una clase.
+        // TODO: Cambiar nombres de org.zoo.PanelAnimal y org.zoo.PanelHabitat, ver si se generalizar a una clase.
         add(panelHabitat, BorderLayout.WEST);
         add(panelAnimal, BorderLayout.EAST);
     }

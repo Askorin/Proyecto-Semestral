@@ -1,3 +1,5 @@
+package org.zoo;
+
 public class Hitbox {
     public int x;
     public int y;

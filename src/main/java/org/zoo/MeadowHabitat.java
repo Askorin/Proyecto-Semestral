@@ -1,4 +1,4 @@
-import java.awt.*;
+package org.zoo;
 
 public class MeadowHabitat extends Habitat {
     public static int width = 64*4;

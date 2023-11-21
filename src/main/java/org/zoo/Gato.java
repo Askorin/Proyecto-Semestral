@@ -1,3 +1,5 @@
+package org.zoo;
+
 public class Gato extends Animal {
     public static int width = 80;
     public static int height = 80;

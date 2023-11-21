@@ -1,3 +1,5 @@
+package org.zoo;
+
 import javax.swing.*;
 
 public class PanelAnimal extends JPanel {

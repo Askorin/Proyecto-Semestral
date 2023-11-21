@@ -1,8 +1,8 @@
+package org.zoo;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 

@@ -1,3 +1,5 @@
+package org.zoo;
+
 public class StarvingState implements State {
     private Animal animal;
     public StarvingState(Animal animal) {

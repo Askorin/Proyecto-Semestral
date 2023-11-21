@@ -1,7 +1,9 @@
+package org.zoo;
+
+import org.zoo.vista.Drawable;
+import org.zoo.vista.Visitor;
+
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.lang.reflect.Field;
 
 public class AnimalPlacementManager extends PlacementManager<EnumAnimal> implements Drawable {
@@ -38,9 +40,14 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
         } catch (IllegalAccessException e) {}
     }
     @Override
-    public void draw(Graphics g, int absX, int absY) {
-        if (isActivo()) {
-            enumAnimal.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
-        }
+    public void draw(Graphics g, Point absPoint, Visitor v) {
+        v.visitAnimalPlacementManager(this, g, absPoint);
+        // if (isActivo()) {
+        //     enumAnimal.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
+        // }
+    }
+
+    public EnumAnimal getEnumAnimal() {
+        return enumAnimal;
     }
 }

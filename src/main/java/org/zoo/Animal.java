@@ -1,3 +1,8 @@
+package org.zoo;
+
+import org.zoo.vista.Drawable;
+import org.zoo.vista.Visitor;
+
 import java.awt.*;
 public abstract class Animal implements Updatable, Drawable {
     public int x;
@@ -23,17 +28,19 @@ public abstract class Animal implements Updatable, Drawable {
         hungerInitMs = initMs;
         hungerCurrentMs = initMs;
     }
-    public void draw(Graphics g, int absX, int absY) {
-        int x = absX + this.x;
-        int y = absY + this.y;
+    public void draw(Graphics g, Point absPoint, Visitor v) {
+        v.visitAnimal(this, g, absPoint);
 
-        //Dibujar Hitbox (Borrar luego)
-        if (true) {
-            g.setColor(Color.RED);
-            g.drawRect(x, y, width, height);
-        }
+        // int x = absPoint.x+ this.x;
+        // int y = absPoint.y + this.y;
 
-        currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), getTimeElapsed(), 1.0f);
+        // //Dibujar org.zoo.Hitbox (Borrar luego)
+        // if (true) {
+        //     g.setColor(Color.RED);
+        //     g.drawRect(x, y, width, height);
+        // }
+
+        // currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), getTimeElapsed(), 1.0f);
     }
     public void update() {
         System.out.println("HungerTime: " + getHungerTimeElapsed());
@@ -114,4 +121,8 @@ public abstract class Animal implements Updatable, Drawable {
         return height;
     }
     protected void setHeight(int height) {this.height = height;}
+
+    public Sprite getCurrentSprite() {
+        return currentSprite;
+    }
 }

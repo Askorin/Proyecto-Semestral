@@ -1,3 +1,5 @@
+package org.zoo;
+
 public enum Food {
     FISH(Sprite.FISH_INGAME),
     HAY(Sprite.CAT_WALK);

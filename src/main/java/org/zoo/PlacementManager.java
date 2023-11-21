@@ -1,3 +1,5 @@
+package org.zoo;
+
 // TODO: Hacer que agarre de cosas se produzca al centro, no en la esquina.
 abstract public class PlacementManager<T> {
     private boolean activo;
@@ -41,3 +43,4 @@ abstract public class PlacementManager<T> {
         return vistaZoo;
     }
 }
+

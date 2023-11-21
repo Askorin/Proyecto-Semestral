@@ -1,3 +1,5 @@
+package org.zoo;
+
 // TODO: Reconsiderar todo esto.
 public enum EnumHabitat {
     MEADOW("Meadow", "/meadowHabitat.png", "/habitat.png", MeadowHabitat.class, Sprite.MEADOWHABITAT);

@@ -1,7 +1,9 @@
-import javax.imageio.ImageIO;
+package org.zoo;
+
+import org.zoo.vista.Drawable;
+import org.zoo.vista.Visitor;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 public abstract class Habitat implements Updatable, Drawable {
     public int x;
@@ -13,14 +15,15 @@ public abstract class Habitat implements Updatable, Drawable {
     public Habitat() {
         containables = new Containables();
     }
-    public void draw(Graphics g, int absX, int absY) {
-        int x = absX + this.x;
-        int y = absY + this.y;
+    public void draw(Graphics g, Point absPoint, Visitor v) {
+        v.visitHabitat(this, g, absPoint);
+        // int x = absPoint.x + this.x;
+        // int y = absPoint.y + this.y;
 
-        habitatSprite.drawSprite(g, x, y, getWidth(), getHeight(), 0, 1.0f);
-        for (Drawable d: getContainables().getDrawables()) {
-            d.draw(g, x, y);
-        }
+        // habitatSprite.drawSprite(g, x, y, getWidth(), getHeight(), 0, 1.0f);
+        // for (Drawable d: getContainables().getDrawables()) {
+        //     d.draw(g, x, y);
+        // }
     }
 
     public void update() {
@@ -52,5 +55,9 @@ public abstract class Habitat implements Updatable, Drawable {
     }
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public Sprite getHabitatSprite() {
+        return habitatSprite;
     }
 }
