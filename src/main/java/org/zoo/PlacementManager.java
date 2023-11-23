@@ -4,15 +4,15 @@ package org.zoo;
 abstract public class PlacementManager<T> {
     private boolean activo;
     private int mouseX, mouseY;
-    private VistaZoo vistaZoo;
+    private Zoo zoo;
     public PlacementManager() {
         activo = false;
     }
     public abstract void enablePlacement(T sujeto);
     public abstract void disablePlacement();
     public abstract void place();
-    public void setVistaZoo(VistaZoo vistaZoo) {
-        this.vistaZoo = vistaZoo;
+    public void setVistaZoo(Zoo zoo) {
+        this.zoo = zoo;
     }
 
     public boolean isActivo() {
@@ -39,8 +39,8 @@ abstract public class PlacementManager<T> {
         this.mouseY = mouseY;
     }
 
-    public VistaZoo getVistaZoo() {
-        return vistaZoo;
+    public Zoo getZoo() {
+        return zoo;
     }
 }
 

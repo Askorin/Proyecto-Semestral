@@ -7,7 +7,6 @@ import java.awt.*;
 import java.lang.reflect.Field;
 
 public class AnimalPlacementManager extends PlacementManager<EnumAnimal> implements Drawable {
-
     private EnumAnimal enumAnimal;
     public AnimalPlacementManager() {
         super();
@@ -40,11 +39,19 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
         } catch (IllegalAccessException e) {}
     }
     @Override
-    public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitAnimalPlacementManager(this, absPoint);
+    public void accept(Visitor v) {
+        v.visitAnimalPlacementManager(this);
         // if (isActivo()) {
         //     enumAnimal.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
         // }
+    }
+
+    @Override
+    public int getAbsX() {
+        return getMouseX();
+    }
+    public int getAbsY() {
+        return getMouseY();
     }
 
     public EnumAnimal getEnumAnimal() {

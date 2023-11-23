@@ -1,5 +1,7 @@
 package org.zoo;
 
+import org.zoo.vista.Positionable;
+
 // TODO: Reconsiderar todo esto.
 public enum EnumHabitat {
     MEADOW("Meadow", "/meadowHabitat.png", "/habitat.png", MeadowHabitat.class, Sprite.MEADOWHABITAT);
@@ -36,10 +38,10 @@ public enum EnumHabitat {
         return sprite;
     }
 
-    public Habitat newInstance() {
+    public Habitat newInstance(Positionable owner) {
         Habitat habitat = null;
         try {
-            habitat = (Habitat) tipo.getDeclaredConstructor().newInstance();
+            habitat = (Habitat) tipo.getDeclaredConstructor(Positionable.class).newInstance(owner);
         } catch (Exception e) {
             e.printStackTrace();
         }

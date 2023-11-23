@@ -1,22 +1,25 @@
 package org.zoo;
 
 import org.zoo.vista.Drawable;
+import org.zoo.vista.Positionable;
 import org.zoo.vista.Visitor;
 
 import java.awt.*;
 
 public abstract class Habitat implements Updatable, Drawable {
+    private Positionable owner;
     public int x;
     public int y;
     public int width;
     public int height;
     protected Sprite habitatSprite;
     private Containables containables;
-    public Habitat() {
+    public Habitat(Positionable owner) {
+        this.owner = owner;
         containables = new Containables();
     }
-    public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitHabitat(this, absPoint);
+    public void accept(Visitor v) {
+        v.visitHabitat(this);
         // int x = absPoint.x + this.x;
         // int y = absPoint.y + this.y;
 
@@ -24,6 +27,14 @@ public abstract class Habitat implements Updatable, Drawable {
         // for (Drawable d: getContainables().getDrawables()) {
         //     d.draw(g, x, y);
         // }
+    }
+
+    @Override
+    public int getAbsX() {
+        return x + owner.getAbsX();
+    }
+    public int getAbsY() {
+        return y + owner.getAbsY();
     }
 
     public void update() {
@@ -40,9 +51,12 @@ public abstract class Habitat implements Updatable, Drawable {
         getContainables().addComponent(a);
     }
   
-    //Es necesario llamar a este metodo en el constructor de los hijos, para sobreescribir el sprite del padre
+    //Es necesario llamar a metodos setters en el constructor de los hijos, para sobreescribir atributos del padre
     public void setHabitatSprite(Sprite habitatSprite) {
         this.habitatSprite = habitatSprite;
+    }
+    public Sprite getHabitatSprite() {
+        return habitatSprite;
     }
     public int getWidth() {
         return width;
@@ -55,9 +69,5 @@ public abstract class Habitat implements Updatable, Drawable {
     }
     public void setHeight(int height) {
         this.height = height;
-    }
-
-    public Sprite getHabitatSprite() {
-        return habitatSprite;
     }
 }

@@ -3,16 +3,35 @@ package org.zoo.vista;
 import org.zoo.*;
 import org.zoo.Point;
 
+import javax.swing.*;
 import java.awt.*;
 
-public class DrawVisitor implements Visitor {
+public class DrawVisitor extends JPanel implements Visitor {
+    //Temp
+    int width = 1000;
+    int height = 1000;
     private Graphics g;
-    public DrawVisitor(Graphics g) {
+    private Zoo zoo;
+    // TODO: El paintComponent lo debería llevar ventana en verdad?
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
         this.g = g;
+        zoo.accept(this);
     }
-    public void visitAnimal(Animal animal, Point absPoint) {
-        int x = absPoint.x + animal.x;
-        int y = absPoint.y + animal.y;
+    public DrawVisitor(Zoo zoo) {
+        this.zoo = zoo;
+
+        width = zoo.getWidth();
+        height = zoo.getHeight();
+
+        cameraHeight = 850;
+        cameraWidth = 480;
+    }
+    public void visitAnimal(Animal animal) {
+        int x = animal.getAbsX() - getCameraX();
+        int y = animal.getAbsY() - getCameraY();
 
         //Dibujar org.zoo.Hitbox (Borrar luego)
         if (App.SEE_HITBOX) {
@@ -22,20 +41,21 @@ public class DrawVisitor implements Visitor {
         animal.getCurrentSprite().drawSprite(g, x, y, animal.getWidth(), animal.getHeight(), animal.getTimeElapsed(), 1.0f);
     }
 
-    public void visitHabitat(Habitat habitat, Point absPoint) {
-        int x = absPoint.x + habitat.x;
-        int y = absPoint.y + habitat.y;
+    public void visitHabitat(Habitat habitat) {
+        int x = habitat.getAbsX() - getCameraX();
+        int y = habitat.getAbsY() - getCameraY();
 
         habitat.getHabitatSprite().drawSprite(g, x, y, habitat.getWidth(), habitat.getHeight(), 0, 1.0f);
         for (Drawable d: habitat.getContainables().getDrawables()) {
-            d.draw(g, new Point(x, y), this);
+            d.accept(this);
         }
 
     }
 
-    public void visitVistaZoo(VistaZoo zoo, Point absPoint) {
-        int cameraX = zoo.getCameraX();
-        int cameraY = zoo.getCameraY();
+    public void visitZoo(Zoo zoo) {
+        updateCamera();
+        int cameraX = getCameraX();
+        int cameraY = getCameraY();
         Point p = new Point(-cameraX, -cameraY);
 
         /* Dibujamos camara */
@@ -44,29 +64,29 @@ public class DrawVisitor implements Visitor {
         for (Drawable d: zoo.getContainables().getDrawables()) {
             // Este check de null es medio quiche.
             if (d != null) {
-                d.draw(g, p, this);
+                d.accept(this);
             }
         }
         // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
-        zoo.getHabitatPlacementManager().draw(g, p, this);
-        zoo.getAnimalPlacementManager().draw(g, p, this);
+        zoo.getHabitatPlacementManager().accept(this);
+        zoo.getAnimalPlacementManager().accept(this);
     }
 
-    public void visitHabitatPlacementManager(HabitatPlacementManager hpm, Point absPoint) {
+    public void visitHabitatPlacementManager(HabitatPlacementManager hpm) {
         if (hpm.isActivo()) {
             hpm.getEnumHabitat().getSprite().drawSprite(g, hpm.getMouseX(), hpm.getMouseY(), 0, 0, 0, 0.45f);
         }
     }
 
-    public void visitAnimalPlacementManager(AnimalPlacementManager apm, Point absPoint) {
+    public void visitAnimalPlacementManager(AnimalPlacementManager apm) {
         if (apm.isActivo()) {
             apm.getEnumAnimal().getSprite().drawSprite(g, apm.getMouseX(), apm.getMouseY(), 0, 0, 0, 0.7f);
         }
     }
 
-    public void visitFoodDisplay(FoodArea.FoodDisplay foodDisplay, Point absPoint) {
-        int x = foodDisplay.getX() + absPoint.x;
-        int y = foodDisplay.getY() + absPoint.y;
+    public void visitFoodDisplay(FoodArea.FoodDisplay foodDisplay) {
+        int x = foodDisplay.getAbsX() - getCameraX();
+        int y = foodDisplay.getAbsY() - getCameraY();
 
         int width = foodDisplay.getWidth();
         int height = foodDisplay.getHeight();
@@ -78,9 +98,9 @@ public class DrawVisitor implements Visitor {
         foodDisplay.getFood().getInGameSprite().drawSprite(g, x, y, width, height, 0, 1.0f);
     }
 
-    public void visitFoodArea(FoodArea foodArea, Point absPoint) {
-        int x = foodArea.getX() + absPoint.x;
-        int y = foodArea.getY() + absPoint.y;
+    public void visitFoodArea(FoodArea foodArea) {
+        int x = foodArea.getAbsX() - getCameraX();
+        int y = foodArea.getAbsY() - getCameraY();
         int width = foodArea.getWidth();
         int height = foodArea.getHeight();
 
@@ -93,7 +113,7 @@ public class DrawVisitor implements Visitor {
         g.fillRect(x + width - 8, y, 8, height);
 
         for (FoodArea.FoodDisplay fd: foodArea.getAllFoodDisplays()) {
-            fd.draw(g, new Point(x, y), this);
+            fd.accept(this);
         }
 
         g.setColor(new Color(195, 95, 29));
@@ -101,5 +121,52 @@ public class DrawVisitor implements Visitor {
         g.fillRect(x, y + height - 4, width, 4);
         g.fillRect(x, y, 4, height);
         g.fillRect(x + width - 4, y, 4, height);
+    }
+
+
+    ///// CAMERA //TODO: Mover a otra clase, ojala no anidada a esta?
+
+    private int cameraX; private int cameraY;
+    private int cameraWidth; private int cameraHeight;
+    private final int cameraTol = 24; private final int cameraSpeed = 5;
+    private int mouseX; private int mouseY; private boolean mouseIn;
+    private void updateCamera() {
+
+        cameraHeight = getSize().height;
+        cameraWidth = getSize().width;
+
+        if (mouseIn) {
+            if (mouseX < cameraTol && cameraX - cameraSpeed >= 0) {
+                cameraX += -cameraSpeed;
+            }
+            else if (mouseX > (cameraWidth - cameraTol)
+                    && cameraX + cameraWidth + cameraSpeed <= width) {
+                cameraX += cameraSpeed;
+            }
+            if (mouseY < cameraTol && cameraY - cameraSpeed >= 0) {
+                cameraY += -cameraSpeed;
+            }
+            else if (mouseY > (cameraHeight - cameraTol)
+                    && cameraY + cameraHeight + cameraSpeed <= height) {
+                cameraY += cameraSpeed;
+            }
+        }
+    }
+
+    public void setMouseX(int mouseX) {
+        this.mouseX = mouseX;
+    }
+    public void setMouseY(int mouseY) {
+        this.mouseY = mouseY;
+    }
+    public void setMouseIn(boolean mouseIn) {
+        this.mouseIn = mouseIn;
+    }
+
+    public int getCameraX() {
+        return cameraX;
+    }
+    public int getCameraY() {
+        return cameraY;
     }
 }

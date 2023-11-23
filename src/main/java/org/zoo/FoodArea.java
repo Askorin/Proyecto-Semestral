@@ -1,6 +1,7 @@
 package org.zoo;
 
 import org.zoo.vista.Drawable;
+import org.zoo.vista.Positionable;
 import org.zoo.vista.Visitor;
 
 import java.awt.*;
@@ -13,7 +14,9 @@ public class FoodArea implements Drawable, Unblockable {
     protected int height;
     private int [] foodQuantity;
     private ArrayList<FoodDisplay> allFoodDisplays;
-    public FoodArea(int x, int y, int width, int height) {
+    private Positionable owner;
+    public FoodArea(Positionable owner, int x, int y, int width, int height) {
+        this.owner = owner;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -53,8 +56,8 @@ public class FoodArea implements Drawable, Unblockable {
         return targetFood;
     }
     @Override
-    public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitFoodArea(this, absPoint);
+    public void accept(Visitor v) {
+        v.visitFoodArea(this);
         // int x = this.x + absX;
         // int y = this.y + absY;
         // g.setColor(new Color(85, 28, 19));
@@ -75,6 +78,17 @@ public class FoodArea implements Drawable, Unblockable {
         // g.fillRect(x, y, 4, height);
         // g.fillRect(x + width - 4, y, 4, height);
     }
+
+    @Override
+    public int getAbsX() {
+        return x + owner.getAbsX();
+    }
+
+    @Override
+    public int getAbsY() {
+        return y + owner.getAbsY();
+    }
+
     @Override
     public Hitbox getHitbox() {
         return new Hitbox(x, y, width, height);
@@ -121,8 +135,8 @@ public class FoodArea implements Drawable, Unblockable {
             this.food = food;
         }
         @Override
-        public void draw(Graphics g, Point absPoint, Visitor v) {
-            v.visitFoodDisplay(this, absPoint);
+        public void accept(Visitor v) {
+            v.visitFoodDisplay(this);
 
             // int x = this.x + absX;
             // int y = this.y + absY;
@@ -131,6 +145,13 @@ public class FoodArea implements Drawable, Unblockable {
             //     g.drawRect(x, y, width, height);
             // }
             // food.getInGameSprite().drawSprite(g, x, y, width, height, 0, 1.0f);
+        }
+        @Override
+        public int getAbsX() {
+            return x + FoodArea.this.x + owner.getAbsX();
+        }
+        public int getAbsY() {
+            return y + FoodArea.this.y + owner.getAbsY();
         }
 
         public Food getFood() {

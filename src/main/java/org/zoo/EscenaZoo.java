@@ -1,12 +1,15 @@
 package org.zoo;
 
+import org.zoo.vista.DrawVisitor;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
 
 public class EscenaZoo extends JPanel implements Updatable {
-    private final VistaZoo zoo;
+    private final Zoo zoo;
+    private final DrawVisitor renderZoo;
     private final HabitatPlacementManager habitatPlacementManager;
     private final AnimalPlacementManager animalPlacementManager;
     public EscenaZoo() {
@@ -20,27 +23,30 @@ public class EscenaZoo extends JPanel implements Updatable {
         /*
          * Resulta necesario entregarle habitatPlacementManager al constructor de org.zoo.VistaZoo.
          * Esto por dos razones:
-         * 1- De no ser así, org.zoo.VistaZoo intercepta los eventos (de click y movimiento) que
+         * 1- De no ser así, org.zoo.Zoo intercepta los eventos (de click y movimiento) que
          * queremos que le lleguen a habitatPlacementManager. Esto podría ser solucionado
          * utilizando keybindings o algún otro sistema de registro de eventos.
          * 2- Para dibujar encima del panel de vistazoo. Si llamaramos draw con los Graphics
-         * de org.zoo.EscenaZoo, no se dibujaría correctamente encima de org.zoo.VistaZoo, por lo que
-         * resulta necesario utilizar los Graphics de org.zoo.VistaZoo en su paintComponent.
+         * de org.zoo.EscenaZoo, no se dibujaría correctamente encima de org.zoo.Zoo, por lo que
+         * resulta necesario utilizar los Graphics de org.zoo.Zoo en su paintComponent.
          */
         habitatPlacementManager = new HabitatPlacementManager();
         animalPlacementManager = new AnimalPlacementManager();
 
-        /* Creamos el panel de org.zoo.VistaZoo */
-        zoo = new VistaZoo(habitatPlacementManager, animalPlacementManager);
-        zoo.addMouseListener(zooListener);
-        zoo.addMouseMotionListener(zooListener);
+        /* Creamos la logica de org.zoo.Zoo */
+        zoo = new Zoo(habitatPlacementManager, animalPlacementManager);
 
         habitatPlacementManager.setVistaZoo(zoo);
         animalPlacementManager.setVistaZoo(zoo);
 
+        /* Creamos la vista de org.zoo.Zoo */
+        renderZoo = new DrawVisitor(zoo);
+        renderZoo.addMouseListener(zooListener);
+        renderZoo.addMouseMotionListener(zooListener);
+
         /* Layout, comenzamos a añadir cosas al JPanel. */
         setLayout(new BorderLayout());
-        add(zoo, BorderLayout.CENTER);
+        add(renderZoo, BorderLayout.CENTER);
 
         /* Paneles. */
         PanelHabitat panelHabitat = new PanelHabitat(habitatPlacementManager, panelListener);
@@ -91,12 +97,12 @@ public class EscenaZoo extends JPanel implements Updatable {
 
         @Override
         public void mouseExited(MouseEvent mouseEvent) {
-            zoo.setMouseIn(false);
+            renderZoo.setMouseIn(false);
         }
 
         @Override
         public void mouseEntered(MouseEvent mouseEvent) {
-            zoo.setMouseIn(true);
+            renderZoo.setMouseIn(true);
         }
 
         @Override
@@ -115,8 +121,8 @@ public class EscenaZoo extends JPanel implements Updatable {
             animalPlacementManager.setMouseX(mouseX);
             animalPlacementManager.setMouseY(mouseY);
 
-            zoo.setMouseX(mouseX);
-            zoo.setMouseY(mouseY);
+            renderZoo.setMouseX(mouseX);
+            renderZoo.setMouseY(mouseY);
         }
     }
     public class PanelListener implements MouseInputListener {

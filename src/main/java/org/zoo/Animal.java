@@ -18,8 +18,8 @@ public abstract class Animal implements Updatable, Drawable {
     private long hungerCurrentMs;
     private long HUNGER_LIMIT_MS;
     private long HUNGER_MAX_LIMIT_MS;
-    public Animal(Habitat habitat, int x , int y) {
-        ownerHabitat = habitat;
+    public Animal(Habitat ownerHabitat, int x , int y) {
+        this.ownerHabitat = ownerHabitat;
         this.x = x;
         this.y = y;
 
@@ -28,19 +28,15 @@ public abstract class Animal implements Updatable, Drawable {
         hungerInitMs = initMs;
         hungerCurrentMs = initMs;
     }
-    public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitAnimal(this, absPoint);
-
-        // int x = absPoint.x+ this.x;
-        // int y = absPoint.y + this.y;
-
-        // //Dibujar org.zoo.Hitbox (Borrar luego)
-        // if (true) {
-        //     g.setColor(Color.RED);
-        //     g.drawRect(x, y, width, height);
-        // }
-
-        // currentSprite.drawSprite(g, x, y, getWidth(), getHeight(), getTimeElapsed(), 1.0f);
+    public void accept(Visitor v) {
+        v.visitAnimal(this);
+    }
+    @Override
+    public int getAbsX() {
+        return x + ownerHabitat.getAbsX();
+    }
+    public int getAbsY() {
+        return y + ownerHabitat.getAbsY();
     }
     public void update() {
         currentState.stateBehavior();
