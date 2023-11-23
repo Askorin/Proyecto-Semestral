@@ -3,7 +3,6 @@ package org.zoo;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.Visitor;
 
-import java.awt.*;
 import java.lang.reflect.Field;
 
 
@@ -41,7 +40,7 @@ public class HabitatPlacementManager extends PlacementManager<EnumHabitat> imple
 
         int posX = getMouseX() - width / 2;
         int posY = getMouseY() - height / 2;
-        getVistaZoo().addHabitat(posX, posY, enumHabitat);
+        getZoo().addHabitat(posX, posY, enumHabitat);
     }
 
 

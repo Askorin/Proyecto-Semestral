@@ -1,34 +1,26 @@
 package org.zoo;
 
-import org.zoo.vista.DrawVisitor;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.Visitable;
 import org.zoo.vista.Visitor;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class VistaZoo extends JPanel
+public class Zoo
         implements Updatable, Drawable, Visitable {
-    protected int width; protected int height;
-    private int cameraX; private int cameraY;
-    private int cameraWidth; private int cameraHeight;
-    private final int cameraTol = 24; private final int cameraSpeed = 5;
-    private int mouseX; private int mouseY; private boolean mouseIn;
+
+    private int width; private int height;
     private Image backgroundImage;
     private Containables containables;
     private HabitatPlacementManager habitatPlacementManager;
     private AnimalPlacementManager animalPlacementManager;
       
-    public VistaZoo(HabitatPlacementManager habitatPlacementManager, AnimalPlacementManager animalPlacementManager) {
+    public Zoo(HabitatPlacementManager habitatPlacementManager, AnimalPlacementManager animalPlacementManager) {
         containables = new Containables();
 
         backgroundImage = Utilities.loadImage("src/main/resources/testimage.jpg"); // Temporal
         width = backgroundImage.getWidth(null);
         height = backgroundImage.getHeight(null);
-
-        cameraHeight = getSize().height;
-        cameraWidth = getSize().width;
 
         this.habitatPlacementManager = habitatPlacementManager;
         this.animalPlacementManager = animalPlacementManager;
@@ -45,20 +37,14 @@ public class VistaZoo extends JPanel
         {
             habitat.getContainables().addComponent(new Gato(habitat, 0, 100));
         }
-        habitat.x = x + cameraX; habitat.y = y + cameraY;
+        habitat.x = x;//habitat.x = x + cameraX; //TODO:
+        habitat.y = y;//habitat.y = y + cameraY;
         
         getContainables().addComponent(habitat);
     }
 
-    // TODO: El paintComponent lo debería llevar ventana en verdad?
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        accept(new DrawVisitor(g));
-    }
-
     public void accept(Visitor v) {
-        v.visitVistaZoo(this);
+        v.visitZoo(this);
 
         // int x = -cameraX;
         // int y = -cameraY;
@@ -73,78 +59,37 @@ public class VistaZoo extends JPanel
     }
 
     public int getAbsX() {
-        return -cameraX;
+        return 0;
     }
     public int getAbsY() {
-        return -cameraY;
+        return 0;
     }
 
     public void update() {
-        updateCamera();
         for (Updatable u: getContainables().getUpdatables()) {
             if (u != null) {u.update();}
         }
-    }
-
-    private void updateCamera() {
-        cameraHeight = getSize().height;
-        cameraWidth = getSize().width;
-
-        if (mouseIn) {
-            if (mouseX < cameraTol && cameraX - cameraSpeed >= 0) {
-                cameraX += -cameraSpeed;
-            }
-            else if (mouseX > (cameraWidth - cameraTol)
-                    && cameraX + cameraWidth + cameraSpeed <= width) {
-                cameraX += cameraSpeed;
-            }
-            if (mouseY < cameraTol && cameraY - cameraSpeed >= 0) {
-                cameraY += -cameraSpeed;
-            }
-            else if (mouseY > (cameraHeight - cameraTol)
-                    && cameraY + cameraHeight + cameraSpeed <= height) {
-                cameraY += cameraSpeed;
-            }
-        }
-    }
-
-    private void drawCamera(Graphics g) {
-        g.drawImage(backgroundImage, -cameraX, -cameraY, null);
     }
 
     public Containables getContainables() {
         return containables;
     }
 
-    public void setMouseX(int mouseX) {
-        this.mouseX = mouseX;
-    }
-
-    public void setMouseY(int mouseY) {
-        this.mouseY = mouseY;
-    }
-
-    public void setMouseIn(boolean mouseIn) {
-        this.mouseIn = mouseIn;
-    }
-
-    public int getCameraX() {
-        return cameraX;
-    }
-
-    public int getCameraY() {
-        return cameraY;
-    }
-
     public HabitatPlacementManager getHabitatPlacementManager() {
         return habitatPlacementManager;
     }
-
     public AnimalPlacementManager getAnimalPlacementManager() {
         return animalPlacementManager;
     }
 
     public Image getBackgroundImage() {
         return backgroundImage;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
     }
 }
