@@ -11,8 +11,8 @@ public class DrawVisitor implements Visitor {
         this.g = g;
     }
     public void visitAnimal(Animal animal) {
-        int x = animal.getAbsX() + animal.x;
-        int y = animal.getAbsY() + animal.y;
+        int x = animal.getAbsX();
+        int y = animal.getAbsY();
 
         //Dibujar org.zoo.Hitbox (Borrar luego)
         if (App.SEE_HITBOX) {
@@ -23,8 +23,8 @@ public class DrawVisitor implements Visitor {
     }
 
     public void visitHabitat(Habitat habitat) {
-        int x = habitat.getAbsX() + habitat.x;
-        int y = habitat.getAbsY() + habitat.y;
+        int x = habitat.getAbsX();
+        int y = habitat.getAbsY();
 
         habitat.getHabitatSprite().drawSprite(g, x, y, habitat.getWidth(), habitat.getHeight(), 0, 1.0f);
         for (Drawable d: habitat.getContainables().getDrawables()) {

@@ -148,10 +148,10 @@ public class FoodArea implements Drawable, Unblockable {
         }
         @Override
         public int getAbsX() {
-            return x + owner.getAbsX();
+            return x + FoodArea.this.x + owner.getAbsX();
         }
         public int getAbsY() {
-            return y + owner.getAbsY();
+            return y + FoodArea.this.y + owner.getAbsY();
         }
 
         public Food getFood() {
