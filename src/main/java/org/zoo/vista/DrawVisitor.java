@@ -28,6 +28,8 @@ public class DrawVisitor extends JPanel implements Visitor {
 
         cameraHeight = 850;
         cameraWidth = 480;
+
+        RenderedSprite.loadSprites(); //Importante
     }
     public void visitAnimal(Animal animal) {
         int x = animal.getAbsX() - getCameraX();
@@ -38,14 +40,17 @@ public class DrawVisitor extends JPanel implements Visitor {
             g.setColor(Color.RED);
             g.drawRect(x, y, animal.getWidth(), animal.getHeight());
         }
-        animal.getCurrentSprite().drawSprite(g, x, y, animal.getWidth(), animal.getHeight(), animal.getTimeElapsed(), 1.0f);
+
+        Sprite spr = animal.getCurrentSprite();
+        RenderedSprite.draw(spr, g, x, y, animal.getWidth(), animal.getHeight(), animal.getTimeElapsed(), 1.0f);
     }
 
     public void visitHabitat(Habitat habitat) {
         int x = habitat.getAbsX() - getCameraX();
         int y = habitat.getAbsY() - getCameraY();
 
-        habitat.getHabitatSprite().drawSprite(g, x, y, habitat.getWidth(), habitat.getHeight(), 0, 1.0f);
+        Sprite spr = habitat.getHabitatSprite();
+        RenderedSprite.draw(spr, g, x, y, habitat.getWidth(), habitat.getHeight(), 0, 1.0f );
         for (Drawable d: habitat.getContainables().getDrawables()) {
             d.accept(this);
         }
@@ -74,13 +79,15 @@ public class DrawVisitor extends JPanel implements Visitor {
 
     public void visitHabitatPlacementManager(HabitatPlacementManager hpm) {
         if (hpm.isActivo()) {
-            hpm.getEnumHabitat().getSprite().drawSprite(g, hpm.getMouseX(), hpm.getMouseY(), 0, 0, 0, 0.45f);
+            Sprite spr = hpm.getEnumHabitat().getSprite();
+            RenderedSprite.draw(spr, g, hpm.getMouseX(), hpm.getMouseY(), 0, 0, 0, 0.45f);
         }
     }
 
     public void visitAnimalPlacementManager(AnimalPlacementManager apm) {
         if (apm.isActivo()) {
-            apm.getEnumAnimal().getSprite().drawSprite(g, apm.getMouseX(), apm.getMouseY(), 0, 0, 0, 0.7f);
+            Sprite spr = apm.getEnumAnimal().getSprite();
+            RenderedSprite.draw(spr, g, apm.getMouseX(), apm.getMouseY(), 0, 0, 0, 0.7f );
         }
     }
 
@@ -95,7 +102,8 @@ public class DrawVisitor extends JPanel implements Visitor {
             g.setColor(Color.CYAN);
             g.drawRect(x, y, width, height);
         }
-        foodDisplay.getFood().getInGameSprite().drawSprite(g, x, y, width, height, 0, 1.0f);
+        Sprite spr = foodDisplay.getFood().getInGameSprite();
+        RenderedSprite.draw(spr, g, x, y, width, height, 0, 1.0f);
     }
 
     public void visitFoodArea(FoodArea foodArea) {
