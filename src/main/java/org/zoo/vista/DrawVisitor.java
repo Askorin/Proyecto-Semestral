@@ -10,9 +10,9 @@ public class DrawVisitor implements Visitor {
     public DrawVisitor(Graphics g) {
         this.g = g;
     }
-    public void visitAnimal(Animal animal, Point absPoint) {
-        int x = absPoint.x + animal.x;
-        int y = absPoint.y + animal.y;
+    public void visitAnimal(Animal animal) {
+        int x = animal.getAbsX() + animal.x;
+        int y = animal.getAbsY() + animal.y;
 
         //Dibujar org.zoo.Hitbox (Borrar luego)
         if (App.SEE_HITBOX) {
@@ -22,18 +22,18 @@ public class DrawVisitor implements Visitor {
         animal.getCurrentSprite().drawSprite(g, x, y, animal.getWidth(), animal.getHeight(), animal.getTimeElapsed(), 1.0f);
     }
 
-    public void visitHabitat(Habitat habitat, Point absPoint) {
-        int x = absPoint.x + habitat.x;
-        int y = absPoint.y + habitat.y;
+    public void visitHabitat(Habitat habitat) {
+        int x = habitat.getAbsX() + habitat.x;
+        int y = habitat.getAbsY() + habitat.y;
 
         habitat.getHabitatSprite().drawSprite(g, x, y, habitat.getWidth(), habitat.getHeight(), 0, 1.0f);
         for (Drawable d: habitat.getContainables().getDrawables()) {
-            d.draw(g, new Point(x, y), this);
+            d.accept(this);
         }
 
     }
 
-    public void visitVistaZoo(VistaZoo zoo, Point absPoint) {
+    public void visitVistaZoo(VistaZoo zoo) {
         int cameraX = zoo.getCameraX();
         int cameraY = zoo.getCameraY();
         Point p = new Point(-cameraX, -cameraY);
@@ -44,29 +44,29 @@ public class DrawVisitor implements Visitor {
         for (Drawable d: zoo.getContainables().getDrawables()) {
             // Este check de null es medio quiche.
             if (d != null) {
-                d.draw(g, p, this);
+                d.accept(this);
             }
         }
         // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
-        zoo.getHabitatPlacementManager().draw(g, p, this);
-        zoo.getAnimalPlacementManager().draw(g, p, this);
+        zoo.getHabitatPlacementManager().accept(this);
+        zoo.getAnimalPlacementManager().accept(this);
     }
 
-    public void visitHabitatPlacementManager(HabitatPlacementManager hpm, Point absPoint) {
+    public void visitHabitatPlacementManager(HabitatPlacementManager hpm) {
         if (hpm.isActivo()) {
             hpm.getEnumHabitat().getSprite().drawSprite(g, hpm.getMouseX(), hpm.getMouseY(), 0, 0, 0, 0.45f);
         }
     }
 
-    public void visitAnimalPlacementManager(AnimalPlacementManager apm, Point absPoint) {
+    public void visitAnimalPlacementManager(AnimalPlacementManager apm) {
         if (apm.isActivo()) {
             apm.getEnumAnimal().getSprite().drawSprite(g, apm.getMouseX(), apm.getMouseY(), 0, 0, 0, 0.7f);
         }
     }
 
-    public void visitFoodDisplay(FoodArea.FoodDisplay foodDisplay, Point absPoint) {
-        int x = foodDisplay.getX() + absPoint.x;
-        int y = foodDisplay.getY() + absPoint.y;
+    public void visitFoodDisplay(FoodArea.FoodDisplay foodDisplay) {
+        int x = foodDisplay.getAbsX();
+        int y = foodDisplay.getAbsY();
 
         int width = foodDisplay.getWidth();
         int height = foodDisplay.getHeight();
@@ -78,9 +78,9 @@ public class DrawVisitor implements Visitor {
         foodDisplay.getFood().getInGameSprite().drawSprite(g, x, y, width, height, 0, 1.0f);
     }
 
-    public void visitFoodArea(FoodArea foodArea, Point absPoint) {
-        int x = foodArea.getX() + absPoint.x;
-        int y = foodArea.getY() + absPoint.y;
+    public void visitFoodArea(FoodArea foodArea) {
+        int x = foodArea.getAbsX();
+        int y = foodArea.getAbsY();
         int width = foodArea.getWidth();
         int height = foodArea.getHeight();
 
@@ -93,7 +93,7 @@ public class DrawVisitor implements Visitor {
         g.fillRect(x + width - 8, y, 8, height);
 
         for (FoodArea.FoodDisplay fd: foodArea.getAllFoodDisplays()) {
-            fd.draw(g, new Point(x, y), this);
+            fd.accept(this);
         }
 
         g.setColor(new Color(195, 95, 29));

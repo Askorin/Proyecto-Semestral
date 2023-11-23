@@ -2,13 +2,14 @@ package org.zoo;
 
 import org.zoo.vista.DrawVisitor;
 import org.zoo.vista.Drawable;
+import org.zoo.vista.Visitable;
 import org.zoo.vista.Visitor;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class VistaZoo extends JPanel
-        implements Updatable, Drawable {
+        implements Updatable, Drawable, Visitable {
     protected int width; protected int height;
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
@@ -38,8 +39,8 @@ public class VistaZoo extends JPanel
 
     // TODO: Pasar enumHabitat o org.zoo.Habitat? Es este método una buena idea siquiera?
     public void addHabitat(int x, int y, EnumHabitat enumHabitat) {
-    
-        Habitat habitat = enumHabitat.newInstance();
+        Habitat habitat = enumHabitat.newInstance(this);
+        System.out.println(habitat);
         // TODO: Esto es pal meme.
         {
             habitat.getContainables().addComponent(new Gato(habitat, 0, 100));
@@ -48,14 +49,16 @@ public class VistaZoo extends JPanel
         
         getContainables().addComponent(habitat);
     }
+
     // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        draw(g, new Point(0, 0), new DrawVisitor(g));
+        accept(new DrawVisitor(g));
     }
-    public void draw(Graphics g, Point absPoint, Visitor v) {
-        v.visitVistaZoo(this, absPoint);
+
+    public void accept(Visitor v) {
+        v.visitVistaZoo(this);
 
         // int x = -cameraX;
         // int y = -cameraY;
@@ -67,6 +70,13 @@ public class VistaZoo extends JPanel
         // // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
         // habitatPlacementManager.draw(g, 0, 0);
         // animalPlacementManager.draw(g, 0, 0);
+    }
+
+    public int getAbsX() {
+        return -cameraX;
+    }
+    public int getAbsY() {
+        return -cameraY;
     }
 
     public void update() {
