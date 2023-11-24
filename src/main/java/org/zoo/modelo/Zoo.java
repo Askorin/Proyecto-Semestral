@@ -44,6 +44,7 @@ public class Zoo
         Habitat habitat = enumHabitat.newInstance(this, new Point(x, y));
         // TODO: Esto es pal meme.
         {
+            habitat.getContainables().addComponent(new TextMessage(habitat, "class Cat implements Moonwalk"));
             habitat.getContainables().addComponent(new Gato(habitat, new Point(0, 100)));
         }
         habitat.x = x;

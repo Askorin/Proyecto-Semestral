@@ -9,6 +9,8 @@ public enum Sprite {
     CAT_WALK("src/main/resources/CatWalk.png", 2, 90, 15*4, 9*4),
     CAT_EAT("src/main/resources/CatEat.png", 4, 90, 16*4, 2*4),
     CAT_HUNGRY("src/main/resources/CatHungry.png", 6, 220, 13*4, 24*4),
+    ANIMAL_DEAD("src/main/resources/AnimalDead.png", 1, 1, 5*4, 11*4),
+    ANIMAL_DEAD_ANIM("src/main/resources/AnimalDeadAnim.png", 6, 100, 5*4, 11*4),
     MEADOWHABITAT("src/main/resources/meadowHabitat.png", 1, 1, 37*4, 40*4),
     FISH_INGAME("src/main/resources/FishInGame.png", 1, 1, 4*4, 4*4);
     private String path;

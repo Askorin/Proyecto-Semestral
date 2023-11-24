@@ -10,11 +10,15 @@ import org.zoo.utilities.Point;
 public class MeadowHabitat extends Habitat {
     public static int width = 64*4;
     public static int height = 64*4;
+    public static float temperature = 25;
+  
     public MeadowHabitat(Positionable owner, Point p) {
         super(owner, p);
         // Esto para coordinar ancho y alto estático con el provisto por el padre.
         setWidth(width);
         setHeight(height);
+        setTemperature(temperature);
+
         /*
          * Creamos la Hitbox del habitat, tener en cuenta que es irrelevante ocupar
          * las coordenadas relativas al owner (Zoo) o las coordenadas absolutas,

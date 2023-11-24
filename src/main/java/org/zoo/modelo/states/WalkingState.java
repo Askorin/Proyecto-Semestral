@@ -18,8 +18,8 @@ public class WalkingState implements State {
         int targetY;
         while (true) {
             //es importante que el target no esta fuera de los limites del habitat
-            targetX = (int) (Math.random() * (animal.ownerHabitat.width - animal.getWidth()));
-            targetY = (int) (Math.random()*(animal.ownerHabitat.height - animal.getHeight()));
+            targetX = (int) (Math.random() * (animal.ownerHabitat.getWidth() - animal.getWidth()));
+            targetY = (int) (Math.random()*(animal.ownerHabitat.getHeight() - animal.getHeight()));
 
             //es importante que exista un camino al target donde pueda ir el animal
             //TODO: IMPORTANTE TENER EN CUENTA QUE:
