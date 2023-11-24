@@ -1,7 +1,8 @@
 package org.zoo.vista;
 
-import org.zoo.*;
-import org.zoo.Point;
+import org.zoo.App;
+import org.zoo.modelo.*;
+import org.zoo.modelo.Point;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +36,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         int x = animal.getAbsX() - getCameraX();
         int y = animal.getAbsY() - getCameraY();
 
-        //Dibujar org.zoo.Hitbox (Borrar luego)
+        //Dibujar org.zoo.modelo.Hitbox (Borrar luego)
         if (App.SEE_HITBOX) {
             g.setColor(Color.RED);
             g.drawRect(x, y, animal.getWidth(), animal.getHeight());

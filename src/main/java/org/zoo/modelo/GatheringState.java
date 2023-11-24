@@ -1,4 +1,4 @@
-package org.zoo;
+package org.zoo.modelo;
 
 public class GatheringState implements State {
     private Animal animal;

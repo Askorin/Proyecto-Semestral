@@ -1,4 +1,4 @@
-package org.zoo;
+package org.zoo.modelo;
 
 import java.awt.*;
 import java.util.ArrayList;

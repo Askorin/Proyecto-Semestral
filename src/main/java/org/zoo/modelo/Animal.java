@@ -1,9 +1,8 @@
-package org.zoo;
+package org.zoo.modelo;
 
 import org.zoo.vista.Drawable;
 import org.zoo.vista.Visitor;
 
-import java.awt.*;
 public abstract class Animal implements Updatable, Drawable {
     public int x;
     public int y;

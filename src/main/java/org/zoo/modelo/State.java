@@ -1,4 +1,4 @@
-package org.zoo;
+package org.zoo.modelo;
 
 public interface State {
     //método que se ejecuta cada step

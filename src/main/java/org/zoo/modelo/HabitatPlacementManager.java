@@ -1,26 +1,26 @@
-package org.zoo;
+package org.zoo.modelo;
 
 import org.zoo.vista.Drawable;
 import org.zoo.vista.Visitor;
 
-import java.awt.*;
 import java.lang.reflect.Field;
 
-public class AnimalPlacementManager extends PlacementManager<EnumAnimal> implements Drawable {
-    private EnumAnimal enumAnimal;
-    public AnimalPlacementManager() {
+
+public class HabitatPlacementManager extends PlacementManager<EnumHabitat> implements Drawable {
+    private EnumHabitat enumHabitat;
+    public HabitatPlacementManager() {
         super();
     }
 
     @Override
-    public void enablePlacement(EnumAnimal enumAnimal) {
-        this.enumAnimal = enumAnimal;
+    public void enablePlacement(EnumHabitat enumHabitat) {
+        this.enumHabitat = enumHabitat;
         setActivo(true);
     }
 
     @Override
     public void disablePlacement() {
-        enumAnimal = null;
+        enumHabitat = null;
         setActivo(false);
     }
 
@@ -30,23 +30,28 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
         Field fieldHeight = null;
         int width = 0, height = 0;
         try {
-            fieldWidth = enumAnimal.getTipo().getField("width");
-            fieldHeight = enumAnimal.getTipo().getField("height");
+            fieldWidth = enumHabitat.getTipo().getField("width");
+            fieldHeight = enumHabitat.getTipo().getField("height");
         } catch (NoSuchFieldException e) {}
         try {
             width = fieldWidth.getInt(null);
             height = fieldHeight.getInt(null);
         } catch (IllegalAccessException e) {}
+
+        int posX = getMouseX() - width / 2;
+        int posY = getMouseY() - height / 2;
+        getZoo().addHabitat(posX, posY, enumHabitat);
     }
+
+
     @Override
     public void accept(Visitor v) {
-        v.visitAnimalPlacementManager(this);
+        v.visitHabitatPlacementManager(this);
         // if (isActivo()) {
-        //     enumAnimal.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
+        //     enumHabitat.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
         // }
     }
 
-    @Override
     public int getAbsX() {
         return getMouseX();
     }
@@ -54,7 +59,7 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
         return getMouseY();
     }
 
-    public EnumAnimal getEnumAnimal() {
-        return enumAnimal;
+    public EnumHabitat getEnumHabitat() {
+        return enumHabitat;
     }
 }

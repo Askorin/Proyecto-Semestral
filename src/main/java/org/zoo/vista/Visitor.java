@@ -1,5 +1,5 @@
 package org.zoo.vista;
-import org.zoo.*;
+import org.zoo.modelo.*;
 
 public interface Visitor {
     public void visitAnimal(Animal animal);

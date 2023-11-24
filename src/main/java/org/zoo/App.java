@@ -1,10 +1,11 @@
 package org.zoo;
 
+import org.zoo.modelo.EscenaZoo;
+import org.zoo.vista.VistaEscenaZoo;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public final class App {
 
@@ -15,7 +16,7 @@ public final class App {
     private boolean corriendo;
     private JFrame frame;
     private EscenaZoo escenaZoo;
-
+    private VistaEscenaZoo vistaEscenaZoo;
     private final String OS;
     private boolean isLinux;
     public static boolean SEE_HITBOX = false;
@@ -30,6 +31,8 @@ public final class App {
     }
     private void crearYMostrarUI() {
         escenaZoo = new EscenaZoo();
+        vistaEscenaZoo = new VistaEscenaZoo(escenaZoo);
+
         this.setupGameLoop();
 
         frame = new JFrame("Zoo");
@@ -39,7 +42,7 @@ public final class App {
         int height = 480;
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
-        frame.setContentPane(escenaZoo);
+        frame.setContentPane(vistaEscenaZoo);
         frame.setVisible(true);
 
 
@@ -55,7 +58,7 @@ public final class App {
                 if (isLinux) {
                     Toolkit.getDefaultToolkit().sync();
                 }
-                escenaZoo.repaint();
+                vistaEscenaZoo.repaint();
             }
         });
     }

@@ -1,4 +1,7 @@
-package org.zoo;
+package org.zoo.vista;
+
+import org.zoo.modelo.EnumHabitat;
+import org.zoo.modelo.HabitatPlacementManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,6 +1,6 @@
 package org.zoo.vista;
 
-import org.zoo.Sprite;
+import org.zoo.modelo.Sprite;
 import org.zoo.Utilities;
 
 import java.awt.*;

@@ -1,4 +1,4 @@
-package org.zoo;
+package org.zoo.modelo;
 
 public class IdleState implements State {
     private Animal animal;

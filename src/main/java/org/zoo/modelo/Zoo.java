@@ -1,5 +1,6 @@
-package org.zoo;
+package org.zoo.modelo;
 
+import org.zoo.Utilities;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.Visitable;
 import org.zoo.vista.Visitor;
@@ -29,7 +30,7 @@ public class Zoo
         addHabitat(64, 128, EnumHabitat.MEADOW);
     }
 
-    // TODO: Pasar enumHabitat o org.zoo.Habitat? Es este método una buena idea siquiera?
+    // TODO: Pasar enumHabitat o org.zoo.modelo.Habitat? Es este método una buena idea siquiera?
     public void addHabitat(int x, int y, EnumHabitat enumHabitat) {
         Habitat habitat = enumHabitat.newInstance(this);
         System.out.println(habitat);

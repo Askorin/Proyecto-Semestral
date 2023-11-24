@@ -1,4 +1,4 @@
-package org.zoo;
+package org.zoo.modelo;
 
 import org.zoo.vista.Drawable;
 

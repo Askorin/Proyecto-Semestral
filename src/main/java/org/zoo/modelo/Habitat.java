@@ -1,10 +1,8 @@
-package org.zoo;
+package org.zoo.modelo;
 
 import org.zoo.vista.Drawable;
 import org.zoo.vista.Positionable;
 import org.zoo.vista.Visitor;
-
-import java.awt.*;
 
 public abstract class Habitat implements Updatable, Drawable {
     private Positionable owner;

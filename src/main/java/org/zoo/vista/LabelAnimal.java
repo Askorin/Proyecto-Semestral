@@ -1,4 +1,7 @@
-package org.zoo;
+package org.zoo.vista;
+
+import org.zoo.modelo.AnimalPlacementManager;
+import org.zoo.modelo.EnumAnimal;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,7 +1,7 @@
-package org.zoo;
+package org.zoo.modelo;
 
 public enum EnumAnimal {
-    GATO("org.zoo.Gato", Gato.class, Sprite.CAT_IDLE, "/CatIdle1.png");
+    GATO("org.zoo.modelo.Gato", Gato.class, Sprite.CAT_IDLE, "/CatIdle1.png");
     private final String nombre;
     private final Class<?> tipo;
     private final Sprite sprite;

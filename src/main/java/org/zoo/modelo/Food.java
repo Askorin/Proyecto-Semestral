@@ -1,4 +1,4 @@
-package org.zoo;
+package org.zoo.modelo;
 
 public enum Food {
     FISH(Sprite.FISH_INGAME),

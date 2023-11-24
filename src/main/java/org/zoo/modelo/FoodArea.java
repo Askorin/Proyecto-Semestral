@@ -1,10 +1,9 @@
-package org.zoo;
+package org.zoo.modelo;
 
 import org.zoo.vista.Drawable;
 import org.zoo.vista.Positionable;
 import org.zoo.vista.Visitor;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class FoodArea implements Drawable, Unblockable {
@@ -46,7 +45,7 @@ public class FoodArea implements Drawable, Unblockable {
     }
     //Detectar el FoodContainer de un habitat
     static public FoodArea searchFoodContainer(Habitat habitat) {
-        //TODO: No es bueno usar typecasting, quizas org.zoo.Habitat podria tener como variable el FoodContainer
+        //TODO: No es bueno usar typecasting, quizas org.zoo.modelo.Habitat podria tener como variable el FoodContainer
         FoodArea targetFood = null;
         for (Unblockable u: habitat.getContainables().getUnblockables()) {
             if (u.getClass() == FoodArea.class) {
@@ -126,7 +125,7 @@ public class FoodArea implements Drawable, Unblockable {
         private int height = 32;
         private int rotation;
         public FoodDisplay(Food food) {
-            //es importante que la comida se imprima dentro de org.zoo.FoodArea
+            //es importante que la comida se imprima dentro de org.zoo.modelo.FoodArea
             x = (int) (Math.random() * (FoodArea.this.width - width));
             y = (int) (Math.random() * (FoodArea.this.height - height));
 

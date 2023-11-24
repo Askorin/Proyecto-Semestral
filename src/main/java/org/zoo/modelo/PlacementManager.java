@@ -1,4 +1,4 @@
-package org.zoo;
+package org.zoo.modelo;
 
 // TODO: Hacer que agarre de cosas se produzca al centro, no en la esquina.
 abstract public class PlacementManager<T> {
