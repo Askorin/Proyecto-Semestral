@@ -2,6 +2,9 @@ package org.zoo.modelo.placementmanager;
 
 import org.zoo.modelo.Zoo;
 
+
+// TODO: Esto debería tener un owner?
+
 abstract public class PlacementManager<T> {
     private boolean activo;
     private int x, y;
