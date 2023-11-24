@@ -17,6 +17,8 @@ public abstract class Animal implements Updatable, Drawable {
     public Habitat ownerHabitat;
     private final long initMs;
     private long currentMs;
+    private long spriteInitMs;
+    private long spriteCurrentMs;
     private long hungerInitMs;
     private long hungerCurrentMs;
     private long HUNGER_LIMIT_MS;
@@ -28,6 +30,8 @@ public abstract class Animal implements Updatable, Drawable {
 
         initMs = System.currentTimeMillis();
         currentMs = initMs;
+        spriteInitMs = initMs;
+        spriteCurrentMs = initMs;
         hungerInitMs = initMs;
         hungerCurrentMs = initMs;
     }
@@ -43,7 +47,9 @@ public abstract class Animal implements Updatable, Drawable {
     }
     public void update() {
         currentState.stateBehavior();
+
         currentMs = System.currentTimeMillis();
+        spriteCurrentMs = System.currentTimeMillis();
         hungerCurrentMs = System.currentTimeMillis();
     }
     //Administrador de estados, corresponde al grafo de estados en una maquina de estados finitos (No sé de que hablo)
@@ -88,12 +94,19 @@ public abstract class Animal implements Updatable, Drawable {
     public long getTimeElapsed() {
         return currentMs - initMs;
     }
+    public long getSpriteTimeElapsed() {
+        return spriteCurrentMs - spriteInitMs;
+    }
+    public void restartSpriteTimeElapsed() {
+        spriteInitMs = System.currentTimeMillis();
+        spriteCurrentMs = spriteInitMs;
+    }
     public long getHungerTimeElapsed() {
         return hungerCurrentMs - hungerInitMs;
     }
     public void restartHungerTimeElapsed() {
         hungerInitMs = System.currentTimeMillis();
-        hungerCurrentMs = initMs;
+        hungerCurrentMs = hungerInitMs;
     }
     public long getHungerLimitMs() {
         return HUNGER_LIMIT_MS;

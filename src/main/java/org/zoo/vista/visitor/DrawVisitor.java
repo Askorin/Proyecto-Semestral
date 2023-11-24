@@ -55,7 +55,7 @@ public class DrawVisitor extends JPanel implements Visitor {
             }
 
             Sprite spr = animal.getCurrentSprite();
-            RenderedSprite.draw(spr, g, x, y, animal.getWidth(), animal.getHeight(), animal.getTimeElapsed(), 1.0f);
+            RenderedSprite.draw(spr, g, x, y, animal.getWidth(), animal.getHeight(), animal.getSpriteTimeElapsed(), 1.0f);
         }
     }
 
