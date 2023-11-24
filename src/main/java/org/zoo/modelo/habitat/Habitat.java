@@ -12,9 +12,10 @@ public abstract class Habitat implements Updatable, Drawable {
     private Positionable owner;
     public int x;
     public int y;
-    public int width;
-    public int height;
-    protected Sprite habitatSprite;
+    private int width;
+    private int height;
+    private float temperature; //en °C porque no somos quiche
+    private Sprite habitatSprite;
     private Containables containables;
     public Habitat(Positionable owner) {
         this.owner = owner;
@@ -54,7 +55,13 @@ public abstract class Habitat implements Updatable, Drawable {
     }
   
     //Es necesario llamar a metodos setters en el constructor de los hijos, para sobreescribir atributos del padre
-    public void setHabitatSprite(Sprite habitatSprite) {
+    protected void setTemperature(float temperature) {
+        this.temperature = temperature;
+    }
+    public float getTemperature() {
+        return temperature;
+    }
+    protected void setHabitatSprite(Sprite habitatSprite) {
         this.habitatSprite = habitatSprite;
     }
     public Sprite getHabitatSprite() {
@@ -63,13 +70,13 @@ public abstract class Habitat implements Updatable, Drawable {
     public int getWidth() {
         return width;
     }
-    public void setWidth(int width) {
+    protected void setWidth(int width) {
         this.width = width;
     }
     public int getHeight() {
         return height;
     }
-    public void setHeight(int height) {
+    protected void setHeight(int height) {
         this.height = height;
     }
 }

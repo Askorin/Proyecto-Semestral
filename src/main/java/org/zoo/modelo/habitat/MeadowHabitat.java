@@ -8,12 +8,13 @@ import org.zoo.modelo.characteristics.Positionable;
 public class MeadowHabitat extends Habitat {
     public static int width = 64*4;
     public static int height = 64*4;
+    public static float temperature = 25;
     public MeadowHabitat(Positionable owner) {
         super(owner);
-        // Esto para coordinar ancho y alto estático con el provisto por el padre.
+        // Esto para coordinar parametros estaticos con los del padre
         setWidth(width);
         setHeight(height);
-        // Y esto es para coordinar el sprite
+        setTemperature(temperature);
         setHabitatSprite(Sprite.MEADOWHABITAT);
 
         FoodArea foodArea = new FoodArea(this,48 * 4, 0, 16 * 4, 64 * 4);
