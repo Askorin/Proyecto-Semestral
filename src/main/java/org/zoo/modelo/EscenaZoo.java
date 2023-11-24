@@ -1,11 +1,8 @@
 package org.zoo.modelo;
 
-import org.zoo.vista.*;
-
-import javax.swing.*;
-import javax.swing.event.MouseInputListener;
-import java.awt.*;
-import java.awt.event.*;
+import org.zoo.modelo.characteristics.Updatable;
+import org.zoo.modelo.placementmanager.AnimalPlacementManager;
+import org.zoo.modelo.placementmanager.HabitatPlacementManager;
 
 public class EscenaZoo implements Updatable {
     private final Zoo zoo;

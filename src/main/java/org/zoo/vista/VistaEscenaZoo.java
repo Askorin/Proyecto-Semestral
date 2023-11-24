@@ -1,5 +1,10 @@
 package org.zoo.vista;
 import org.zoo.modelo.EscenaZoo;
+import org.zoo.vista.sidepanels.LabelAnimal;
+import org.zoo.vista.sidepanels.LabelHabitat;
+import org.zoo.vista.sidepanels.PanelAnimal;
+import org.zoo.vista.sidepanels.PanelHabitat;
+import org.zoo.vista.visitor.DrawVisitor;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -36,7 +41,7 @@ public class VistaEscenaZoo extends JPanel {
         panelHabitat.addMouseListener(panelListener);
         panelAnimal.addMouseListener(panelListener);
 
-        // TODO: Cambiar nombres de org.zoo.vista.PanelAnimal y org.zoo.vista.PanelHabitat, ver si se generalizar a una clase.
+        // TODO: Cambiar nombres de org.zoo.vista.sidepanels.PanelAnimal y org.zoo.vista.sidepanels.PanelHabitat, ver si se generalizar a una clase.
         add(panelHabitat, BorderLayout.WEST);
         add(panelAnimal, BorderLayout.EAST);
 
