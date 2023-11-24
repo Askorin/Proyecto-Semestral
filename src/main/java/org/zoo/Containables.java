@@ -1,5 +1,7 @@
 package org.zoo;
 
+import org.zoo.modelo.characteristics.Unblockable;
+import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.vista.Drawable;
 
 import java.util.ArrayList;
