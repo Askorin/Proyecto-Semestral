@@ -43,6 +43,7 @@ public class Zoo
         System.out.println(habitat);
         // TODO: Esto es pal meme.
         {
+            habitat.getContainables().addComponent(new TextMessage(habitat, "class Cat implements Moonwalk"));
             habitat.getContainables().addComponent(new Gato(habitat, 0, 100));
         }
         habitat.x = x;//habitat.x = x + cameraX; //TODO:

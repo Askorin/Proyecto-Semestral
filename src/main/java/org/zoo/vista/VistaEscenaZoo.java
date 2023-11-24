@@ -48,7 +48,6 @@ public class VistaEscenaZoo extends JPanel {
     }
     @Override
     protected void paintComponent(Graphics g) {
-        System.out.println("Hola!");
         super.paintComponent(g);
     }
     public class ZooListener implements MouseInputListener, MouseMotionListener {
