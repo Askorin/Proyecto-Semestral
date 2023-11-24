@@ -1,7 +1,7 @@
 package org.zoo.modelo.food;
 
 import org.zoo.modelo.habitat.Habitat;
-import org.zoo.modelo.utilities.Hitbox;
+import org.zoo.utilities.Hitbox;
 import org.zoo.modelo.characteristics.Unblockable;
 import org.zoo.vista.Drawable;
 import org.zoo.modelo.characteristics.Positionable;

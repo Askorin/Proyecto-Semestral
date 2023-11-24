@@ -1,7 +1,7 @@
 package org.zoo.modelo.states;
 
-import org.zoo.modelo.utilities.Hitbox;
-import org.zoo.modelo.utilities.Point;
+import org.zoo.utilities.Hitbox;
+import org.zoo.utilities.Point;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 

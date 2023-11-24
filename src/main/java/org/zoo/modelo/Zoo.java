@@ -2,7 +2,7 @@ package org.zoo.modelo;
 
 import org.zoo.Containables;
 import org.zoo.modelo.characteristics.Updatable;
-import org.zoo.modelo.utilities.Utilities;
+import org.zoo.utilities.Utilities;
 import org.zoo.modelo.animal.Gato;
 import org.zoo.modelo.habitat.EnumHabitat;
 import org.zoo.modelo.habitat.Habitat;

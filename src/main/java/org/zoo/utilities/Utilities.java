@@ -1,4 +1,4 @@
-package org.zoo.modelo.utilities;
+package org.zoo.utilities;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
