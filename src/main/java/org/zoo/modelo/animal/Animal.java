@@ -4,12 +4,15 @@ import org.zoo.modelo.*;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.states.*;
+import org.zoo.utilities.Hitbox;
+import org.zoo.utilities.Point;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.visitor.Visitor;
 
 public abstract class Animal implements Updatable, Drawable {
     public int x;
     public int y;
+    protected Hitbox hitbox;
     private int width;
     private int height;
     public Sprite currentSprite;
@@ -21,10 +24,10 @@ public abstract class Animal implements Updatable, Drawable {
     private long hungerCurrentMs;
     private long HUNGER_LIMIT_MS;
     private long HUNGER_MAX_LIMIT_MS;
-    public Animal(Habitat ownerHabitat, int x , int y) {
+    public Animal(Habitat ownerHabitat, Point p) {
         this.ownerHabitat = ownerHabitat;
-        this.x = x;
-        this.y = y;
+        this.x = p.x;
+        this.y = p.y;
 
         initMs = System.currentTimeMillis();
         currentMs = initMs;
@@ -121,5 +124,9 @@ public abstract class Animal implements Updatable, Drawable {
 
     public Sprite getCurrentSprite() {
         return currentSprite;
+    }
+
+    public Hitbox getHitbox() {
+        return hitbox;
     }
 }

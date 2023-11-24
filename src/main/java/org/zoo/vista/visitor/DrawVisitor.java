@@ -88,14 +88,14 @@ public class DrawVisitor extends JPanel implements Visitor {
     public void visitHabitatPlacementManager(HabitatPlacementManager hpm) {
         if (hpm.isActivo()) {
             Sprite spr = hpm.getEnumHabitat().getSprite();
-            RenderedSprite.draw(spr, g, hpm.getMouseX(), hpm.getMouseY(), 0, 0, 0, 0.45f);
+            RenderedSprite.draw(spr, g, hpm.getAbsX() - getCameraX(), hpm.getAbsY() - getCameraY(), 0, 0, 0, 0.45f);
         }
     }
 
     public void visitAnimalPlacementManager(AnimalPlacementManager apm) {
         if (apm.isActivo()) {
             Sprite spr = apm.getEnumAnimal().getSprite();
-            RenderedSprite.draw(spr, g, apm.getMouseX(), apm.getMouseY(), 0, 0, 0, 0.7f );
+            RenderedSprite.draw(spr, g, apm.getAbsX() - getCameraX(), apm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f );
         }
     }
 
@@ -141,6 +141,7 @@ public class DrawVisitor extends JPanel implements Visitor {
 
 
     ///// CAMERA //TODO: Mover a otra clase, ojala no anidada a esta?
+    // TODO: ESO SUENA COMO UNA MUY BUENA IDEA!
 
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;

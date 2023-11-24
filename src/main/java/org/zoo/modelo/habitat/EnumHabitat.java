@@ -2,6 +2,7 @@ package org.zoo.modelo.habitat;
 
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.characteristics.Positionable;
+import org.zoo.utilities.Point;
 
 // TODO: Reconsiderar todo esto.
 public enum EnumHabitat {
@@ -39,10 +40,10 @@ public enum EnumHabitat {
         return sprite;
     }
 
-    public Habitat newInstance(Positionable owner) {
+    public Habitat newInstance(Positionable owner, Point p) {
         Habitat habitat = null;
         try {
-            habitat = (Habitat) tipo.getDeclaredConstructor(Positionable.class).newInstance(owner);
+            habitat = (Habitat) tipo.getDeclaredConstructor(Positionable.class, Point.class).newInstance(owner, p);
         } catch (Exception e) {
             e.printStackTrace();
         }

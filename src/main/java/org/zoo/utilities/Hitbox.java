@@ -12,7 +12,15 @@ public class Hitbox {
         this.height = height;
     }
 
-    static public boolean checkHitboxCollision(Hitbox hitbox1, Hitbox hitbox2) {
+    public static boolean checkPointHitboxCollision(Hitbox hitbox, Point p) {
+        /*
+         * Podemos crear un hitbox de ancho y largo 0, y ocupar la función
+         * checkHitboxCollision
+         */
+        return checkHitboxCollision(hitbox, new Hitbox(p.x, p.y, 0, 0));
+    }
+
+    public static boolean checkHitboxCollision(Hitbox hitbox1, Hitbox hitbox2) {
         boolean cond1 = false;
         boolean cond2 = false;
 

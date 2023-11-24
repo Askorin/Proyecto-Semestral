@@ -2,8 +2,11 @@ package org.zoo.modelo.habitat;
 
 import org.zoo.Containables;
 import org.zoo.modelo.Sprite;
+import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.animal.Animal;
+import org.zoo.utilities.Hitbox;
+import org.zoo.utilities.Point;
 import org.zoo.vista.Drawable;
 import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.vista.visitor.Visitor;
@@ -14,27 +17,24 @@ public abstract class Habitat implements Updatable, Drawable {
     public int y;
     public int width;
     public int height;
+    protected Hitbox hitbox;
     protected Sprite habitatSprite;
     private Containables containables;
-    public Habitat(Positionable owner) {
+    public Habitat(Positionable owner, Point p) {
         this.owner = owner;
+        this.x = p.x;
+        this.y = p.y;
         containables = new Containables();
     }
     public void accept(Visitor v) {
         v.visitHabitat(this);
-        // int x = absPoint.x + this.x;
-        // int y = absPoint.y + this.y;
-
-        // habitatSprite.drawSprite(g, x, y, getWidth(), getHeight(), 0, 1.0f);
-        // for (Drawable d: getContainables().getDrawables()) {
-        //     d.draw(g, x, y);
-        // }
     }
 
     @Override
     public int getAbsX() {
         return x + owner.getAbsX();
     }
+    @Override
     public int getAbsY() {
         return y + owner.getAbsY();
     }
@@ -49,7 +49,9 @@ public abstract class Habitat implements Updatable, Drawable {
         return containables;
     }
 
-    public void addAnimal(Animal a) {
+    // TODO: Hacer que retorne boolean, true en caso de ser exitoso, false en caso de no serlo.
+    public void addAnimal(EnumAnimal enumAnimal, Point p) {
+        Animal a = enumAnimal.newInstance(this, p);
         getContainables().addComponent(a);
     }
   
@@ -71,5 +73,9 @@ public abstract class Habitat implements Updatable, Drawable {
     }
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public Hitbox getHitbox() {
+        return hitbox;
     }
 }

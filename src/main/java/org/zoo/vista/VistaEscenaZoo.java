@@ -48,7 +48,6 @@ public class VistaEscenaZoo extends JPanel {
     }
     @Override
     protected void paintComponent(Graphics g) {
-        System.out.println("Hola!");
         super.paintComponent(g);
     }
     public class ZooListener implements MouseInputListener, MouseMotionListener {
@@ -96,17 +95,26 @@ public class VistaEscenaZoo extends JPanel {
 
         @Override
         public void mouseMoved(MouseEvent mouseEvent) {
-            int mouseX = mouseEvent.getX();
-            int mouseY = mouseEvent.getY();
+            // TODO: Acá se deberia setear un X distinto para hpm y apm!
+            // relativo a camara.
 
-            escenaZoo.getHabitatPlacementManager().setMouseX(mouseX);
-            escenaZoo.getHabitatPlacementManager().setMouseY(mouseY);
+            // RenderZoo actualiza posición del cursero para uso con camara.
+            renderZoo.setMouseX(mouseEvent.getX());
+            renderZoo.setMouseY(mouseEvent.getY());
 
-            escenaZoo.getAnimalPlacementManager().setMouseX(mouseX);
-            escenaZoo.getAnimalPlacementManager().setMouseY(mouseY);
 
-            renderZoo.setMouseX(mouseX);
-            renderZoo.setMouseY(mouseY);
+            // Acá actualizamos la posición de los placement managers.
+            int placementX = mouseEvent.getX() + renderZoo.getCameraX();
+            int placementY = mouseEvent.getY() + renderZoo.getCameraY();
+
+            escenaZoo.getHabitatPlacementManager().setX(placementX);
+            escenaZoo.getHabitatPlacementManager().setY(placementY);
+
+            escenaZoo.getAnimalPlacementManager().setX(placementX);
+            escenaZoo.getAnimalPlacementManager().setY(placementY);
+
+            // System.out.println("MouseX: " + mouseX);
+            // System.out.println("MouseX Placement: " + escenaZoo.getHabitatPlacementManager().getX());
         }
     }
     public class PanelListener implements MouseInputListener {
