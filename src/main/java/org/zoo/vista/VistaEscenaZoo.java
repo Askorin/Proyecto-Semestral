@@ -58,11 +58,6 @@ public class VistaEscenaZoo extends JPanel {
 
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
-
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent mouseEvent) {
             if (escenaZoo.getHabitatPlacementManager().isActivo()) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                     escenaZoo.getHabitatPlacementManager().place();
@@ -76,6 +71,11 @@ public class VistaEscenaZoo extends JPanel {
                 }
                 escenaZoo.getAnimalPlacementManager().disablePlacement();
             }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent mouseEvent) {
+
         }
 
         @Override
@@ -120,17 +120,17 @@ public class VistaEscenaZoo extends JPanel {
     public class PanelListener implements MouseInputListener {
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
             Component source = mouseEvent.getComponent();
             if (source instanceof LabelHabitat label) {
                 escenaZoo.getHabitatPlacementManager().enablePlacement(label.getEnumHabitat());
             } else if (source instanceof LabelAnimal label) {
                 escenaZoo.getAnimalPlacementManager().enablePlacement(label.getEnumAnimal());
             }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent mouseEvent) {
-
         }
 
         @Override

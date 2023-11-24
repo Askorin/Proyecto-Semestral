@@ -60,25 +60,6 @@ public class FoodArea implements Drawable, Unblockable {
     @Override
     public void accept(Visitor v) {
         v.visitFoodArea(this);
-        // int x = this.x + absX;
-        // int y = this.y + absY;
-        // g.setColor(new Color(85, 28, 19));
-        // g.fillRect(x, y, width, height);
-        // g.setColor(new Color(137, 58, 27));
-        // g.fillRect(x, y, width, 8);
-        // g.fillRect(x, y + height - 8, width, 8);
-        // g.fillRect(x, y, 8, height);
-        // g.fillRect(x + width - 8, y, 8, height);
-
-        // for (FoodDisplay fd: allFoodDisplays) {
-        //     fd.draw(g, x, y);
-        // }
-
-        // g.setColor(new Color(195, 95, 29));
-        // g.fillRect(x, y, width, 4);
-        // g.fillRect(x, y + height - 4, width, 4);
-        // g.fillRect(x, y, 4, height);
-        // g.fillRect(x + width - 4, y, 4, height);
     }
 
     @Override
@@ -139,14 +120,6 @@ public class FoodArea implements Drawable, Unblockable {
         @Override
         public void accept(Visitor v) {
             v.visitFoodDisplay(this);
-
-            // int x = this.x + absX;
-            // int y = this.y + absY;
-            // if (true) {//Borrar luego
-            //     g.setColor(Color.CYAN);
-            //     g.drawRect(x, y, width, height);
-            // }
-            // food.getInGameSprite().drawSprite(g, x, y, width, height, 0, 1.0f);
         }
         @Override
         public int getAbsX() {

@@ -6,7 +6,15 @@ import org.zoo.vista.Drawable;
 
 import java.util.ArrayList;
 
+
 public class Containables {
+    /*
+     * Es importante seguir las siguientes reglas:
+     * 1- No ocupar un iterador para pasar por elementos updatable.
+     * 2- Ocupar un for loop simple que se recorra al revés.
+     * 3- Ningún elemento puede eliminar a otro que no sea si mismo.
+     * Esto para evitar problemas de modificación de arreglos concurrent.
+     */
     private ArrayList<Updatable> updatables;
     private ArrayList<Drawable> drawables;
     private ArrayList<Unblockable> unblockables;

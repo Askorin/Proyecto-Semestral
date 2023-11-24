@@ -99,7 +99,8 @@ public class Zoo
     }
 
     public void update() {
-        for (Updatable u: getContainables().getUpdatables()) {
+        for (int i = getContainables().getUpdatables().size() - 1; i >= 0; --i) {
+            Updatable u = getContainables().getUpdatables().get(i);
             if (u != null) {u.update();}
         }
     }
