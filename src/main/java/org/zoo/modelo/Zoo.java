@@ -2,7 +2,9 @@ package org.zoo.modelo;
 
 import org.zoo.Containables;
 import org.zoo.modelo.characteristics.Updatable;
-import org.zoo.modelo.utilities.Utilities;
+import org.zoo.utilities.Point;
+import org.zoo.utilities.Hitbox;
+import org.zoo.utilities.Utilities;
 import org.zoo.modelo.animal.Gato;
 import org.zoo.modelo.habitat.EnumHabitat;
 import org.zoo.modelo.habitat.Habitat;
@@ -19,6 +21,7 @@ public class Zoo
 
     private int width; private int height;
     private Image backgroundImage;
+    // TODO: Se podría tener una arraylist de habitats?
     private Containables containables;
     private HabitatPlacementManager habitatPlacementManager;
     private AnimalPlacementManager animalPlacementManager;
@@ -37,19 +40,40 @@ public class Zoo
         addHabitat(64, 128, EnumHabitat.MEADOW);
     }
 
-    // TODO: Pasar enumHabitat o org.zoo.modelo.habitat.Habitat? Es este método una buena idea siquiera?
-    public void addHabitat(int x, int y, EnumHabitat enumHabitat) {
-        Habitat habitat = enumHabitat.newInstance(this);
-        System.out.println(habitat);
+    public boolean addHabitat(int x, int y, EnumHabitat enumHabitat) {
+        Habitat habitat = enumHabitat.newInstance(this, new Point(x, y));
         // TODO: Esto es pal meme.
         {
             habitat.getContainables().addComponent(new TextMessage(habitat, "class Cat implements Moonwalk"));
-            habitat.getContainables().addComponent(new Gato(habitat, 0, 100));
+            habitat.getContainables().addComponent(new Gato(habitat, new Point(0, 100)));
         }
-        habitat.x = x;//habitat.x = x + cameraX; //TODO:
-        habitat.y = y;//habitat.y = y + cameraY;
-        
+        habitat.x = x;
+        habitat.y = y;
+
+        for (Drawable d: getContainables().getDrawables()) {
+            if (d instanceof Habitat h) {
+                if (Hitbox.checkHitboxCollision(h.getHitbox(), habitat.getHitbox())) {
+                    System.out.println("Uh oooh");
+                    return false;
+                }
+            }
+        }
         getContainables().addComponent(habitat);
+        return true;
+    }
+
+    /**
+     * Retorna el habitat que contiene un punto específico, retorna null si no existe.
+     */
+    public Habitat getHabitatFromPoint(Point p) {
+        for (Drawable d: getContainables().getDrawables()) {
+            if (d instanceof Habitat h)   {
+                if (Hitbox.checkPointHitboxCollision(h.getHitbox(), p)) {
+                    return h;
+                }
+            }
+        }
+        return null;
     }
 
     public void accept(Visitor v) {

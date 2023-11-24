@@ -2,7 +2,7 @@ package org.zoo.vista.visitor;
 
 import org.zoo.App;
 import org.zoo.modelo.*;
-import org.zoo.modelo.utilities.Point;
+import org.zoo.utilities.Point;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.habitat.Habitat;
@@ -103,7 +103,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         if (currentLayer == Layer.FRONT) {
             if (hpm.isActivo()) {
                 Sprite spr = hpm.getEnumHabitat().getSprite();
-                RenderedSprite.draw(spr, g, hpm.getMouseX(), hpm.getMouseY(), 0, 0, 0, 0.45f);
+                RenderedSprite.draw(spr, g, hpm.getAbsX() - getCameraX(), hpm.getAbsY() - getCameraY(), 0, 0, 0, 0.45f);
             }
         }
     }
@@ -112,7 +112,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         if (currentLayer == Layer.FRONT) {
             if (apm.isActivo()) {
                 Sprite spr = apm.getEnumAnimal().getSprite();
-                RenderedSprite.draw(spr, g, apm.getMouseX(), apm.getMouseY(), 0, 0, 0, 0.7f);
+                RenderedSprite.draw(spr, g, apm.getAbsX() - getCameraX(), apm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f);
             }
         }
     }
@@ -193,6 +193,7 @@ public class DrawVisitor extends JPanel implements Visitor {
 
 
     ///// CAMERA //TODO: Mover a otra clase, ojala no anidada a esta?
+    // TODO: ESO SUENA COMO UNA MUY BUENA IDEA!
 
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
