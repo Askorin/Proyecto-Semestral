@@ -39,9 +39,10 @@ public class HabitatPlacementManager extends PlacementManager<EnumHabitat> imple
             height = fieldHeight.getInt(null);
         } catch (IllegalAccessException e) {}
 
-        int posX = getMouseX() - width / 2;
-        int posY = getMouseY() - height / 2;
+        int posX =getX() - width / 2;
+        int posY = getY() - height / 2;
         getZoo().addHabitat(posX, posY, enumHabitat);
+        // System.out.println("Posicionando con coordenadas: (" + posX + ", " + posY + ")");
     }
 
 
@@ -54,10 +55,10 @@ public class HabitatPlacementManager extends PlacementManager<EnumHabitat> imple
     }
 
     public int getAbsX() {
-        return getMouseX();
+        return getX();
     }
     public int getAbsY() {
-        return getMouseY();
+        return getY();
     }
 
     public EnumHabitat getEnumHabitat() {

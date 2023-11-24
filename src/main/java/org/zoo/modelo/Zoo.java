@@ -45,6 +45,7 @@ public class Zoo
         {
             habitat.getContainables().addComponent(new Gato(habitat, 0, 100));
         }
+        System.out.println(getAbsX() + ", " + getAbsY());
         habitat.x = x;//habitat.x = x + cameraX; //TODO:
         habitat.y = y;//habitat.y = y + cameraY;
         

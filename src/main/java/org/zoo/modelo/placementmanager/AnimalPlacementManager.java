@@ -48,10 +48,10 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
 
     @Override
     public int getAbsX() {
-        return getMouseX();
+        return getX();
     }
     public int getAbsY() {
-        return getMouseY();
+        return getY();
     }
 
     public EnumAnimal getEnumAnimal() {

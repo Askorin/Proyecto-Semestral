@@ -2,10 +2,9 @@ package org.zoo.modelo.placementmanager;
 
 import org.zoo.modelo.Zoo;
 
-// TODO: Hacer que agarre de cosas se produzca al centro, no en la esquina.
 abstract public class PlacementManager<T> {
     private boolean activo;
-    private int mouseX, mouseY;
+    private int x, y;
     private Zoo zoo;
     public PlacementManager() {
         activo = false;
@@ -25,20 +24,20 @@ abstract public class PlacementManager<T> {
         this.activo = activo;
     }
 
-    public int getMouseX() {
-        return mouseX;
+    public int getX() {
+        return x;
     }
 
-    public void setMouseX(int mouseX) {
-        this.mouseX = mouseX;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public int getMouseY() {
-        return mouseY;
+    public int getY() {
+        return y;
     }
 
-    public void setMouseY(int mouseY) {
-        this.mouseY = mouseY;
+    public void setY(int y) {
+        this.y = y;
     }
 
     public Zoo getZoo() {
