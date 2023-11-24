@@ -1,4 +1,4 @@
-package org.zoo.modelo.utilities;
+package org.zoo.utilities;
 
 public class Point {
     public int x;

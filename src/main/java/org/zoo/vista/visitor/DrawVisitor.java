@@ -2,7 +2,7 @@ package org.zoo.vista.visitor;
 
 import org.zoo.App;
 import org.zoo.modelo.*;
-import org.zoo.modelo.utilities.Point;
+import org.zoo.utilities.Point;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.habitat.Habitat;
@@ -43,7 +43,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         int x = animal.getAbsX() - getCameraX();
         int y = animal.getAbsY() - getCameraY();
 
-        //Dibujar org.zoo.modelo.utilities.Hitbox (Borrar luego)
+        //Dibujar org.zoo.utilities.Hitbox (Borrar luego)
         if (App.SEE_HITBOX) {
             g.setColor(Color.RED);
             g.drawRect(x, y, animal.getWidth(), animal.getHeight());

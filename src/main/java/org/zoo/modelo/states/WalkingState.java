@@ -1,8 +1,8 @@
 package org.zoo.modelo.states;
 
-import org.zoo.modelo.utilities.Utilities;
-import org.zoo.modelo.utilities.Hitbox;
-import org.zoo.modelo.utilities.Point;
+import org.zoo.utilities.Utilities;
+import org.zoo.utilities.Hitbox;
+import org.zoo.utilities.Point;
 import org.zoo.modelo.characteristics.Unblockable;
 import org.zoo.modelo.animal.Animal;
 

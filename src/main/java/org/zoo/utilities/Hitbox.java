@@ -1,4 +1,4 @@
-package org.zoo.modelo.utilities;
+package org.zoo.utilities;
 
 public class Hitbox {
     public int x;

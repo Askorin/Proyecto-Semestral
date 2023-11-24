@@ -1,7 +1,7 @@
 package org.zoo.vista;
 
 import org.zoo.modelo.Sprite;
-import org.zoo.modelo.utilities.Utilities;
+import org.zoo.utilities.Utilities;
 
 import java.awt.*;
 import java.util.ArrayList;
