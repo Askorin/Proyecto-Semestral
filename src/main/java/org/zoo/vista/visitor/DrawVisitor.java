@@ -161,10 +161,16 @@ public class DrawVisitor extends JPanel implements Visitor {
         }
     }
 
+    int textMessageCounter;
     public void visitTextMessage(TextMessage text) {
+        if (currentLayer == Layer.values()[0]) {
+            //La idea es resetear el contador cada step del Draw...
+            textMessageCounter = 0;
+            //...pero quizas hacerlo de esta manera no es lo ideal, quizas colocarlo en paintComponent
+        }
         if (currentLayer == Layer.FRONT) {
             int x = 10;
-            int y = 25;
+            int y = 25 + 25*textMessageCounter;
 
             int time = (int) (text.getTimeElapsed());
             float lifetimeRatio = ((float) time) / ((float) TextMessage.LIFETIME);
@@ -180,7 +186,7 @@ public class DrawVisitor extends JPanel implements Visitor {
             Shape textShape = glyphVector.getOutline();
 
             g2d.translate(x, y);
-            g2d.scale(2.0, 2.0);
+            g2d.scale(1.75, 1.75);
 
             g2d.setColor(Color.BLACK);
             g2d.setStroke(new BasicStroke(1.0f));
@@ -188,12 +194,15 @@ public class DrawVisitor extends JPanel implements Visitor {
 
             g2d.setColor(Color.WHITE);
             g2d.fill(textShape);
+
+            textMessageCounter += 1;
         }
     }
 
 
     ///// CAMERA //TODO: Mover a otra clase, ojala no anidada a esta?
     // TODO: ESO SUENA COMO UNA MUY BUENA IDEA!
+    // alvaro me das miedo
 
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;

@@ -15,6 +15,8 @@ public class TextMessage implements Updatable, Drawable {
     private final long initMs;
     private long currentMs;
     public static final long  LIFETIME = 8000;
+    //TODO: TextMessage, por como es actualmente, no deberia recibir ningun parametro mas que el texto...
+    // ...pero como necesitamos meterlo en un Updatables, necesitamos algo mayor donde meterlo.
     public TextMessage(Habitat ownerHabitat, String text) {
         this.ownerHabitat = ownerHabitat;
         this.text = text;
