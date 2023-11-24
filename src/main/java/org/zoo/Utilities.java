@@ -22,7 +22,7 @@ public class Utilities {
     public static Image loadImage(String path) {
         return loadImage(path, 1);
     }
-    protected static Image loadImage(String path, int scaleFactor) {
+    public static Image loadImage(String path, int scaleFactor) {
         BufferedImage buffImage = null;
         try {
             buffImage = ImageIO.read(new File(path));
