@@ -9,15 +9,19 @@ import org.zoo.utilities.Point;
 public class Gato extends Animal {
     public static int width = 80;
     public static int height = 80;
+    public static float minTemperature = 10;
+    public static float maxTemperature = 35;
     private long HUNGER_LIMIT_MS = 5000;
     private long HUNGER_MAX_LIMIT_MS = 18000;
     public Gato(Habitat habitat, Point p) {
         super(habitat, p);
-        //Hay que entregar las dimensiones del hijo para sobreescribir las dimensiones del padre
+        //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre
         setWidth(width);
         setHeight(height);
-
         this.hitbox = new Hitbox(x, y, getWidth(), getHeight());
+
+        setMinTemperature(minTemperature);
+        setMaxTempperature(maxTemperature);
 
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);

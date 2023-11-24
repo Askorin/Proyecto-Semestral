@@ -10,7 +10,7 @@ import org.zoo.utilities.Point;
 public class MeadowHabitat extends Habitat {
     public static int width = 64*4;
     public static int height = 64*4;
-    public static float temperature = 25;
+    public static float temperature = 5;
   
     public MeadowHabitat(Positionable owner, Point p) {
         super(owner, p);

@@ -2,6 +2,7 @@ package org.zoo.modelo.habitat;
 
 import org.zoo.Containables;
 import org.zoo.modelo.Sprite;
+import org.zoo.modelo.TextMessage;
 import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.animal.Animal;
@@ -55,10 +56,16 @@ public abstract class Habitat implements Updatable, Drawable {
         return containables;
     }
 
-    // TODO: Hacer que retorne boolean, true en caso de ser exitoso, false en caso de no serlo.
-    public void addAnimal(EnumAnimal enumAnimal, Point p) {
+    public boolean addAnimal(EnumAnimal enumAnimal, Point p) {
         Animal a = enumAnimal.newInstance(this, p);
+        //Revisamos si la temperatura falla
+        if (a.getMinTemperature() > temperature || a.getMaxTempperature() < temperature) {
+            String text = "La temperatura del hábitat no es óptima para el animal";
+            getContainables().addComponent(new TextMessage(this, text));
+            return false;
+        }
         getContainables().addComponent(a);
+        return true;
     }
   
     //Es necesario llamar a metodos setters en el constructor de los hijos, para sobreescribir atributos del padre

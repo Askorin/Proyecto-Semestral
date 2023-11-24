@@ -15,6 +15,8 @@ public abstract class Animal implements Updatable, Drawable {
     protected Hitbox hitbox;
     private int width;
     private int height;
+    private float minTemperature;
+    private float maxTempperature;
     public Sprite currentSprite;
     public State currentState;
     public Habitat ownerHabitat;
@@ -134,7 +136,18 @@ public abstract class Animal implements Updatable, Drawable {
         return height;
     }
     protected void setHeight(int height) {this.height = height;}
-
+    public float getMinTemperature() {
+        return minTemperature;
+    }
+    protected void setMinTemperature(float minTemperature) {
+        this.minTemperature = minTemperature;
+    }
+    public float getMaxTempperature() {
+        return maxTempperature;
+    }
+    protected void setMaxTempperature(float maxTempperature) {
+        this.maxTempperature = maxTempperature;
+    }
     public Sprite getCurrentSprite() {
         return currentSprite;
     }

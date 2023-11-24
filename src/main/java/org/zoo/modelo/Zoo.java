@@ -1,6 +1,7 @@
 package org.zoo.modelo;
 
 import org.zoo.Containables;
+import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.utilities.Point;
 import org.zoo.utilities.Hitbox;
@@ -44,8 +45,7 @@ public class Zoo
         Habitat habitat = enumHabitat.newInstance(this, new Point(x, y));
         // TODO: Esto es pal meme.
         {
-            habitat.getContainables().addComponent(new TextMessage(habitat, "class Cat implements Moonwalk"));
-            habitat.getContainables().addComponent(new Gato(habitat, new Point(0, 100)));
+            habitat.addAnimal(EnumAnimal.GATO, new Point(0, 100));
         }
         habitat.x = x;
         habitat.y = y;
