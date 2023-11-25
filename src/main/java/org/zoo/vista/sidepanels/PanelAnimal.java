@@ -6,10 +6,11 @@ import org.zoo.vista.VistaEscenaZoo;
 
 import javax.swing.*;
 
-public class PanelAnimal extends JPanel {
+public class PanelAnimal extends ItemPanel {
     public PanelAnimal(AnimalPlacementManager animalPlacementManager, VistaEscenaZoo.PanelListener panelListener) {
-        super();
+        super(panelListener);
         crearLabelsAnimal(animalPlacementManager, panelListener);
+        addNavArrow(128, 128, panelListener);
     }
     private void crearLabelsAnimal(AnimalPlacementManager animalPlacementManager, VistaEscenaZoo.PanelListener panelListener) {
         for (EnumAnimal enumAnimal : EnumAnimal.values()) {

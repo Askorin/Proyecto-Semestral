@@ -1,9 +1,8 @@
 package org.zoo.vista;
 import org.zoo.modelo.EscenaZoo;
-import org.zoo.vista.sidepanels.LabelAnimal;
-import org.zoo.vista.sidepanels.LabelHabitat;
-import org.zoo.vista.sidepanels.PanelAnimal;
-import org.zoo.vista.sidepanels.PanelHabitat;
+import org.zoo.modelo.placementmanager.AnimalPlacementManager;
+import org.zoo.modelo.placementmanager.HabitatPlacementManager;
+import org.zoo.vista.sidepanels.*;
 import org.zoo.vista.visitor.DrawVisitor;
 
 import javax.swing.*;
@@ -15,6 +14,7 @@ import java.awt.event.MouseMotionListener;
 public class VistaEscenaZoo extends JPanel {
     private final DrawVisitor renderZoo;
     private final EscenaZoo escenaZoo;
+    private PanelContainer panelContainer;
     public VistaEscenaZoo(EscenaZoo escenaZoo) {
         /* No queremos que swing llame repaint. */
         setIgnoreRepaint(true);
@@ -32,18 +32,23 @@ public class VistaEscenaZoo extends JPanel {
         renderZoo.addMouseMotionListener(zooListener);
 
         /* Layout, comenzamos a añadir cosas al JPanel. */
-        setLayout(new BorderLayout());
-        add(renderZoo, BorderLayout.CENTER);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(renderZoo);
 
         /* Paneles. */
-        PanelHabitat panelHabitat = new PanelHabitat(escenaZoo.getHabitatPlacementManager(), panelListener);
-        PanelAnimal panelAnimal = new PanelAnimal(escenaZoo.getAnimalPlacementManager(), panelListener);
-        panelHabitat.addMouseListener(panelListener);
-        panelAnimal.addMouseListener(panelListener);
+        AnimalPlacementManager apm = escenaZoo.getAnimalPlacementManager();
+        HabitatPlacementManager hpm = escenaZoo.getHabitatPlacementManager();
+        panelContainer = new PanelContainer(apm, hpm, panelListener);
+        add(panelContainer);
+
+        // PanelHabitat panelHabitat = new PanelHabitat(escenaZoo.getHabitatPlacementManager(), panelListener);
+        // PanelAnimal panelAnimal = new PanelAnimal(escenaZoo.getAnimalPlacementManager(), panelListener);
+        // panelHabitat.addMouseListener(panelListener);
+        // panelAnimal.addMouseListener(panelListener);
 
         // TODO: Cambiar nombres de org.zoo.vista.sidepanels.PanelAnimal y org.zoo.vista.sidepanels.PanelHabitat, ver si se generalizar a una clase.
-        add(panelHabitat, BorderLayout.WEST);
-        add(panelAnimal, BorderLayout.EAST);
+        // add(panelHabitat);
+        // add(panelAnimal, BorderLayout.EAST);
 
     }
     @Override
@@ -130,6 +135,8 @@ public class VistaEscenaZoo extends JPanel {
                 escenaZoo.getHabitatPlacementManager().enablePlacement(label.getEnumHabitat());
             } else if (source instanceof LabelAnimal label) {
                 escenaZoo.getAnimalPlacementManager().enablePlacement(label.getEnumAnimal());
+            } else if (source instanceof LabelNavArrow) {
+                panelContainer.nextPanel();
             }
         }
 

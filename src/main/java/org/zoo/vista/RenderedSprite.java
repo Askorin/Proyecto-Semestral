@@ -9,7 +9,7 @@ import java.util.ArrayList;
 //Clase estatica no instanciable
 public class RenderedSprite {
     private static boolean loaded = false;
-    public static final int SCALE_FACTOR = 4; //Util si queremos hacer pixelart
+    public static final int SCALE_FACTOR = 4; // Util si queremos hacer pixelart
     private static ArrayList<ArrayList<Image>> frames; //Conjunto de las imagenes individuales de todos los Sprites
     private RenderedSprite() {}
     public static void loadSprites() {

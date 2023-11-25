@@ -41,6 +41,8 @@ public class DrawVisitor extends JPanel implements Visitor {
         cameraHeight = 850;
         cameraWidth = 480;
 
+        setPreferredSize(new Dimension(cameraWidth, cameraHeight));
+
         RenderedSprite.loadSprites(); //Importante
     }
     public void visitAnimal(Animal animal) {
