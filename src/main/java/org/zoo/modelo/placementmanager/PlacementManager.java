@@ -15,7 +15,7 @@ abstract public class PlacementManager<T> {
     public abstract void enablePlacement(T sujeto);
     public abstract void disablePlacement();
     public abstract void place();
-    public void setVistaZoo(Zoo zoo) {
+    public void setZoo(Zoo zoo) {
         this.zoo = zoo;
     }
 

@@ -4,6 +4,7 @@ import org.zoo.modelo.placementmanager.PlacementManager;
 import org.zoo.vista.VistaEscenaZoo;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class ItemPanel extends JPanel {
     public ItemPanel(VistaEscenaZoo.PanelListener panelListener) {
@@ -12,12 +13,19 @@ public class ItemPanel extends JPanel {
         add(Box.createHorizontalStrut(50));
     }
 
-    public void addNavArrow(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
-        /* Esto es para la flecha de navegación panel */
-        LabelNavArrow labelNavArrow = new LabelNavArrow(width, height);
+    public void addNavArrowR(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
+        LabelNavArrow labelNavArrow = new LabelNavArrow(width, height, LabelNavArrow.NavArrowOrientation.RIGHT);
         labelNavArrow.addMouseListener(panelListener);
-        add(Box.createGlue());
+        add(Box.createHorizontalGlue());
         add(labelNavArrow);
-        add(Box.createHorizontalStrut(50));
+        this.setBorder(BorderFactory.createLineBorder(Color.RED));
+    }
+
+    public void addNavArrowL(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
+        LabelNavArrow labelNavArrow = new LabelNavArrow(width, height, LabelNavArrow.NavArrowOrientation.LEFT);
+        labelNavArrow.addMouseListener(panelListener);
+        labelNavArrow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        add(labelNavArrow);
+        add(Box.createHorizontalGlue());
     }
 }

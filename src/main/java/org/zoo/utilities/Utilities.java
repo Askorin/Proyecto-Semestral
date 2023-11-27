@@ -19,6 +19,7 @@ public class Utilities {
         int vectorY = (int)(norm * (vectorYnotNorm) / vectorNorm);
         return  new Point(vectorX, vectorY);
     }
+    // TODO: Retornar BufferedImage?
     public static Image loadImage(String path) {
         return loadImage(path, 1);
     }

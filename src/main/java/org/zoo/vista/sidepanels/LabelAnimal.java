@@ -12,11 +12,9 @@ import java.io.IOException;
 public class LabelAnimal extends JLabel {
 
     private EnumAnimal enumAnimal;
-    private AnimalPlacementManager animalPlacementManager;
-    LabelAnimal(int width, int height, EnumAnimal enumAnimal, AnimalPlacementManager animalPlacementManager) {
+    LabelAnimal(int width, int height, EnumAnimal enumAnimal) {
         super();
         this.enumAnimal = enumAnimal;
-        this.animalPlacementManager = animalPlacementManager;
         setSize(width, height);
         setPreferredSize(new Dimension(getWidth(), getHeight()));
         BufferedImage imagen = null;

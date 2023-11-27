@@ -11,15 +11,16 @@ import java.io.IOException;
 
 public class PanelHabitat extends ItemPanel {
 
-    public PanelHabitat(HabitatPlacementManager habitatPlacementManager, VistaEscenaZoo.PanelListener panelListener) {
+    public PanelHabitat(VistaEscenaZoo.PanelListener panelListener) {
         super(panelListener);
-        crearLabelsHabitat(habitatPlacementManager, panelListener);
-        addNavArrow(128, 128, panelListener);
+        addNavArrowL(128, 128, panelListener);
+        crearLabelsHabitat(panelListener);
+        addNavArrowR(128, 128, panelListener);
     }
 
-    private void crearLabelsHabitat(HabitatPlacementManager habitatPlacementManager, VistaEscenaZoo.PanelListener panelListener) {
+    private void crearLabelsHabitat(VistaEscenaZoo.PanelListener panelListener) {
         for (EnumHabitat enumHabitat : EnumHabitat.values()) {
-            LabelHabitat labelHabitat = new LabelHabitat(100, 100, enumHabitat, habitatPlacementManager);
+            LabelHabitat labelHabitat = new LabelHabitat(100, 100, enumHabitat);
             labelHabitat.addMouseListener(panelListener);
             add(labelHabitat);
         }

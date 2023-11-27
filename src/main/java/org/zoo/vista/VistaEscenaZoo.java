@@ -76,6 +76,13 @@ public class VistaEscenaZoo extends JPanel {
                 }
                 escenaZoo.getAnimalPlacementManager().disablePlacement();
             }
+
+            if (escenaZoo.getFoodPlacementManager().isActivo()) {
+                if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
+                    escenaZoo.getFoodPlacementManager().place();;
+                }
+                escenaZoo.getFoodPlacementManager().disablePlacement();
+            }
         }
 
         @Override
@@ -118,8 +125,8 @@ public class VistaEscenaZoo extends JPanel {
             escenaZoo.getAnimalPlacementManager().setX(placementX);
             escenaZoo.getAnimalPlacementManager().setY(placementY);
 
-            // System.out.println("MouseX: " + mouseX);
-            // System.out.println("MouseX Placement: " + escenaZoo.getHabitatPlacementManager().getX());
+            escenaZoo.getFoodPlacementManager().setX(placementX);
+            escenaZoo.getFoodPlacementManager().setY(placementY);
         }
     }
     public class PanelListener implements MouseInputListener {
@@ -130,13 +137,20 @@ public class VistaEscenaZoo extends JPanel {
 
         @Override
         public void mousePressed(MouseEvent mouseEvent) {
+            escenaZoo.getHabitatPlacementManager().disablePlacement();
+            escenaZoo.getAnimalPlacementManager().disablePlacement();
+            escenaZoo.getFoodPlacementManager().disablePlacement();
+
             Component source = mouseEvent.getComponent();
+            // TODO: Esto se puede generalizar
             if (source instanceof LabelHabitat label) {
                 escenaZoo.getHabitatPlacementManager().enablePlacement(label.getEnumHabitat());
             } else if (source instanceof LabelAnimal label) {
                 escenaZoo.getAnimalPlacementManager().enablePlacement(label.getEnumAnimal());
-            } else if (source instanceof LabelNavArrow) {
-                panelContainer.nextPanel();
+            } else if (source instanceof LabelFood label) {
+                escenaZoo.getFoodPlacementManager().enablePlacement(label.getEnumFood());
+            } else if (source instanceof LabelNavArrow label) {
+                panelContainer.switchPanel(label);
             }
         }
 

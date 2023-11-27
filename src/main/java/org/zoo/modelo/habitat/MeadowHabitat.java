@@ -1,7 +1,7 @@
 package org.zoo.modelo.habitat;
 
 import org.zoo.modelo.Sprite;
-import org.zoo.modelo.food.Food;
+import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.utilities.Hitbox;
@@ -26,14 +26,14 @@ public class MeadowHabitat extends Habitat {
          * Si en algún futuro se desea ocupar las coordenadas absolutas por alguna
          * razón, se puede crear Hitbox(getAbsX(), getAbsY()...)
          */
-        this.hitbox = new Hitbox(x, y, getWidth(), getHeight());
+        this.absHitbox = new Hitbox(x, y, getWidth(), getHeight());
 
         // Y esto es para coordinar el sprite
         setHabitatSprite(Sprite.MEADOWHABITAT);
 
         FoodArea foodArea = new FoodArea(this,48 * 4, 0, 16 * 4, 64 * 4);
         getContainables().addComponent(foodArea);
-        foodArea.add(Food.FISH);
-        foodArea.add(Food.FISH);
+        foodArea.add(EnumFood.FISH);
+        foodArea.add(EnumFood.FISH);
     }
 }

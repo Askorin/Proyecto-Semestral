@@ -1,6 +1,6 @@
 package org.zoo.modelo.states;
 
-import org.zoo.modelo.food.Food;
+import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.animal.Animal;
 
@@ -33,7 +33,7 @@ public class StarvingState implements State {
         FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
 
         if (targetFood != null) {
-            if (targetFood.find(Food.FISH)) {
+            if (targetFood.find(EnumFood.FISH)) {
                 return true;
             }
         }

@@ -4,7 +4,7 @@ import org.zoo.modelo.Sprite;
 import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.utilities.Point;
 
-// TODO: Reconsiderar todo esto.
+// TODO: Mover path a sprite, return ingameSprite, hacerlo igual que food.
 public enum EnumHabitat {
     MEADOW("Meadow", "/meadowHabitat.png", "/habitat.png", MeadowHabitat.class, Sprite.MEADOWHABITAT);
     private final String nombre;

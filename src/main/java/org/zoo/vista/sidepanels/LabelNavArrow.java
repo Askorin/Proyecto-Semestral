@@ -7,16 +7,35 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class LabelNavArrow extends JLabel {
-    public LabelNavArrow(int width, int height) {
+    private NavArrowOrientation orientation;
+    public LabelNavArrow(int width, int height, NavArrowOrientation orientation) {
         super();
+        this.orientation = orientation;
         setSize(new Dimension(width, height));
         BufferedImage imagen = null;
         try {
-            imagen = ImageIO.read(getClass().getResource("/NavArrow.png"));
+            imagen = ImageIO.read(getClass().getResource(orientation.getPath()));
         } catch (IOException e) {
             System.err.println(e);
         }
         Image reImg = imagen.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
         setIcon(new ImageIcon(reImg));
+    }
+
+    public enum NavArrowOrientation {
+        RIGHT("/NavArrowR.png"),
+        LEFT("/NavArrowL.png");
+        private String path;
+        NavArrowOrientation(String path) {
+            this.path = path;
+        }
+
+        public String getPath() {
+            return path;
+        }
+    }
+
+    public NavArrowOrientation getOrientation() {
+        return orientation;
     }
 }

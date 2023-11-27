@@ -17,15 +17,13 @@ public class PanelContainer extends JPanel {
         cardLayout = new CardLayout();
         setLayout(cardLayout);
 
-        // transitionPanel = new TransitionPanel();
-        panelAnimal = new PanelAnimal(apm, panelListener);
-        panelHabitat = new PanelHabitat(hpm, panelListener);
+        panelAnimal = new PanelAnimal(panelListener);
+        panelHabitat = new PanelHabitat(panelListener);
+        panelFood = new PanelFood(panelListener);
 
-        // add(transitionPanel);
-        add(panelAnimal);
         add(panelHabitat);
-
-        cardLayout.next(this);
+        add(panelAnimal);
+        add(panelFood);
     }
 
     @Override
@@ -33,7 +31,10 @@ public class PanelContainer extends JPanel {
         super.paintComponent(g);
     }
 
-    public void nextPanel() {
-        cardLayout.next(this);
+    public void switchPanel(LabelNavArrow labelNavArrow) {
+        switch (labelNavArrow.getOrientation()) {
+            case RIGHT -> cardLayout.next(this);
+            case LEFT -> cardLayout.previous(this);
+        }
     }
 }

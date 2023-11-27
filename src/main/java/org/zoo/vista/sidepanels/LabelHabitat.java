@@ -12,11 +12,9 @@ import java.io.IOException;
 public class LabelHabitat extends JLabel {
 
     private EnumHabitat enumHabitat;
-    private HabitatPlacementManager habitatPlacementManager;
-    LabelHabitat(int width, int height, EnumHabitat enumHabitat, HabitatPlacementManager habitatPlacementManager) {
+    LabelHabitat(int width, int height, EnumHabitat enumHabitat) {
         super();
         this.enumHabitat = enumHabitat;
-        this.habitatPlacementManager = habitatPlacementManager;
         setSize(width, height);
         setPreferredSize(new Dimension(getWidth(), getHeight()));
         BufferedImage imagen = null;
