@@ -2,6 +2,7 @@ package org.zoo.vista.visitor;
 
 import org.zoo.App;
 import org.zoo.modelo.*;
+import org.zoo.modelo.states.DeadState;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.utilities.Point;
 import org.zoo.modelo.animal.Animal;
@@ -31,6 +32,8 @@ public class DrawVisitor extends JPanel implements Visitor {
         for (Layer lyr: Layer.values()) {
             currentLayer = lyr;
             zoo.accept(this);
+
+            TextMessageManager.getInstance().accept(this);
         }
     }
     public DrawVisitor(Zoo zoo) {
@@ -47,7 +50,9 @@ public class DrawVisitor extends JPanel implements Visitor {
         RenderedSprite.loadSprites(); //Importante
     }
     public void visitAnimal(Animal animal) {
-        if (currentLayer == Layer.MIDDLE) {
+        boolean cond = (animal.getCurrentState().getClass() == DeadState.class);
+        if (    (currentLayer == Layer.MIDDLE        && !cond)
+             || (currentLayer == Layer.MIDDLE_BACK   &&  cond) ) {
             int x = animal.getAbsX() - getCameraX();
             int y = animal.getAbsY() - getCameraY();
 
@@ -63,7 +68,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
 
     public void visitHabitat(Habitat habitat) {
-        if (currentLayer == Layer.MIDDLE) {
+        if (currentLayer == Layer.MIDDLE_BACK) {
             int x = habitat.getAbsX() - getCameraX();
             int y = habitat.getAbsY() - getCameraY();
 
@@ -87,8 +92,8 @@ public class DrawVisitor extends JPanel implements Visitor {
         Point p = new Point(-cameraX, -cameraY);
 
         /* Dibujamos camara */
-        if (currentLayer == Layer.BACK) {
-            g.drawImage(zoo.getBackgroundImage(), p.x, p.y, null);
+        if (currentLayer == Layer.BOTTOM) {
+            RenderedSprite.draw(zoo.getBackgroundSprite(), g, p.x, p.y, width, height, 0, 1.0f);
         }
 
         for (Drawable d: zoo.getContainables().getDrawables()) {
@@ -104,7 +109,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
 
     public void visitHabitatPlacementManager(HabitatPlacementManager hpm) {
-        if (currentLayer == Layer.FRONT) {
+        if (currentLayer == Layer.TOP) {
             if (hpm.isActivo()) {
                 Sprite spr = hpm.getEnumHabitat().getSprite();
                 RenderedSprite.draw(spr, g, hpm.getAbsX() - getCameraX(), hpm.getAbsY() - getCameraY(), 0, 0, 0, 0.45f);
@@ -113,7 +118,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
 
     public void visitAnimalPlacementManager(AnimalPlacementManager apm) {
-        if (currentLayer == Layer.FRONT) {
+        if (currentLayer == Layer.TOP) {
             if (apm.isActivo()) {
                 Sprite spr = apm.getEnumAnimal().getSprite();
                 RenderedSprite.draw(spr, g, apm.getAbsX() - getCameraX(), apm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f);
@@ -122,7 +127,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
 
     public void visitFoodPlacementManager(FoodPlacementManager fpm) {
-        if (currentLayer == Layer.FRONT) {
+        if (currentLayer == Layer.TOP) {
             if (fpm.isActivo()) {
                 Sprite spr = fpm.getEnumFood().getInGameSprite();
                 RenderedSprite.draw(spr, g, fpm.getAbsX() - getCameraX(), fpm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f);
@@ -174,10 +179,23 @@ public class DrawVisitor extends JPanel implements Visitor {
         }
     }
 
+    int textCounter;
+    public void visitTextMessageManager(TextMessageManager manager) {
+        if (currentLayer == Layer.TOP) {
+            textCounter = 0;
+            for (Drawable d : TextMessageManager.getAllTextMessages()) {
+                // Este check de null es medio quiche.
+                if (d != null) {
+                    d.accept(this);
+                    textCounter += 1;
+                }
+            }
+        }
+    }
     public void visitTextMessage(TextMessage text) {
-        if (currentLayer == Layer.FRONT) {
+        if (currentLayer == Layer.TOP) {
             int x = 10;
-            int y = 25;
+            int y = 25 + 12*textCounter;
 
             int time = (int) (text.getTimeElapsed());
             float lifetimeRatio = ((float) time) / ((float) TextMessage.LIFETIME);
@@ -193,7 +211,7 @@ public class DrawVisitor extends JPanel implements Visitor {
             Shape textShape = glyphVector.getOutline();
 
             g2d.translate(x, y);
-            g2d.scale(2.0, 2.0);
+            g2d.scale(1.75, 1.75);
 
             g2d.setColor(Color.BLACK);
             g2d.setStroke(new BasicStroke(1.0f));
@@ -201,12 +219,15 @@ public class DrawVisitor extends JPanel implements Visitor {
 
             g2d.setColor(Color.WHITE);
             g2d.fill(textShape);
+
+            textCounter += 1;
         }
     }
 
 
     ///// CAMERA //TODO: Mover a otra clase, ojala no anidada a esta?
     // TODO: ESO SUENA COMO UNA MUY BUENA IDEA!
+    // alvaro me das miedo
 
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
@@ -254,8 +275,9 @@ public class DrawVisitor extends JPanel implements Visitor {
 
     /// Layers
     private enum Layer {
-        BACK,
+        BOTTOM,
+        MIDDLE_BACK,
         MIDDLE,
-        FRONT;
+        TOP;
     }
 }

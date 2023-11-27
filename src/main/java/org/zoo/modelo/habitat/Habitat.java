@@ -2,6 +2,8 @@ package org.zoo.modelo.habitat;
 
 import org.zoo.Containables;
 import org.zoo.modelo.Sprite;
+import org.zoo.modelo.TextMessage;
+import org.zoo.modelo.TextMessageManager;
 import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.animal.Animal;
@@ -56,10 +58,26 @@ public abstract class Habitat implements Updatable, Drawable {
         return containables;
     }
 
-    // TODO: Hacer que retorne boolean, true en caso de ser exitoso, false en caso de no serlo.
-    public void addAnimal(EnumAnimal enumAnimal, Point p) {
+    public boolean addAnimal(EnumAnimal enumAnimal, Point p) {
         Animal a = enumAnimal.newInstance(this, p);
+        //Revisamos si la temperatura falla
+        if (a.getMinTemperature() > temperature || a.getMaxTempperature() < temperature) {
+            String text = "La temperatura del hábitat no es óptima para el animal";
+            new TextMessage(text);
+            return false;
+        }
+        //Revisamos si hay un animal incompatible en el habitat
+        for (Updatable a2: getContainables().getUpdatables()) {
+            if (a2 instanceof Animal) {
+                if (!Animal.doGetAlong(a, (Animal)a2)) {
+                    String text = "El animal no es compatible con los animales del hábitat";
+                    new TextMessage(text);
+                    return false;
+                }
+            }
+        }
         getContainables().addComponent(a);
+        return true;
     }
 
     public FoodArea getFoodAreaFromPoint(Point p) {

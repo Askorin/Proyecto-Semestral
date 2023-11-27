@@ -16,5 +16,6 @@ public interface Visitor {
     public void visitFoodPlacementManager(FoodPlacementManager fpm);
     public void visitFoodDisplay(FoodArea.FoodDisplay foodDisplay);
     public void visitFoodArea(FoodArea foodArea);
+    public void visitTextMessageManager(TextMessageManager manager);
     public void visitTextMessage(TextMessage text);
 }

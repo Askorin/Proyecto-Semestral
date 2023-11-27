@@ -6,12 +6,12 @@ import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.Point;
 
-public class MeadowHabitat extends Habitat {
+public class TaigaHabitat extends Habitat {
     public static int width = 64*4;
     public static int height = 64*4;
-    public static float temperature = 15;
-  
-    public MeadowHabitat(Positionable owner, Point p) {
+    public static float temperature = 5;
+
+    public TaigaHabitat(Positionable owner, Point p) {
         super(owner, p);
         // Esto para coordinar ancho y alto estático con el provisto por el padre.
         setWidth(width);
@@ -28,9 +28,9 @@ public class MeadowHabitat extends Habitat {
         this.absHitbox = new Hitbox(x, y, getWidth(), getHeight());
 
         // Y esto es para coordinar el sprite
-        setHabitatSprite(Sprite.MEADOWHABITAT);
+        setHabitatSprite(Sprite.TAIGAHABITAT);
 
-        FoodArea foodArea = new FoodArea(this,48 * 4, 0, 16 * 4, 64 * 4);
+        FoodArea foodArea = new FoodArea(this,0, 48*4, 64 * 4, 16 * 4);
         getContainables().addComponent(foodArea);
     }
 }

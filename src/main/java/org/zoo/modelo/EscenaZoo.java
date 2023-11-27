@@ -11,6 +11,7 @@ public class EscenaZoo implements Updatable {
     // TODO: Esto no tiene tanto sentido si se puede hacer zoo.getPlacement..
     private final HabitatPlacementManager habitatPlacementManager;
     private final AnimalPlacementManager animalPlacementManager;
+    private final TextMessageManager textMessageManager;
     private final FoodPlacementManager foodPlacementManager;
     public EscenaZoo() {
         /*
@@ -33,6 +34,9 @@ public class EscenaZoo implements Updatable {
         habitatPlacementManager.setZoo(zoo);
         animalPlacementManager.setZoo(zoo);
         foodPlacementManager.setZoo(zoo);
+
+        /* Le pasamos al manejador de texto */
+        textMessageManager = TextMessageManager.getInstance();
     }
 
     public Zoo getZoo() {
@@ -52,5 +56,6 @@ public class EscenaZoo implements Updatable {
 
     public void update() {
         zoo.update();
+        textMessageManager.update();
     }
 }
