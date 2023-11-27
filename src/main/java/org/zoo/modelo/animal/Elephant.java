@@ -13,6 +13,7 @@ public class Elephant extends Animal {
     public static float minTemperature = 0;
     public static float maxTemperature = 25;
     public static Food[] prefferedFood = {Food.LEAVES};
+    public static EnumAnimal[] invalidCompanion = {EnumAnimal.GATO};
     private long HUNGER_LIMIT_MS = 5000;
     private long HUNGER_MAX_LIMIT_MS = 18000;
     public Elephant(Habitat habitat, Point p) {
@@ -26,6 +27,7 @@ public class Elephant extends Animal {
         setMaxTempperature(maxTemperature);
 
         setPrefferedFood(prefferedFood);
+        setInvalidCompanion(invalidCompanion);
 
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);

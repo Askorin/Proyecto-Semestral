@@ -65,6 +65,16 @@ public abstract class Habitat implements Updatable, Drawable {
             new TextMessage(text);
             return false;
         }
+        //Revisamos si hay un animal incompatible en el habitat
+        for (Updatable a2: getContainables().getUpdatables()) {
+            if (a2 instanceof Animal) {
+                if (!Animal.doGetAlong(a, (Animal)a2)) {
+                    String text = "El animal no es compatible con los animales del hábitat";
+                    new TextMessage(text);
+                    return false;
+                }
+            }
+        }
         getContainables().addComponent(a);
         return true;
     }

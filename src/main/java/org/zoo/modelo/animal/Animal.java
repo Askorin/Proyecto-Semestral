@@ -18,7 +18,10 @@ public abstract class Animal implements Updatable, Drawable {
     private int height;
     private float minTemperature;
     private float maxTempperature;
+    /* Nota: el orden importa, el animal va a preferir [i] antes que [i+1] */
     private Food[] prefferedFood;
+    /* Nota: no es necesario ser simetrico, Conejo NO convive con Zorro, Zorro SI convive con Conejo */
+    private EnumAnimal[] invalidCompanion;
     public Sprite currentSprite;
     public State currentState;
     public Habitat ownerHabitat;
@@ -96,6 +99,20 @@ public abstract class Animal implements Updatable, Drawable {
         //Default
         this.currentState = new WalkingState(this);
         return;
+    }
+
+    public static boolean doGetAlong(Animal animal1, Animal animal2) {
+        for (EnumAnimal a: animal1.getInvalidCompanion()) {
+            if (a.getTipo() == animal2.getClass()) {
+                return false;
+            }
+        }
+        for (EnumAnimal a: animal2.getInvalidCompanion()) {
+            if (a.getTipo() == animal1.getClass()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     //TODO: Actualmente es necesario que los hijos definan metodos para acceder a sus sprites
@@ -186,6 +203,12 @@ public abstract class Animal implements Updatable, Drawable {
     }
     protected void setPrefferedFood(Food[] prefferedFood) {
         this.prefferedFood = prefferedFood;
+    }
+    public EnumAnimal[] getInvalidCompanion() {
+        return invalidCompanion;
+    }
+    protected void setInvalidCompanion(EnumAnimal[] invalidCompanion) {
+        this.invalidCompanion = invalidCompanion;
     }
 
     public Sprite getCurrentSprite() {

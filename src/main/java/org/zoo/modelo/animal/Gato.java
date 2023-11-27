@@ -13,6 +13,7 @@ public class Gato extends Animal {
     public static float minTemperature = 10;
     public static float maxTemperature = 35;
     public static Food[] prefferedFood = {Food.FISH};
+    public static EnumAnimal[] invalidCompanion = {};
     private long HUNGER_LIMIT_MS = 5000;
     private long HUNGER_MAX_LIMIT_MS = 18000;
     public Gato(Habitat habitat, Point p) {
@@ -26,6 +27,7 @@ public class Gato extends Animal {
         setMaxTempperature(maxTemperature);
 
         setPrefferedFood(prefferedFood);
+        setInvalidCompanion(invalidCompanion);
 
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);
