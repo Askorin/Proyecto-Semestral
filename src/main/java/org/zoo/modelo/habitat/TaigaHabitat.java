@@ -33,6 +33,5 @@ public class TaigaHabitat extends Habitat {
 
         FoodArea foodArea = new FoodArea(this,0, 48*4, 64 * 4, 16 * 4);
         getContainables().addComponent(foodArea);
-        foodArea.add(Food.LEAVES);
     }
 }

@@ -104,12 +104,16 @@ public abstract class Animal implements Updatable, Drawable {
     public static boolean doGetAlong(Animal animal1, Animal animal2) {
         for (EnumAnimal a: animal1.getInvalidCompanion()) {
             if (a.getTipo() == animal2.getClass()) {
-                return false;
+                if (animal2.getCurrentState().getClass() != DeadState.class) {
+                    return false;
+                }
             }
         }
         for (EnumAnimal a: animal2.getInvalidCompanion()) {
             if (a.getTipo() == animal1.getClass()) {
-                return false;
+                if (animal1.getCurrentState().getClass() != DeadState.class) {
+                    return false;
+                }
             }
         }
         return true;

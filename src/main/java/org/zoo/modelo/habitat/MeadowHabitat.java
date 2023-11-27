@@ -33,10 +33,5 @@ public class MeadowHabitat extends Habitat {
 
         FoodArea foodArea = new FoodArea(this,48 * 4, 0, 16 * 4, 64 * 4);
         getContainables().addComponent(foodArea);
-        foodArea.add(Food.FISH);
-        foodArea.add(Food.FISH);
-        foodArea.add(Food.FISH);
-        foodArea.add(Food.FISH);
-        foodArea.add(Food.FISH);
     }
 }
