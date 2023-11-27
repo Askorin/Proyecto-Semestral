@@ -33,7 +33,7 @@ public class StarvingState implements State {
         FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
 
         if (targetFood != null) {
-            if (targetFood.find(EnumFood.FISH)) {
+            if (targetFood.find(animal.getPrefferedFood()) != null) {
                 return true;
             }
         }

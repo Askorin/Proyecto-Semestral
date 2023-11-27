@@ -11,15 +11,16 @@ public class EatingState implements State {
     private long currentMs;
     public EatingState(Animal animal) {
         this.animal = animal;
-        FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
+        FoodArea targetFoodArea = FoodArea.searchFoodContainer(animal.ownerHabitat);
         initMs = System.currentTimeMillis();
         currentMs = initMs;
 
         //Verificamos si hay comida
-        if (targetFood != null) {
-            if (targetFood.find(EnumFood.FISH)) {
+        if (targetFoodArea != null) {
+            EnumFood foundFood = targetFoodArea.find(animal.getPrefferedFood());
+            if (foundFood != null) {
                 //Si hay comida seteamos el estado
-                targetFood.remove(EnumFood.FISH);
+                targetFoodArea.remove(foundFood);
                 animal.restartHungerTimeElapsed();
                 animal.setSprite(animal.getEatSprite());
                 return;

@@ -4,7 +4,7 @@ import org.zoo.modelo.Sprite;
 
 public enum EnumFood {
     FISH(Sprite.FISH_INGAME),
-    HAY(Sprite.CAT_WALK);
+    LEAVES(Sprite.LEAVES_INGAME);
     private Sprite inGameSprite;
     private EnumFood(Sprite inGameSprite) {
         this.inGameSprite = inGameSprite;
