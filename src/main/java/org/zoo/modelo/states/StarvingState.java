@@ -1,6 +1,6 @@
 package org.zoo.modelo.states;
 
-import org.zoo.modelo.food.Food;
+import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.animal.Animal;
 

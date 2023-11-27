@@ -2,7 +2,7 @@ package org.zoo.modelo.animal;
 
 import org.zoo.modelo.*;
 import org.zoo.modelo.characteristics.Updatable;
-import org.zoo.modelo.food.Food;
+import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.states.*;
 import org.zoo.utilities.Hitbox;
@@ -19,7 +19,7 @@ public abstract class Animal implements Updatable, Drawable {
     private float minTemperature;
     private float maxTempperature;
     /* Nota: el orden importa, el animal va a preferir [i] antes que [i+1] */
-    private Food[] prefferedFood;
+    private EnumFood[] prefferedFood;
     /* Nota: no es necesario ser simetrico, Conejo NO convive con Zorro, Zorro SI convive con Conejo */
     private EnumAnimal[] invalidCompanion;
     public Sprite currentSprite;
@@ -202,10 +202,10 @@ public abstract class Animal implements Updatable, Drawable {
         this.maxTempperature = maxTempperature;
     }
 
-    public Food[] getPrefferedFood() {
+    public EnumFood[] getPrefferedFood() {
         return prefferedFood;
     }
-    protected void setPrefferedFood(Food[] prefferedFood) {
+    protected void setPrefferedFood(EnumFood[] prefferedFood) {
         this.prefferedFood = prefferedFood;
     }
     public EnumAnimal[] getInvalidCompanion() {

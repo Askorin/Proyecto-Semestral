@@ -23,18 +23,18 @@ public class FoodArea implements Drawable, Unblockable {
         this.y = y;
         this.width = width;
         this.height = height;
-        foodQuantity = new int[Food.values().length];
+        foodQuantity = new int[EnumFood.values().length];
         allFoodDisplays = new ArrayList<>();
     }
-    public void add(Food food) {
-        foodQuantity[food.ordinal()] += 1;
-        allFoodDisplays.add(new FoodDisplay(food));
+    public void add(EnumFood enumFood) {
+        foodQuantity[enumFood.ordinal()] += 1;
+        allFoodDisplays.add(new FoodDisplay(enumFood));
     }
-    public boolean remove(Food food) {
-        if (foodQuantity[food.ordinal()] > 0) {
-            foodQuantity[food.ordinal()] += -1;
+    public boolean remove(EnumFood enumFood) {
+        if (foodQuantity[enumFood.ordinal()] > 0) {
+            foodQuantity[enumFood.ordinal()] += -1;
             for (FoodDisplay fd: allFoodDisplays) {
-                if (fd.food == food) {
+                if (fd.enumFood == enumFood) {
                     allFoodDisplays.remove(fd);
                     return true;
                 }
@@ -43,8 +43,8 @@ public class FoodArea implements Drawable, Unblockable {
         }
         return false;
     }
-    public Food find(Food[] prefferedFood) {
-        for (Food f: prefferedFood) {
+    public EnumFood find(EnumFood[] prefferedFood) {
+        for (EnumFood f: prefferedFood) {
             if (foodQuantity[f.ordinal()] > 0) {
                 return f;
             }
@@ -82,6 +82,11 @@ public class FoodArea implements Drawable, Unblockable {
         return new Hitbox(x, y, width, height);
     }
 
+    @Override
+    public Hitbox getAbsHitbox() {
+        return new Hitbox(getAbsX(), getAbsY(), width, height);
+    }
+
     public ArrayList<FoodDisplay> getAllFoodDisplays() {
         return allFoodDisplays;
     }
@@ -106,21 +111,22 @@ public class FoodArea implements Drawable, Unblockable {
         return foodQuantity;
     }
 
+
     public class FoodDisplay implements Drawable {
-        private Food food;
+        private EnumFood enumFood;
         private int x;
         private int y;
         private int width = 32;
         private int height = 32;
         private int rotation;
-        public FoodDisplay(Food food) {
+        public FoodDisplay(EnumFood enumFood) {
             //es importante que la comida se imprima dentro de org.zoo.modelo.food.FoodArea
             x = (int) (Math.random() * (FoodArea.this.width - width));
             y = (int) (Math.random() * (FoodArea.this.height - height));
 
             rotation = (int) (Math.random() * 360); //TODO: Implementar rotación
 
-            this.food = food;
+            this.enumFood = enumFood;
         }
         @Override
         public void accept(Visitor v) {
@@ -134,8 +140,8 @@ public class FoodArea implements Drawable, Unblockable {
             return y + FoodArea.this.y + owner.getAbsY();
         }
 
-        public Food getFood() {
-            return food;
+        public EnumFood getFood() {
+            return enumFood;
         }
 
         public int getX() {
@@ -153,5 +159,6 @@ public class FoodArea implements Drawable, Unblockable {
         public int getHeight() {
             return height;
         }
+
     }
 }

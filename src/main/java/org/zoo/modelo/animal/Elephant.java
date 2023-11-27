@@ -1,6 +1,6 @@
 package org.zoo.modelo.animal;
 
-import org.zoo.modelo.food.Food;
+import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.states.WalkingState;
@@ -12,7 +12,7 @@ public class Elephant extends Animal {
     public static int height = 100;
     public static float minTemperature = 0;
     public static float maxTemperature = 25;
-    public static Food[] prefferedFood = {Food.LEAVES};
+    public static EnumFood[] prefferedFood = {EnumFood.LEAVES};
     public static EnumAnimal[] invalidCompanion = {EnumAnimal.GATO};
     private long HUNGER_LIMIT_MS = 8000;
     private long HUNGER_MAX_LIMIT_MS = 24000;

@@ -1,7 +1,6 @@
 package org.zoo.modelo.habitat;
 
 import org.zoo.modelo.Sprite;
-import org.zoo.modelo.food.Food;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.utilities.Hitbox;
@@ -26,7 +25,7 @@ public class TaigaHabitat extends Habitat {
          * Si en algún futuro se desea ocupar las coordenadas absolutas por alguna
          * razón, se puede crear Hitbox(getAbsX(), getAbsY()...)
          */
-        this.hitbox = new Hitbox(x, y, getWidth(), getHeight());
+        this.absHitbox = new Hitbox(x, y, getWidth(), getHeight());
 
         // Y esto es para coordinar el sprite
         setHabitatSprite(Sprite.TAIGAHABITAT);

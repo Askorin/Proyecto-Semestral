@@ -1,6 +1,6 @@
 package org.zoo.modelo.states;
 
-import org.zoo.modelo.food.Food;
+import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.animal.Animal;
 
@@ -17,7 +17,7 @@ public class EatingState implements State {
 
         //Verificamos si hay comida
         if (targetFoodArea != null) {
-            Food foundFood = targetFoodArea.find(animal.getPrefferedFood());
+            EnumFood foundFood = targetFoodArea.find(animal.getPrefferedFood());
             if (foundFood != null) {
                 //Si hay comida seteamos el estado
                 targetFoodArea.remove(foundFood);

@@ -6,10 +6,11 @@ import org.zoo.utilities.Utilities;
 import java.awt.*;
 import java.util.ArrayList;
 
-//Clase estatica no instanciable
+//Clase "estatica" no instanciable
+// TODO: Implementar esto para los labels y el resto del codigo (Habitats, por ej)
 public class RenderedSprite {
     private static boolean loaded = false;
-    public static final int SCALE_FACTOR = 4; //Util si queremos hacer pixelart
+    public static final int SCALE_FACTOR = 4; // Util si queremos hacer pixelart
     private static ArrayList<ArrayList<Image>> frames; //Conjunto de las imagenes individuales de todos los Sprites
     private RenderedSprite() {}
     public static void loadSprites() {
@@ -30,7 +31,7 @@ public class RenderedSprite {
     }
 
     //Devuelve el frame del sprite que le corresponde en un tiempo
-    private static Image getFrame(Sprite spr, long time) {
+    public static Image getFrame(Sprite spr, long time) {
         ArrayList<Image> spriteFrames = frames.get(spr.ordinal());
         return spriteFrames.get((int)((time / spr.getTimePerFrame()) % spr.getFramesNumber()));
     }

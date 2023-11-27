@@ -82,4 +82,14 @@ public class Hitbox {
         }
         return new Point(targetX, targetY);
     }
+
+    @Override
+    public String toString() {
+        return "Hitbox{" +
+                "x=" + x +
+                ", y=" + y +
+                ", width=" + width +
+                ", height=" + height +
+                '}';
+    }
 }
