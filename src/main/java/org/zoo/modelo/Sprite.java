@@ -15,9 +15,11 @@ public enum Sprite {
     ELEPHANT_HUNGRY("src/main/resources/ElephantHungry.png", 8, 260, 11*4, 27*4),
     ANIMAL_DEAD("src/main/resources/AnimalDead.png", 1, 1, 5*4, 11*4),
     ANIMAL_DEAD_ANIM("src/main/resources/AnimalDeadAnim.png", 6, 100, 5*4, 11*4),
-    MEADOWHABITAT("src/main/resources/meadowHabitat.png", 1, 1, 37*4, 40*4),
+    MEADOWHABITAT("src/main/resources/MeadowHabitat.png", 1, 1, 37*4, 40*4),
+    TAIGAHABITAT("src/main/resources/TaigaHabitat.png", 1, 1, 37*4, 40*4),
     FISH_INGAME("src/main/resources/FishIngame.png", 1, 1, 4*4, 4*4),
-    LEAVES_INGAME("src/main/resources/LeavesIngame.png", 1, 1, 4*4, 4*3);
+    LEAVES_INGAME("src/main/resources/LeavesIngame.png", 1, 1, 4*4, 4*3),
+    ZOO_BACKGROUND("src/main/resources/ZooBackground.png", 1, 1, 256*4, 256*4);
     private String path;
     private int framesNumber; //Numero de frames
     private int timePerFrame; //Velocidad (mas bien el reciproco) de la animacion

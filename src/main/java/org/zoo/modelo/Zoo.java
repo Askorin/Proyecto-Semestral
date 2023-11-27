@@ -15,14 +15,13 @@ import org.zoo.vista.Drawable;
 import org.zoo.vista.visitor.Visitable;
 import org.zoo.vista.visitor.Visitor;
 
-import java.awt.*;
-
 public class Zoo
         implements Updatable, Drawable, Visitable {
 
-    private int width; private int height;
-    private Image backgroundImage;
-    // TODO: Se podría tener una arraylist de habitats?
+    private final int width = 2048;
+    private final int height = 2048;
+    private final Sprite backgroundSprite = Sprite.ZOO_BACKGROUND;
+    // TODO: Se podría tener una arraylist de habitats? // y los habitats podrian tener un arrayList de animales?
     private Containables containables;
     private HabitatPlacementManager habitatPlacementManager;
     private AnimalPlacementManager animalPlacementManager;
@@ -30,15 +29,8 @@ public class Zoo
     public Zoo(HabitatPlacementManager habitatPlacementManager, AnimalPlacementManager animalPlacementManager) {
         containables = new Containables();
 
-        backgroundImage = Utilities.loadImage("src/main/resources/testimage.jpg"); // Temporal
-        width = backgroundImage.getWidth(null);
-        height = backgroundImage.getHeight(null);
-
         this.habitatPlacementManager = habitatPlacementManager;
         this.animalPlacementManager = animalPlacementManager;
-
-        //TODO: Temp
-        addHabitat(64, 128, EnumHabitat.MEADOW);
     }
 
     public boolean addHabitat(int x, int y, EnumHabitat enumHabitat) {
@@ -112,10 +104,9 @@ public class Zoo
         return animalPlacementManager;
     }
 
-    public Image getBackgroundImage() {
-        return backgroundImage;
+    public Sprite getBackgroundSprite() {
+        return backgroundSprite;
     }
-
     public int getWidth() {
         return width;
     }

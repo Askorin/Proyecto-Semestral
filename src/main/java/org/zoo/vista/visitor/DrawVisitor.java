@@ -90,7 +90,7 @@ public class DrawVisitor extends JPanel implements Visitor {
 
         /* Dibujamos camara */
         if (currentLayer == Layer.BOTTOM) {
-            g.drawImage(zoo.getBackgroundImage(), p.x, p.y, null);
+            RenderedSprite.draw(zoo.getBackgroundSprite(), g, p.x, p.y, width, height, 0, 1.0f);
         }
 
         for (Drawable d: zoo.getContainables().getDrawables()) {
