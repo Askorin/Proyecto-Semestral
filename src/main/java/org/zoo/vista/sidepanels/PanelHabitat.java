@@ -13,9 +13,9 @@ public class PanelHabitat extends ItemPanel {
 
     public PanelHabitat(VistaEscenaZoo.PanelListener panelListener) {
         super(panelListener);
-        addNavArrowL(128, 128, panelListener);
+        addNavArrowL(100, 100, panelListener);
         crearLabelsHabitat(panelListener);
-        addNavArrowR(128, 128, panelListener);
+        addNavArrowR(100, 100, panelListener);
     }
 
     private void crearLabelsHabitat(VistaEscenaZoo.PanelListener panelListener) {

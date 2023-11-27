@@ -8,9 +8,9 @@ import org.zoo.vista.VistaEscenaZoo;
 public class PanelFood extends ItemPanel {
     public PanelFood(VistaEscenaZoo.PanelListener panelListener) {
         super(panelListener);
-        addNavArrowL(128, 128, panelListener);
+        addNavArrowL(100, 100, panelListener);
         crearLabelsFood(panelListener);
-        addNavArrowR(128, 128, panelListener);
+        addNavArrowR(100, 100, panelListener);
     }
     private void crearLabelsFood(VistaEscenaZoo.PanelListener panelListener) {
         for (EnumFood enumFood : EnumFood.values()) {
