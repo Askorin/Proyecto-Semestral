@@ -11,18 +11,18 @@ import java.util.ArrayList;
 
 public class TextMessage implements Updatable, Drawable {
     private String text;
-    private Habitat ownerHabitat;
     private final long initMs;
     private long currentMs;
     public static final long  LIFETIME = 8000;
-    //TODO: TextMessage, por como es actualmente, no deberia recibir ningun parametro mas que el texto...
-    // ...pero como necesitamos meterlo en un Updatables, necesitamos algo mayor donde meterlo.
-    public TextMessage(Habitat ownerHabitat, String text) {
-        this.ownerHabitat = ownerHabitat;
+
+    // ¡IMPORTANTE!: TextMessage se pone solito en el Manager, no es necesario colocarlo uno
+    public TextMessage(String text) {
         this.text = text;
 
         initMs = System.currentTimeMillis();
         currentMs = initMs;
+
+        TextMessageManager.addTextMessage(this);
     }
     public long getTimeElapsed() {
         return currentMs - initMs;
@@ -32,7 +32,7 @@ public class TextMessage implements Updatable, Drawable {
     public void update() {
         currentMs = System.currentTimeMillis();
         if (getTimeElapsed() >= LIFETIME) {
-            ownerHabitat.getContainables().removeComponent(this);
+            TextMessageManager.removeTextMessage(this);
         }
     }
 

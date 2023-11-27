@@ -30,6 +30,8 @@ public class DrawVisitor extends JPanel implements Visitor {
         for (Layer lyr: Layer.values()) {
             currentLayer = lyr;
             zoo.accept(this);
+
+            TextMessageManager.getInstance().accept(this);
         }
     }
     public DrawVisitor(Zoo zoo) {
@@ -161,16 +163,23 @@ public class DrawVisitor extends JPanel implements Visitor {
         }
     }
 
-    int textMessageCounter;
-    public void visitTextMessage(TextMessage text) {
-        if (currentLayer == Layer.values()[0]) {
-            //La idea es resetear el contador cada step del Draw...
-            textMessageCounter = 0;
-            //...pero quizas hacerlo de esta manera no es lo ideal, quizas colocarlo en paintComponent
+    int textCounter;
+    public void visitTextMessageManager(TextMessageManager manager) {
+        if (currentLayer == Layer.FRONT) {
+            textCounter = 0;
+            for (Drawable d : TextMessageManager.getAllTextMessages()) {
+                // Este check de null es medio quiche.
+                if (d != null) {
+                    d.accept(this);
+                    textCounter += 1;
+                }
+            }
         }
+    }
+    public void visitTextMessage(TextMessage text) {
         if (currentLayer == Layer.FRONT) {
             int x = 10;
-            int y = 25 + 25*textMessageCounter;
+            int y = 25 + 12*textCounter;
 
             int time = (int) (text.getTimeElapsed());
             float lifetimeRatio = ((float) time) / ((float) TextMessage.LIFETIME);
@@ -195,7 +204,7 @@ public class DrawVisitor extends JPanel implements Visitor {
             g2d.setColor(Color.WHITE);
             g2d.fill(textShape);
 
-            textMessageCounter += 1;
+            textCounter += 1;
         }
     }
 

@@ -3,6 +3,7 @@ package org.zoo.modelo.habitat;
 import org.zoo.Containables;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.TextMessage;
+import org.zoo.modelo.TextMessageManager;
 import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.animal.Animal;
@@ -61,7 +62,7 @@ public abstract class Habitat implements Updatable, Drawable {
         //Revisamos si la temperatura falla
         if (a.getMinTemperature() > temperature || a.getMaxTempperature() < temperature) {
             String text = "La temperatura del hábitat no es óptima para el animal";
-            getContainables().addComponent(new TextMessage(this, text));
+            new TextMessage(text);
             return false;
         }
         getContainables().addComponent(a);
