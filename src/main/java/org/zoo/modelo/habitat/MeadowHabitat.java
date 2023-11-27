@@ -10,7 +10,7 @@ import org.zoo.utilities.Point;
 public class MeadowHabitat extends Habitat {
     public static int width = 64*4;
     public static int height = 64*4;
-    public static float temperature = 5;
+    public static float temperature = 15;
   
     public MeadowHabitat(Positionable owner, Point p) {
         super(owner, p);
@@ -33,6 +33,9 @@ public class MeadowHabitat extends Habitat {
 
         FoodArea foodArea = new FoodArea(this,48 * 4, 0, 16 * 4, 64 * 4);
         getContainables().addComponent(foodArea);
+        foodArea.add(Food.FISH);
+        foodArea.add(Food.FISH);
+        foodArea.add(Food.FISH);
         foodArea.add(Food.FISH);
         foodArea.add(Food.FISH);
     }

@@ -43,8 +43,13 @@ public class FoodArea implements Drawable, Unblockable {
         }
         return false;
     }
-    public boolean find(Food food) {
-        return foodQuantity[food.ordinal()] > 0;
+    public Food find(Food[] prefferedFood) {
+        for (Food f: prefferedFood) {
+            if (foodQuantity[f.ordinal()] > 0) {
+                return f;
+            }
+        }
+        return null;
     }
     //Detectar el FoodContainer de un habitat
     static public FoodArea searchFoodContainer(Habitat habitat) {

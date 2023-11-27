@@ -2,6 +2,7 @@ package org.zoo.vista.visitor;
 
 import org.zoo.App;
 import org.zoo.modelo.*;
+import org.zoo.modelo.states.DeadState;
 import org.zoo.utilities.Point;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
@@ -46,7 +47,9 @@ public class DrawVisitor extends JPanel implements Visitor {
         RenderedSprite.loadSprites(); //Importante
     }
     public void visitAnimal(Animal animal) {
-        if (currentLayer == Layer.MIDDLE) {
+        boolean cond = (animal.getCurrentState().getClass() == DeadState.class);
+        if (    (currentLayer == Layer.MIDDLE        && !cond)
+             || (currentLayer == Layer.MIDDLE_BACK   &&  cond) ) {
             int x = animal.getAbsX() - getCameraX();
             int y = animal.getAbsY() - getCameraY();
 
@@ -62,7 +65,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
 
     public void visitHabitat(Habitat habitat) {
-        if (currentLayer == Layer.MIDDLE) {
+        if (currentLayer == Layer.MIDDLE_BACK) {
             int x = habitat.getAbsX() - getCameraX();
             int y = habitat.getAbsY() - getCameraY();
 
@@ -86,7 +89,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         Point p = new Point(-cameraX, -cameraY);
 
         /* Dibujamos camara */
-        if (currentLayer == Layer.BACK) {
+        if (currentLayer == Layer.BOTTOM) {
             g.drawImage(zoo.getBackgroundImage(), p.x, p.y, null);
         }
 
@@ -102,7 +105,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
 
     public void visitHabitatPlacementManager(HabitatPlacementManager hpm) {
-        if (currentLayer == Layer.FRONT) {
+        if (currentLayer == Layer.TOP) {
             if (hpm.isActivo()) {
                 Sprite spr = hpm.getEnumHabitat().getSprite();
                 RenderedSprite.draw(spr, g, hpm.getAbsX() - getCameraX(), hpm.getAbsY() - getCameraY(), 0, 0, 0, 0.45f);
@@ -111,7 +114,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
 
     public void visitAnimalPlacementManager(AnimalPlacementManager apm) {
-        if (currentLayer == Layer.FRONT) {
+        if (currentLayer == Layer.TOP) {
             if (apm.isActivo()) {
                 Sprite spr = apm.getEnumAnimal().getSprite();
                 RenderedSprite.draw(spr, g, apm.getAbsX() - getCameraX(), apm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f);
@@ -165,7 +168,7 @@ public class DrawVisitor extends JPanel implements Visitor {
 
     int textCounter;
     public void visitTextMessageManager(TextMessageManager manager) {
-        if (currentLayer == Layer.FRONT) {
+        if (currentLayer == Layer.TOP) {
             textCounter = 0;
             for (Drawable d : TextMessageManager.getAllTextMessages()) {
                 // Este check de null es medio quiche.
@@ -177,7 +180,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         }
     }
     public void visitTextMessage(TextMessage text) {
-        if (currentLayer == Layer.FRONT) {
+        if (currentLayer == Layer.TOP) {
             int x = 10;
             int y = 25 + 12*textCounter;
 
@@ -259,8 +262,9 @@ public class DrawVisitor extends JPanel implements Visitor {
 
     /// Layers
     private enum Layer {
-        BACK,
+        BOTTOM,
+        MIDDLE_BACK,
         MIDDLE,
-        FRONT;
+        TOP;
     }
 }

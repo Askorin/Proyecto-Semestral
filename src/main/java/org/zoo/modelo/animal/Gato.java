@@ -1,5 +1,6 @@
 package org.zoo.modelo.animal;
 
+import org.zoo.modelo.food.Food;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.states.WalkingState;
@@ -11,6 +12,7 @@ public class Gato extends Animal {
     public static int height = 80;
     public static float minTemperature = 10;
     public static float maxTemperature = 35;
+    public static Food[] prefferedFood = {Food.FISH};
     private long HUNGER_LIMIT_MS = 5000;
     private long HUNGER_MAX_LIMIT_MS = 18000;
     public Gato(Habitat habitat, Point p) {
@@ -22,6 +24,8 @@ public class Gato extends Animal {
 
         setMinTemperature(minTemperature);
         setMaxTempperature(maxTemperature);
+
+        setPrefferedFood(prefferedFood);
 
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);
