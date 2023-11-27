@@ -22,7 +22,6 @@ public class ItemPanel extends JPanel {
     public void addNavArrowL(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
         LabelNavArrow labelNavArrow = new LabelNavArrow(width, height, LabelNavArrow.NavArrowOrientation.LEFT);
         labelNavArrow.addMouseListener(panelListener);
-        labelNavArrow.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         add(labelNavArrow);
         add(Box.createHorizontalGlue());
     }
