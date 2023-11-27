@@ -43,10 +43,6 @@ public class Zoo
 
     public boolean addHabitat(int x, int y, EnumHabitat enumHabitat) {
         Habitat habitat = enumHabitat.newInstance(this, new Point(x, y));
-        // TODO: Esto es pal meme.
-        {
-            habitat.addAnimal(EnumAnimal.GATO, new Point(0, 100));
-        }
         habitat.x = x;
         habitat.y = y;
 
