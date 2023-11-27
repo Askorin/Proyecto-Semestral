@@ -41,9 +41,6 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
             height = fieldHeight.getInt(null);
         } catch (IllegalAccessException e) {}
 
-
-
-
         Habitat habitat = getZoo().getHabitatFromPoint(new Point(getAbsX(), getAbsY()));
 
         // Coordenadas en las que se posicionará el gato.
@@ -61,9 +58,6 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
     @Override
     public void accept(Visitor v) {
         v.visitAnimalPlacementManager(this);
-        // if (isActivo()) {
-        //     enumAnimal.getSprite().drawSprite(g, getMouseX(), getMouseY(), 0, 0, 0, 0.45f);
-        // }
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.zoo.modelo;
 
 import org.zoo.Containables;
 import org.zoo.modelo.characteristics.Updatable;
+import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.utilities.Point;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.Utilities;
@@ -25,8 +26,9 @@ public class Zoo
     private Containables containables;
     private HabitatPlacementManager habitatPlacementManager;
     private AnimalPlacementManager animalPlacementManager;
+    private FoodPlacementManager foodPlacementManager;
       
-    public Zoo(HabitatPlacementManager habitatPlacementManager, AnimalPlacementManager animalPlacementManager) {
+    public Zoo(HabitatPlacementManager habitatPlacementManager, AnimalPlacementManager animalPlacementManager, FoodPlacementManager foodPlacementManager) {
         containables = new Containables();
 
         backgroundImage = Utilities.loadImage("src/main/resources/testimage.jpg"); // Temporal
@@ -35,6 +37,7 @@ public class Zoo
 
         this.habitatPlacementManager = habitatPlacementManager;
         this.animalPlacementManager = animalPlacementManager;
+        this.foodPlacementManager = foodPlacementManager;
 
         //TODO: Temp
         addHabitat(64, 128, EnumHabitat.MEADOW);
@@ -52,7 +55,7 @@ public class Zoo
 
         for (Drawable d: getContainables().getDrawables()) {
             if (d instanceof Habitat h) {
-                if (Hitbox.checkHitboxCollision(h.getHitbox(), habitat.getHitbox())) {
+                if (Hitbox.checkHitboxCollision(h.getAbsHitbox(), habitat.getAbsHitbox())) {
                     System.out.println("Uh oooh");
                     return false;
                 }
@@ -68,7 +71,7 @@ public class Zoo
     public Habitat getHabitatFromPoint(Point p) {
         for (Drawable d: getContainables().getDrawables()) {
             if (d instanceof Habitat h)   {
-                if (Hitbox.checkPointHitboxCollision(h.getHitbox(), p)) {
+                if (Hitbox.checkPointHitboxCollision(h.getAbsHitbox(), p)) {
                     return h;
                 }
             }
@@ -114,6 +117,10 @@ public class Zoo
     }
     public AnimalPlacementManager getAnimalPlacementManager() {
         return animalPlacementManager;
+    }
+
+    public FoodPlacementManager getFoodPlacementManager() {
+        return foodPlacementManager;
     }
 
     public Image getBackgroundImage() {

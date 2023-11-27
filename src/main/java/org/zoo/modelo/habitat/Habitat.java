@@ -5,6 +5,7 @@ import org.zoo.modelo.Sprite;
 import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.animal.Animal;
+import org.zoo.modelo.food.FoodArea;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.Point;
 import org.zoo.vista.Drawable;
@@ -18,7 +19,7 @@ public abstract class Habitat implements Updatable, Drawable {
     private int width;
     private int height;
     private float temperature; //en °C porque no somos quiche
-    protected Hitbox hitbox;
+    protected Hitbox absHitbox;
     protected Sprite habitatSprite;
     private Containables containables;
     public Habitat(Positionable owner, Point p) {
@@ -60,6 +61,17 @@ public abstract class Habitat implements Updatable, Drawable {
         Animal a = enumAnimal.newInstance(this, p);
         getContainables().addComponent(a);
     }
+
+    public FoodArea getFoodAreaFromPoint(Point p) {
+        for (Drawable d: getContainables().getDrawables()) {
+            if (d instanceof FoodArea f)   {
+                if (Hitbox.checkPointHitboxCollision(f.getAbsHitbox(), p)) {
+                    return f;
+                }
+            }
+        }
+        return null;
+    }
   
     //Es necesario llamar a metodos setters en el constructor de los hijos, para sobreescribir atributos del padre
     protected void setTemperature(float temperature) {
@@ -87,7 +99,8 @@ public abstract class Habitat implements Updatable, Drawable {
         this.height = height;
     }
 
-    public Hitbox getHitbox() {
-        return hitbox;
+    public Hitbox getAbsHitbox() {
+        return absHitbox;
     }
+
 }

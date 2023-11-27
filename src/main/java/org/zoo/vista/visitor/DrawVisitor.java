@@ -2,6 +2,7 @@ package org.zoo.vista.visitor;
 
 import org.zoo.App;
 import org.zoo.modelo.*;
+import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.utilities.Point;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
@@ -40,6 +41,8 @@ public class DrawVisitor extends JPanel implements Visitor {
 
         cameraHeight = 850;
         cameraWidth = 480;
+
+        setPreferredSize(new Dimension(cameraWidth, cameraHeight));
 
         RenderedSprite.loadSprites(); //Importante
     }
@@ -97,6 +100,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
         zoo.getHabitatPlacementManager().accept(this);
         zoo.getAnimalPlacementManager().accept(this);
+        zoo.getFoodPlacementManager().accept(this);
     }
 
     public void visitHabitatPlacementManager(HabitatPlacementManager hpm) {
@@ -113,6 +117,15 @@ public class DrawVisitor extends JPanel implements Visitor {
             if (apm.isActivo()) {
                 Sprite spr = apm.getEnumAnimal().getSprite();
                 RenderedSprite.draw(spr, g, apm.getAbsX() - getCameraX(), apm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f);
+            }
+        }
+    }
+
+    public void visitFoodPlacementManager(FoodPlacementManager fpm) {
+        if (currentLayer == Layer.FRONT) {
+            if (fpm.isActivo()) {
+                Sprite spr = fpm.getEnumFood().getInGameSprite();
+                RenderedSprite.draw(spr, g, fpm.getAbsX() - getCameraX(), fpm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f);
             }
         }
     }

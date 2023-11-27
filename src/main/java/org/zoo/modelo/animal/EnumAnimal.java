@@ -5,7 +5,8 @@ import org.zoo.modelo.Sprite;
 import org.zoo.utilities.Point;
 
 public enum EnumAnimal {
-    GATO("org.zoo.modelo.animal.Gato", Gato.class, Sprite.CAT_IDLE, "/CatIdle1.png");
+    GATO("org.zoo.modelo.animal.Gato", Gato.class, Sprite.CAT_IDLE, "/CatIdle1.png"),
+    PERRO("org.zoo.modelo.animal.Gato", Gato.class, Sprite.CAT_HUNGRY, "/CatHungry1.png");
     private final String nombre;
     private final Class<?> tipo;
     private final Sprite sprite;
