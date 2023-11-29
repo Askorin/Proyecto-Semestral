@@ -1,7 +1,7 @@
 package org.zoo.modelo.states;
 
 import org.zoo.utilities.Hitbox;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 
@@ -20,9 +20,9 @@ public class GatheringState implements State {
         else {
             Hitbox animalHitbox = new Hitbox(animal.x, animal.y, animal.getWidth(), animal.getHeight());
             Hitbox foodHitbox = targetFood.getHitbox();
-            Point targetPoint = Hitbox.getCloserPointToHitbox(animalHitbox, foodHitbox);
-            targetX = targetPoint.x;
-            targetY = targetPoint.y;
+            ZooPoint targetZooPoint = Hitbox.getCloserPointToHitbox(animalHitbox, foodHitbox);
+            targetX = targetZooPoint.x;
+            targetY = targetZooPoint.y;
         }
         animal.setSprite(animal.getWalkSprite());
     }

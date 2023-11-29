@@ -3,13 +3,12 @@ package org.zoo.modelo.habitat;
 import org.zoo.Containables;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.TextMessage;
-import org.zoo.modelo.TextMessageManager;
 import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.utilities.Hitbox;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 import org.zoo.vista.Drawable;
 import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.vista.visitor.Visitor;
@@ -24,7 +23,7 @@ public abstract class Habitat implements Updatable, Drawable {
     protected Hitbox absHitbox;
     protected Sprite habitatSprite;
     private final Containables containables;
-    public Habitat(Positionable owner, Point p) {
+    public Habitat(Positionable owner, ZooPoint p) {
         this.owner = owner;
         this.x = p.x;
         this.y = p.y;
@@ -58,7 +57,7 @@ public abstract class Habitat implements Updatable, Drawable {
         return containables;
     }
 
-    public boolean addAnimal(EnumAnimal enumAnimal, Point p) {
+    public boolean addAnimal(EnumAnimal enumAnimal, ZooPoint p) {
         Animal a = enumAnimal.newInstance(this, p);
         //Revisamos si la temperatura falla
         if (a.getMinTemperature() > temperature || a.getMaxTempperature() < temperature) {
@@ -80,7 +79,7 @@ public abstract class Habitat implements Updatable, Drawable {
         return true;
     }
 
-    public FoodArea getFoodAreaFromPoint(Point p) {
+    public FoodArea getFoodAreaFromPoint(ZooPoint p) {
         for (Drawable d: getContainables().getDrawables()) {
             if (d instanceof FoodArea f)   {
                 if (Hitbox.checkPointHitboxCollision(f.getAbsHitbox(), p)) {

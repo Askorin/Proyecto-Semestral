@@ -6,7 +6,7 @@ import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.states.*;
 import org.zoo.utilities.Hitbox;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.visitor.Visitor;
 
@@ -34,7 +34,7 @@ public abstract class Animal implements Updatable, Drawable {
     private long HUNGER_LIMIT_MS;
     private long HUNGER_MAX_LIMIT_MS;
 
-    public Animal(Habitat ownerHabitat, Point p) {
+    public Animal(Habitat ownerHabitat, ZooPoint p) {
         this.ownerHabitat = ownerHabitat;
         this.x = p.x;
         this.y = p.y;

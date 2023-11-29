@@ -2,7 +2,7 @@ package org.zoo.modelo.habitat;
 
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.characteristics.Positionable;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 
 // TODO: Mover path a sprite, return ingameSprite, hacerlo igual que food.
 public enum EnumHabitat {
@@ -41,10 +41,10 @@ public enum EnumHabitat {
         return sprite;
     }
 
-    public Habitat newInstance(Positionable owner, Point p) {
+    public Habitat newInstance(Positionable owner, ZooPoint p) {
         Habitat habitat = null;
         try {
-            habitat = (Habitat) tipo.getDeclaredConstructor(Positionable.class, Point.class).newInstance(owner, p);
+            habitat = (Habitat) tipo.getDeclaredConstructor(Positionable.class, ZooPoint.class).newInstance(owner, p);
         } catch (Exception e) {
             e.printStackTrace();
         }

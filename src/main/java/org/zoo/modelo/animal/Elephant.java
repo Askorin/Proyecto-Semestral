@@ -5,7 +5,7 @@ import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.states.WalkingState;
 import org.zoo.utilities.Hitbox;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 
 public class Elephant extends Animal {
     public static int width = 140;
@@ -16,7 +16,7 @@ public class Elephant extends Animal {
     public static EnumAnimal[] invalidCompanion = {EnumAnimal.GATO};
     private final long HUNGER_LIMIT_MS = 8000;
     private final long HUNGER_MAX_LIMIT_MS = 24000;
-    public Elephant(Habitat habitat, Point p) {
+    public Elephant(Habitat habitat, ZooPoint p) {
         super(habitat, p);
         //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre
         setWidth(width);

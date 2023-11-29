@@ -4,14 +4,14 @@ import org.zoo.modelo.Sprite;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.utilities.Hitbox;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 
 public class TaigaHabitat extends Habitat {
     public static int width = 64*4;
     public static int height = 64*4;
     public static float temperature = 5;
 
-    public TaigaHabitat(Positionable owner, Point p) {
+    public TaigaHabitat(Positionable owner, ZooPoint p) {
         super(owner, p);
         // Esto para coordinar ancho y alto estático con el provisto por el padre.
         setWidth(width);
