@@ -20,9 +20,9 @@ public enum Sprite {
     FISH_INGAME("src/main/resources/FishIngame.png", 1, 1, 4*4, 4*4),
     LEAVES_INGAME("src/main/resources/LeavesIngame.png", 1, 1, 4*4, 4*3),
     ZOO_BACKGROUND("src/main/resources/ZooBackground.png", 1, 1, 256*4, 256*4);
-    private String path;
-    private int framesNumber; //Numero de frames
-    private int timePerFrame; //Velocidad (mas bien el reciproco) de la animacion
+    private final String path;
+    private final int framesNumber; //Numero de frames
+    private final int timePerFrame; //Velocidad (mas bien el reciproco) de la animacion
     private int centerX; //Centro de la animacion, es util para casos que el centro del sprite no es en la mitad
     private int centerY;
 

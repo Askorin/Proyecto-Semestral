@@ -15,7 +15,7 @@ import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.vista.visitor.Visitor;
 
 public abstract class Habitat implements Updatable, Drawable {
-    private Positionable owner;
+    private final Positionable owner;
     public int x;
     public int y;
     private int width;
@@ -23,7 +23,7 @@ public abstract class Habitat implements Updatable, Drawable {
     private float temperature; //en °C porque no somos quiche
     protected Hitbox absHitbox;
     protected Sprite habitatSprite;
-    private Containables containables;
+    private final Containables containables;
     public Habitat(Positionable owner, Point p) {
         this.owner = owner;
         this.x = p.x;

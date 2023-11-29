@@ -11,8 +11,8 @@ public class Utilities {
         return getNormalizedVector(vector, 1);
     }
     public static Point getNormalizedVector(Point vector, int norm) {
-        double vectorXnotNorm = (double)(vector.x);
-        double vectorYnotNorm = (double)(vector.y);
+        double vectorXnotNorm = vector.x;
+        double vectorYnotNorm = vector.y;
         double vectorNorm = Math.sqrt(vectorXnotNorm * vectorXnotNorm
                 +  vectorYnotNorm * vectorYnotNorm);
         int vectorX = (int)(norm * (vectorXnotNorm) / vectorNorm);

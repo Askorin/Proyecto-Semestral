@@ -20,6 +20,7 @@ public final class App {
     private final String OS;
     private boolean isLinux;
     public static boolean SEE_HITBOX = false;
+
     private App() {
         // En linux ocurrían problemas de rendimiento, esto lo "arregla".
         OS = System.getProperty("os.name").toLowerCase();
@@ -29,6 +30,7 @@ public final class App {
         }
         crearYMostrarUI();
     }
+
     private void crearYMostrarUI() {
         escenaZoo = new EscenaZoo();
         vistaEscenaZoo = new VistaEscenaZoo(escenaZoo);

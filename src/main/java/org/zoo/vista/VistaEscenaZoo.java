@@ -14,7 +14,7 @@ import java.awt.event.MouseMotionListener;
 public class VistaEscenaZoo extends JPanel {
     private final DrawVisitor renderZoo;
     private final EscenaZoo escenaZoo;
-    private PanelContainer panelContainer;
+    private final PanelContainer panelContainer;
     public VistaEscenaZoo(EscenaZoo escenaZoo) {
         /* No queremos que swing llame repaint. */
         setIgnoreRepaint(true);
@@ -79,7 +79,7 @@ public class VistaEscenaZoo extends JPanel {
 
             if (escenaZoo.getFoodPlacementManager().isActivo()) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                    escenaZoo.getFoodPlacementManager().place();;
+                    escenaZoo.getFoodPlacementManager().place();
                 }
                 escenaZoo.getFoodPlacementManager().disablePlacement();
             }

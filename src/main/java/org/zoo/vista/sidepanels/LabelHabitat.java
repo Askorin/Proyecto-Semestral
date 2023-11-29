@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class LabelHabitat extends JLabel {
 
-    private EnumHabitat enumHabitat;
+    private final EnumHabitat enumHabitat;
     LabelHabitat(int width, int height, EnumHabitat enumHabitat) {
         super();
         this.enumHabitat = enumHabitat;

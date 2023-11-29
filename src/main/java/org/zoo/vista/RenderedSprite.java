@@ -66,7 +66,7 @@ public class RenderedSprite {
         String[] splitedpath = path.split("\\.");
         int n = splitedpath.length;
         for (int i = 0; i < framesNumber; i++) {
-            paths.add(splitedpath[0]+ Integer.toString(i+1) + "." + splitedpath[n-1]);
+            paths.add(splitedpath[0]+ (i + 1) + "." + splitedpath[n-1]);
         }
         return paths;
     }

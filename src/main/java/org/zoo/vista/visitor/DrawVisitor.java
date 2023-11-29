@@ -18,11 +18,11 @@ import java.awt.*;
 import java.awt.font.GlyphVector;
 
 public class DrawVisitor extends JPanel implements Visitor {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private Graphics g;
     private Layer currentLayer;
-    private Zoo zoo;
+    private final Zoo zoo;
     // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
     protected void paintComponent(Graphics g) {
@@ -278,6 +278,6 @@ public class DrawVisitor extends JPanel implements Visitor {
         BOTTOM,
         MIDDLE_BACK,
         MIDDLE,
-        TOP;
+        TOP
     }
 }

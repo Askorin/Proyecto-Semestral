@@ -23,10 +23,10 @@ public class Zoo
     private final int height = 2048;
     private final Sprite backgroundSprite = Sprite.ZOO_BACKGROUND;
     // TODO: Se podría tener una arraylist de habitats? // y los habitats podrian tener un arrayList de animales?
-    private Containables containables;
-    private HabitatPlacementManager habitatPlacementManager;
-    private AnimalPlacementManager animalPlacementManager;
-    private FoodPlacementManager foodPlacementManager;
+    private final Containables containables;
+    private final HabitatPlacementManager habitatPlacementManager;
+    private final AnimalPlacementManager animalPlacementManager;
+    private final FoodPlacementManager foodPlacementManager;
       
     public Zoo(HabitatPlacementManager habitatPlacementManager, AnimalPlacementManager animalPlacementManager, FoodPlacementManager foodPlacementManager) {
         containables = new Containables();

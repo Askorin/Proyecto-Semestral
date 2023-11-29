@@ -9,9 +9,9 @@ import org.zoo.modelo.animal.Animal;
 //Este estado corresponde a caminar a un punto aleatorio
 //es util para tener un comportamiente "por defecto" y no quedarse quieto
 public class WalkingState implements State {
-    private Animal animal;
-    private Point target; //punto aleatorio el cual es a donde se dirige el animal
-    private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
+    private final Animal animal;
+    private final Point target; //punto aleatorio el cual es a donde se dirige el animal
+    private final int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public WalkingState(Animal animal) {
         this.animal = animal;
         int targetX;
@@ -65,7 +65,6 @@ public class WalkingState implements State {
 
         if (animal.x == target.x && animal.y == target.y) {
             animal.changeState(this);
-            return;
         }
     }
 }

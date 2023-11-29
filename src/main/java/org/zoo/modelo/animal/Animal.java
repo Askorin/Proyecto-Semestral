@@ -98,7 +98,6 @@ public abstract class Animal implements Updatable, Drawable {
         }
         //Default
         this.currentState = new WalkingState(this);
-        return;
     }
 
     public static boolean doGetAlong(Animal animal1, Animal animal2) {

@@ -6,10 +6,10 @@ import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 
 public class GatheringState implements State {
-    private Animal animal;
-    private int targetX;
-    private int targetY;
-    private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
+    private final Animal animal;
+    private final int targetX;
+    private final int targetY;
+    private final int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public GatheringState(Animal animal) {
         this.animal = animal;
         FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
@@ -49,13 +49,12 @@ public class GatheringState implements State {
 
         if (animal.x == targetX && animal.y == targetY) {
             animal.changeState(this);
-            return;
         }
     }
     //método para devolver la componente horizontal de la velocidad con norma = speed
     private int getSpeedX(Animal animal) {
-        double speedXnotNorm = (double)(targetX - animal.x);
-        double speedYnotNorm = (double)(targetY - animal.y);
+        double speedXnotNorm = targetX - animal.x;
+        double speedYnotNorm = targetY - animal.y;
         double norm = Math.sqrt(speedXnotNorm * speedXnotNorm
                 +  speedYnotNorm * speedYnotNorm);
         double speedX = (speed * speedXnotNorm) / norm;
@@ -63,8 +62,8 @@ public class GatheringState implements State {
     }
     //método para devolver la componente vertical de la velocidad con norma = speed
     private int getSpeedY(Animal animal) {
-        double speedXnotNorm = (double)(targetX - animal.x);
-        double speedYnotNorm = (double)(targetY - animal.y);
+        double speedXnotNorm = targetX - animal.x;
+        double speedYnotNorm = targetY - animal.y;
         double norm = Math.sqrt(speedXnotNorm * speedXnotNorm
                 +  speedYnotNorm * speedYnotNorm);
         double speedY = (speed * speedYnotNorm) / norm;

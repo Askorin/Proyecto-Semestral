@@ -10,7 +10,7 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class TextMessage implements Updatable, Drawable {
-    private String text;
+    private final String text;
     private final long initMs;
     private long currentMs;
     public static final long  LIFETIME = 8000;
