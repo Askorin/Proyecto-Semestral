@@ -4,7 +4,7 @@ import org.zoo.App;
 import org.zoo.modelo.*;
 import org.zoo.modelo.states.DeadState;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.habitat.Habitat;
@@ -89,7 +89,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         }
         int cameraX = getCameraX();
         int cameraY = getCameraY();
-        Point p = new Point(-cameraX, -cameraY);
+        ZooPoint p = new ZooPoint(-cameraX, -cameraY);
 
         /* Dibujamos camara */
         if (currentLayer == Layer.BOTTOM) {
@@ -195,7 +195,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     public void visitTextMessage(TextMessage text) {
         if (currentLayer == Layer.TOP) {
             int x = 10;
-            int y = 25 + 12*textCounter;
+            int y = 25 + 12 * textCounter;
 
             int time = (int) (text.getTimeElapsed());
             float lifetimeRatio = ((float) time) / ((float) TextMessage.LIFETIME);
@@ -226,44 +226,56 @@ public class DrawVisitor extends JPanel implements Visitor {
 
 
     ///// CAMERA //TODO: Mover a otra clase, ojala no anidada a esta?
-    // TODO: ESO SUENA COMO UNA MUY BUENA IDEA!
-    // alvaro me das miedo
-
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
     private final int cameraTol = 24; private final int cameraSpeed = 5;
     private int mouseX; private int mouseY; private boolean mouseIn;
+    private ZooPoint dragMousePos;
+    private ZooPoint prevMousePos;
     private void updateCamera() {
 
         cameraHeight = getSize().height;
         cameraWidth = getSize().width;
 
-        if (mouseIn) {
-            if (mouseX < cameraTol && cameraX - cameraSpeed >= 0) {
-                cameraX += -cameraSpeed;
-            }
-            else if (mouseX > (cameraWidth - cameraTol)
-                    && cameraX + cameraWidth + cameraSpeed <= width) {
-                cameraX += cameraSpeed;
-            }
-            if (mouseY < cameraTol && cameraY - cameraSpeed >= 0) {
-                cameraY += -cameraSpeed;
-            }
-            else if (mouseY > (cameraHeight - cameraTol)
-                    && cameraY + cameraHeight + cameraSpeed <= height) {
-                cameraY += cameraSpeed;
-            }
+        ZooPoint currentMousePos = new ZooPoint(mouseX, mouseY);
+        if (prevMousePos != null && mouseIn) {
+            ZooPoint deltaMousePos = ZooPoint.getDifference(prevMousePos, currentMousePos);
+            cameraX += deltaMousePos.x;
+            cameraY += deltaMousePos.y;
         }
+        prevMousePos = currentMousePos;
+
+        // if (mouseIn) {
+        //     if (mouseX < cameraTol && cameraX - cameraSpeed >= 0) {
+        //         cameraX += -cameraSpeed;
+        //     }
+        //     else if (mouseX > (cameraWidth - cameraTol)
+        //             && cameraX + cameraWidth + cameraSpeed <= width) {
+        //         cameraX += cameraSpeed;
+        //     }
+        //     if (mouseY < cameraTol && cameraY - cameraSpeed >= 0) {
+        //         cameraY += -cameraSpeed;
+        //     }
+        //     else if (mouseY > (cameraHeight - cameraTol)
+        //             && cameraY + cameraHeight + cameraSpeed <= height) {
+        //         cameraY += cameraSpeed;
+        //     }
+        // }
     }
 
     public void setMouseX(int mouseX) {
         this.mouseX = mouseX;
     }
+
     public void setMouseY(int mouseY) {
         this.mouseY = mouseY;
     }
     public void setMouseIn(boolean mouseIn) {
         this.mouseIn = mouseIn;
+    }
+
+    public boolean isMouseIn() {
+        return mouseIn;
     }
 
     public int getCameraX() {
