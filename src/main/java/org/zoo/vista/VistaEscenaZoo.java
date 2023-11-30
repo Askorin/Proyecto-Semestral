@@ -27,7 +27,7 @@ public class VistaEscenaZoo extends JPanel {
         PanelListener panelListener = new PanelListener();
 
         /* Creamos la vista de org.zoo.modelo.Zoo */
-        renderZoo = new DrawVisitor(escenaZoo.getZoo());
+        renderZoo = new DrawVisitor(escenaZoo);
         renderZoo.addMouseListener(zooListener);
         renderZoo.addMouseMotionListener(zooListener);
 
