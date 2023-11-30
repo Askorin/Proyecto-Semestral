@@ -33,6 +33,7 @@ public class Zoo
         this.foodPlacementManager = foodPlacementManager;
     }
 
+    // TODO: Chequear si habitat esa fuera de zoologico, imprimir texto warning en casos fallidos.
     public boolean addHabitat(int x, int y, EnumHabitat enumHabitat) {
         Habitat habitat = enumHabitat.newInstance(this, new ZooPoint(x, y));
         habitat.x = x;

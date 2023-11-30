@@ -69,6 +69,7 @@ public abstract class Animal implements Updatable, Drawable {
     }
 
     //Administrador de estados, corresponde al grafo de estados en una maquina de estados finitos (No sé de que hablo)
+    // TODO: Refactorizar y arreglar bug de comida.
     public void changeState(State currentState) {
         if (getHungerTimeElapsed() >= getHungerMaxLimitMs()) {
             //Default

@@ -35,8 +35,8 @@ public class EscenaZoo implements Updatable {
         animalPlacementManager.setZoo(zoo);
         foodPlacementManager.setZoo(zoo);
 
-        /* Le pasamos al manejador de texto */
-        textMessageManager = TextMessageManager.getInstance();
+        /* Creamos el manejador de textos */
+        textMessageManager = new TextMessageManager();
     }
 
     public Zoo getZoo() {
@@ -52,6 +52,10 @@ public class EscenaZoo implements Updatable {
     }
     public FoodPlacementManager getFoodPlacementManager() {
         return foodPlacementManager;
+    }
+
+    public TextMessageManager getTextMessageManager() {
+        return textMessageManager;
     }
 
     public void update() {

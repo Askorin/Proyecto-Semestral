@@ -22,6 +22,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     private final int height;
     private Graphics g;
     private Layer currentLayer;
+    private final EscenaZoo escenaZoo;
     private final Zoo zoo;
     // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
@@ -33,11 +34,12 @@ public class DrawVisitor extends JPanel implements Visitor {
             currentLayer = lyr;
             zoo.accept(this);
 
-            TextMessageManager.getInstance().accept(this);
+            escenaZoo.getTextMessageManager().accept(this);
         }
     }
-    public DrawVisitor(Zoo zoo) {
-        this.zoo = zoo;
+    public DrawVisitor(EscenaZoo escenaZoo) {
+        this.escenaZoo = escenaZoo;
+        this.zoo = escenaZoo.getZoo();
 
         width = zoo.getWidth();
         height = zoo.getHeight();
