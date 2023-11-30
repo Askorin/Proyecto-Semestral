@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class LabelAnimal extends JLabel {
 
-    private EnumAnimal enumAnimal;
+    private final EnumAnimal enumAnimal;
     LabelAnimal(int width, int height, EnumAnimal enumAnimal) {
         super();
         this.enumAnimal = enumAnimal;

@@ -5,7 +5,7 @@ import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.animal.Animal;
 
 public class StarvingState implements State {
-    private Animal animal;
+    private final Animal animal;
     public StarvingState(Animal animal) {
         this.animal = animal;
         //Hacemos una busqueda inicial
@@ -26,16 +26,13 @@ public class StarvingState implements State {
         //A menos que haya pasado mucho tiempo sin comer
         if (animal.getHungerTimeElapsed() >= animal.getHungerMaxLimitMs()) {
             animal.changeState(this);
-            return;
         }
     }
     private boolean searchForFood(Animal animal) {
         FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
 
         if (targetFood != null) {
-            if (targetFood.find(animal.getPrefferedFood()) != null) {
-                return true;
-            }
+            return targetFood.find(animal.getPrefferedFood()) != null;
         }
         return false;
     }

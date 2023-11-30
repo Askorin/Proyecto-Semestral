@@ -2,16 +2,16 @@ package org.zoo.modelo.states;
 
 import org.zoo.utilities.Utilities;
 import org.zoo.utilities.Hitbox;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.characteristics.Unblockable;
 import org.zoo.modelo.animal.Animal;
 
 //Este estado corresponde a caminar a un punto aleatorio
 //es util para tener un comportamiente "por defecto" y no quedarse quieto
 public class WalkingState implements State {
-    private Animal animal;
-    private Point target; //punto aleatorio el cual es a donde se dirige el animal
-    private int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
+    private final Animal animal;
+    private final ZooPoint target; //punto aleatorio el cual es a donde se dirige el animal
+    private final int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public WalkingState(Animal animal) {
         this.animal = animal;
         int targetX;
@@ -36,13 +36,13 @@ public class WalkingState implements State {
             }
             if ( ! collisionFound ) {break;}
         }
-        target = new Point(targetX, targetY);
+        target = new ZooPoint(targetX, targetY);
         animal.setSprite(animal.getWalkSprite());
     }
     @Override
     public void stateBehavior() {
-        Point direction = Point.getDifference(target, new Point(animal.x, animal.y));
-        Point velocity = Utilities.getNormalizedVector(direction, speed);
+        ZooPoint direction = ZooPoint.getDifference(target, new ZooPoint(animal.x, animal.y));
+        ZooPoint velocity = Utilities.getNormalizedVector(direction, speed);
 
         //el animal se mueve hasta que coincida con el target
         if (animal.x < target.x) {
@@ -65,7 +65,6 @@ public class WalkingState implements State {
 
         if (animal.x == target.x && animal.y == target.y) {
             animal.changeState(this);
-            return;
         }
     }
 }

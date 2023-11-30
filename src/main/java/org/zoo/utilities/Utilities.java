@@ -7,17 +7,17 @@ import java.io.File;
 import java.io.IOException;
 
 public class Utilities {
-    public static Point getNormalizedVector(Point vector) {
+    public static ZooPoint getNormalizedVector(ZooPoint vector) {
         return getNormalizedVector(vector, 1);
     }
-    public static Point getNormalizedVector(Point vector, int norm) {
-        double vectorXnotNorm = (double)(vector.x);
-        double vectorYnotNorm = (double)(vector.y);
+    public static ZooPoint getNormalizedVector(ZooPoint vector, int norm) {
+        double vectorXnotNorm = vector.x;
+        double vectorYnotNorm = vector.y;
         double vectorNorm = Math.sqrt(vectorXnotNorm * vectorXnotNorm
                 +  vectorYnotNorm * vectorYnotNorm);
         int vectorX = (int)(norm * (vectorXnotNorm) / vectorNorm);
         int vectorY = (int)(norm * (vectorYnotNorm) / vectorNorm);
-        return  new Point(vectorX, vectorY);
+        return  new ZooPoint(vectorX, vectorY);
     }
     // TODO: Retornar BufferedImage?
     public static Image loadImage(String path) {

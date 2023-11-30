@@ -12,7 +12,7 @@ public class Hitbox {
         this.height = height;
     }
 
-    public static boolean checkPointHitboxCollision(Hitbox hitbox, Point p) {
+    public static boolean checkPointHitboxCollision(Hitbox hitbox, ZooPoint p) {
         /*
          * Podemos crear un hitbox de ancho y largo 0, y ocupar la función
          * checkHitboxCollision
@@ -59,7 +59,7 @@ public class Hitbox {
       estar adyacente a targetHitbox (rozandolo, pero sin estar uno sobre el otro)
       Importante: No funciona si los objetos estan uno sobre el otro
      */
-    static public Point getCloserPointToHitbox(Hitbox movableHitbox, Hitbox targetHitbox) {
+    static public ZooPoint getCloserPointToHitbox(Hitbox movableHitbox, Hitbox targetHitbox) {
         int targetX;
         if (movableHitbox.x < targetHitbox.x) {
             targetX = targetHitbox.x - movableHitbox.width;
@@ -80,7 +80,7 @@ public class Hitbox {
         else {
             targetY = movableHitbox.y;
         }
-        return new Point(targetX, targetY);
+        return new ZooPoint(targetX, targetY);
     }
 
     @Override

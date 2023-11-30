@@ -14,7 +14,7 @@ import java.awt.event.MouseMotionListener;
 public class VistaEscenaZoo extends JPanel {
     private final DrawVisitor renderZoo;
     private final EscenaZoo escenaZoo;
-    private PanelContainer panelContainer;
+    private final PanelContainer panelContainer;
     public VistaEscenaZoo(EscenaZoo escenaZoo) {
         /* No queremos que swing llame repaint. */
         setIgnoreRepaint(true);
@@ -56,13 +56,40 @@ public class VistaEscenaZoo extends JPanel {
         super.paintComponent(g);
     }
     public class ZooListener implements MouseInputListener, MouseMotionListener {
+
         @Override
-        public void mouseReleased(MouseEvent mouseEvent) {
+        public void mousePressed(MouseEvent mouseEvent) {
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent mouseEvent) {
 
         }
 
         @Override
-        public void mousePressed(MouseEvent mouseEvent) {
+        public void mouseExited(MouseEvent mouseEvent) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent mouseEvent) {
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent mouseEvent) {
+            renderZoo.setDragging(true);
+            /* Esto es necesario para porder actualizar posición del mouse */
+            mouseMoved(mouseEvent);
+        }
+        @Override
+        public void mouseReleased(MouseEvent mouseEvent) {
+            /*
+             * Esto es para permitirle al usuario arrastrar la camara
+             * mientras posiciona elementos en el zoo.
+             */
+            if (renderZoo.isDragging()) {
+                renderZoo.setDragging(false);
+                return;
+            }
             if (escenaZoo.getHabitatPlacementManager().isActivo()) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
                     escenaZoo.getHabitatPlacementManager().place();
@@ -79,43 +106,24 @@ public class VistaEscenaZoo extends JPanel {
 
             if (escenaZoo.getFoodPlacementManager().isActivo()) {
                 if (mouseEvent.getButton() == MouseEvent.BUTTON1) {
-                    escenaZoo.getFoodPlacementManager().place();;
+                    escenaZoo.getFoodPlacementManager().place();
                 }
                 escenaZoo.getFoodPlacementManager().disablePlacement();
             }
         }
 
-        @Override
-        public void mouseClicked(MouseEvent mouseEvent) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent mouseEvent) {
-            renderZoo.setMouseIn(false);
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent mouseEvent) {
-            renderZoo.setMouseIn(true);
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent mouseEvent) {
-
-        }
 
         @Override
         public void mouseMoved(MouseEvent mouseEvent) {
-            // TODO: Acá se deberia setear un X distinto para hpm y apm!
-            // relativo a camara.
-
-            // RenderZoo actualiza posición del cursero para uso con camara.
+            /*
+             * RenderZoo actualiza posición del cursero para uso con camara solo
+             * cuando no se esta arrastrando la camara.
+             */
             renderZoo.setMouseX(mouseEvent.getX());
             renderZoo.setMouseY(mouseEvent.getY());
 
 
-            // Acá actualizamos la posición de los placement managers.
+            /* Acá se actualiza la posición de los placement managers. */
             int placementX = mouseEvent.getX() + renderZoo.getCameraX();
             int placementY = mouseEvent.getY() + renderZoo.getCameraY();
 

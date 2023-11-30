@@ -2,8 +2,7 @@ package org.zoo.modelo.placementmanager;
 
 import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.habitat.Habitat;
-import org.zoo.utilities.Hitbox;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.visitor.Visitor;
 
@@ -41,16 +40,16 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
             height = fieldHeight.getInt(null);
         } catch (IllegalAccessException e) {}
 
-        Habitat habitat = getZoo().getHabitatFromPoint(new Point(getAbsX(), getAbsY()));
+        Habitat habitat = getZoo().getHabitatFromPoint(new ZooPoint(getAbsX(), getAbsY()));
 
         // Coordenadas en las que se posicionará el gato.
         int posX = getAbsX() - width / 2;
         int posY = getAbsY() - height / 2;
 
         if (habitat != null) {
-            Point habitatAbs = new Point(habitat.getAbsX(), habitat.getAbsY());
-            Point placementAbs = new Point(posX, posY);
-            Point relative = Point.getDifference(placementAbs, habitatAbs);
+            ZooPoint habitatAbs = new ZooPoint(habitat.getAbsX(), habitat.getAbsY());
+            ZooPoint placementAbs = new ZooPoint(posX, posY);
+            ZooPoint relative = ZooPoint.getDifference(placementAbs, habitatAbs);
             System.out.println(relative);
             habitat.addAnimal(enumAnimal, relative);
         }

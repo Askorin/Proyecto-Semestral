@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class LabelNavArrow extends JLabel {
-    private NavArrowOrientation orientation;
+    private final NavArrowOrientation orientation;
     public LabelNavArrow(int width, int height, NavArrowOrientation orientation) {
         super();
         this.orientation = orientation;
@@ -25,7 +25,7 @@ public class LabelNavArrow extends JLabel {
     public enum NavArrowOrientation {
         RIGHT("/NavArrowR.png"),
         LEFT("/NavArrowL.png");
-        private String path;
+        private final String path;
         NavArrowOrientation(String path) {
             this.path = path;
         }

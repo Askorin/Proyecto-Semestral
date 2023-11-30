@@ -4,7 +4,7 @@ import org.zoo.modelo.Sprite;
 import org.zoo.modelo.animal.Animal;
 
 public class DeadState implements State {
-    private Animal animal;
+    private final Animal animal;
     private final int ANIM_DURATION = Sprite.ANIMAL_DEAD_ANIM.getFramesNumber() * Sprite.ANIMAL_DEAD_ANIM.getTimePerFrame();
     private final long initMs;
     private long currentMs;

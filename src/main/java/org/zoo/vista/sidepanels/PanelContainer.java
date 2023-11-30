@@ -8,10 +8,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelContainer extends JPanel {
-    private JPanel panelAnimal;
-    private PanelHabitat panelHabitat;
-    private JPanel panelFood;
-    private CardLayout cardLayout;
+    private final JPanel panelAnimal;
+    private final PanelHabitat panelHabitat;
+    private final JPanel panelFood;
+    private final CardLayout cardLayout;
 
     public PanelContainer(AnimalPlacementManager apm, HabitatPlacementManager hpm, VistaEscenaZoo.PanelListener panelListener) {
         cardLayout = new CardLayout();

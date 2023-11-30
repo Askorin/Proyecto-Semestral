@@ -15,9 +15,9 @@ public class Containables {
      * 3- Ningún elemento puede eliminar a otro que no sea si mismo.
      * Esto para evitar problemas de modificación de arreglos concurrent.
      */
-    private ArrayList<Updatable> updatables;
-    private ArrayList<Drawable> drawables;
-    private ArrayList<Unblockable> unblockables;
+    private final ArrayList<Updatable> updatables;
+    private final ArrayList<Drawable> drawables;
+    private final ArrayList<Unblockable> unblockables;
     public Containables() {
         updatables = new ArrayList<>();
         drawables = new ArrayList<>();

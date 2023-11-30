@@ -4,7 +4,7 @@ import org.zoo.App;
 import org.zoo.modelo.*;
 import org.zoo.modelo.states.DeadState;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.habitat.Habitat;
@@ -18,11 +18,11 @@ import java.awt.*;
 import java.awt.font.GlyphVector;
 
 public class DrawVisitor extends JPanel implements Visitor {
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private Graphics g;
     private Layer currentLayer;
-    private Zoo zoo;
+    private final Zoo zoo;
     // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
     protected void paintComponent(Graphics g) {
@@ -89,7 +89,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         }
         int cameraX = getCameraX();
         int cameraY = getCameraY();
-        Point p = new Point(-cameraX, -cameraY);
+        ZooPoint p = new ZooPoint(-cameraX, -cameraY);
 
         /* Dibujamos camara */
         if (currentLayer == Layer.BOTTOM) {
@@ -195,7 +195,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     public void visitTextMessage(TextMessage text) {
         if (currentLayer == Layer.TOP) {
             int x = 10;
-            int y = 25 + 12*textCounter;
+            int y = 25 + 12 * textCounter;
 
             int time = (int) (text.getTimeElapsed());
             float lifetimeRatio = ((float) time) / ((float) TextMessage.LIFETIME);
@@ -226,44 +226,87 @@ public class DrawVisitor extends JPanel implements Visitor {
 
 
     ///// CAMERA //TODO: Mover a otra clase, ojala no anidada a esta?
-    // TODO: ESO SUENA COMO UNA MUY BUENA IDEA!
-    // alvaro me das miedo
-
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
-    private final int cameraTol = 24; private final int cameraSpeed = 5;
-    private int mouseX; private int mouseY; private boolean mouseIn;
+    private final int cameraSpeed = 1;
+    private int mouseX; private int mouseY; private boolean isDragging;
+    private ZooPoint prevMousePos;
     private void updateCamera() {
 
+
+        /*
+         * cameraWidth es ancho de lo que se "muestra"
+         * width es ancho de fondo
+         */
         cameraHeight = getSize().height;
         cameraWidth = getSize().width;
 
-        if (mouseIn) {
-            if (mouseX < cameraTol && cameraX - cameraSpeed >= 0) {
-                cameraX += -cameraSpeed;
+        ZooPoint currentMousePos = new ZooPoint(mouseX, mouseY);
+        if (prevMousePos != null && isDragging) {
+            ZooPoint deltaMousePos = ZooPoint.getDifference(prevMousePos, currentMousePos);
+            deltaMousePos.x *= cameraSpeed;
+            deltaMousePos.y *= cameraSpeed;
+            ZooPoint newCameraPos = new ZooPoint(cameraX + deltaMousePos.x, cameraY + deltaMousePos.y);
+
+            /*
+             * Si la posición de renderizado del fondo más su ancho es mayor
+             * al espacio disponible en la vista, no queremos aplicar la transformación.
+             */
+            boolean changeX = true;
+            boolean changeY = true;
+
+            /*
+             * Si estamos en el borde derecho del mapa y el usuario quiere
+             * seguir moviendose a la derecha.
+             */
+            if (newCameraPos.x + cameraWidth > width && deltaMousePos.x > 0) {
+                changeX = false;
             }
-            else if (mouseX > (cameraWidth - cameraTol)
-                    && cameraX + cameraWidth + cameraSpeed <= width) {
-                cameraX += cameraSpeed;
+
+            /*
+             * Si estamos en el borde izquierdo del mapa y el usuario quiere
+             * seguir moviendose a la izquierda.
+             */
+            if (newCameraPos.x < 0 && deltaMousePos.x < 0) {
+                changeX = false;
             }
-            if (mouseY < cameraTol && cameraY - cameraSpeed >= 0) {
-                cameraY += -cameraSpeed;
+
+            /*
+             * Si estamos en el borde inferior del mapa y el usuario quiere
+             * seguir moviendo hacia abajo.
+             */
+            if (newCameraPos.y + cameraHeight > height && deltaMousePos.y > 0) {
+                changeY = false;
             }
-            else if (mouseY > (cameraHeight - cameraTol)
-                    && cameraY + cameraHeight + cameraSpeed <= height) {
-                cameraY += cameraSpeed;
+
+            /*
+             * Si estamos en el borde superior del mapa y el usuario quiere
+             * seguir moviendose hacia arriba
+             */
+            if (newCameraPos.y < 0 && deltaMousePos.y < 0) {
+                changeY = false;
             }
+
+            if (changeX) cameraX = newCameraPos.x;
+            if (changeY) cameraY = newCameraPos.y;
+
         }
+        prevMousePos = currentMousePos;
     }
 
     public void setMouseX(int mouseX) {
         this.mouseX = mouseX;
     }
+
     public void setMouseY(int mouseY) {
         this.mouseY = mouseY;
     }
-    public void setMouseIn(boolean mouseIn) {
-        this.mouseIn = mouseIn;
+    public void setDragging(boolean dragging) {
+        this.isDragging = dragging;
+    }
+
+    public boolean isDragging() {
+        return isDragging;
     }
 
     public int getCameraX() {
@@ -278,6 +321,6 @@ public class DrawVisitor extends JPanel implements Visitor {
         BOTTOM,
         MIDDLE_BACK,
         MIDDLE,
-        TOP;
+        TOP
     }
 }

@@ -1,13 +1,10 @@
 package org.zoo.modelo;
 
 import org.zoo.Containables;
-import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 import org.zoo.utilities.Hitbox;
-import org.zoo.utilities.Utilities;
-import org.zoo.modelo.animal.Gato;
 import org.zoo.modelo.habitat.EnumHabitat;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.placementmanager.AnimalPlacementManager;
@@ -23,10 +20,10 @@ public class Zoo
     private final int height = 2048;
     private final Sprite backgroundSprite = Sprite.ZOO_BACKGROUND;
     // TODO: Se podría tener una arraylist de habitats? // y los habitats podrian tener un arrayList de animales?
-    private Containables containables;
-    private HabitatPlacementManager habitatPlacementManager;
-    private AnimalPlacementManager animalPlacementManager;
-    private FoodPlacementManager foodPlacementManager;
+    private final Containables containables;
+    private final HabitatPlacementManager habitatPlacementManager;
+    private final AnimalPlacementManager animalPlacementManager;
+    private final FoodPlacementManager foodPlacementManager;
       
     public Zoo(HabitatPlacementManager habitatPlacementManager, AnimalPlacementManager animalPlacementManager, FoodPlacementManager foodPlacementManager) {
         containables = new Containables();
@@ -37,7 +34,7 @@ public class Zoo
     }
 
     public boolean addHabitat(int x, int y, EnumHabitat enumHabitat) {
-        Habitat habitat = enumHabitat.newInstance(this, new Point(x, y));
+        Habitat habitat = enumHabitat.newInstance(this, new ZooPoint(x, y));
         habitat.x = x;
         habitat.y = y;
 
@@ -56,7 +53,7 @@ public class Zoo
     /**
      * Retorna el habitat que contiene un punto específico, retorna null si no existe.
      */
-    public Habitat getHabitatFromPoint(Point p) {
+    public Habitat getHabitatFromPoint(ZooPoint p) {
         for (Drawable d: getContainables().getDrawables()) {
             if (d instanceof Habitat h)   {
                 if (Hitbox.checkPointHitboxCollision(h.getAbsHitbox(), p)) {

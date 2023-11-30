@@ -2,7 +2,7 @@ package org.zoo.modelo.animal;
 
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.Sprite;
-import org.zoo.utilities.Point;
+import org.zoo.utilities.ZooPoint;
 
 public enum EnumAnimal {
     GATO("org.zoo.modelo.animal.Gato", Gato.class, Sprite.CAT_IDLE, "/CatIdle1.png"),
@@ -34,10 +34,10 @@ public enum EnumAnimal {
         return labelPath;
     }
 
-    public Animal newInstance(Habitat habitat, Point p) {
+    public Animal newInstance(Habitat habitat, ZooPoint p) {
         Animal animal = null;
         try {
-            animal = (Animal) tipo.getDeclaredConstructor(Habitat.class, Point.class).newInstance(habitat, p);
+            animal = (Animal) tipo.getDeclaredConstructor(Habitat.class, ZooPoint.class).newInstance(habitat, p);
         } catch (Exception e) {
             e.printStackTrace();
         }

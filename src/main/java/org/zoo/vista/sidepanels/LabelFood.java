@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class LabelFood extends JLabel {
-    private EnumFood enumFood;
+    private final EnumFood enumFood;
     public LabelFood(int width, int height, EnumFood enumFood) {
         super();
         this.enumFood = enumFood;

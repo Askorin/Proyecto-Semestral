@@ -3,7 +3,7 @@ package org.zoo.modelo.states;
 import org.zoo.modelo.animal.Animal;
 
 public class IdleState implements State {
-    private Animal animal;
+    private final Animal animal;
     private final int IDLE_DURATION = (int) (Math.random()*3000 + 2000); // entre 2 y 5 s
     private final long initMs;
     private long currentMs;

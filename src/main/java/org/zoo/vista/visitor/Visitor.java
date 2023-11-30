@@ -8,14 +8,14 @@ import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
 
 public interface Visitor {
-    public void visitAnimal(Animal animal);
-    public void visitHabitat(Habitat habitat);
-    public void visitZoo(Zoo zoo);
-    public void visitHabitatPlacementManager(HabitatPlacementManager hpm);
-    public void visitAnimalPlacementManager(AnimalPlacementManager apm);
-    public void visitFoodPlacementManager(FoodPlacementManager fpm);
-    public void visitFoodDisplay(FoodArea.FoodDisplay foodDisplay);
-    public void visitFoodArea(FoodArea foodArea);
-    public void visitTextMessageManager(TextMessageManager manager);
-    public void visitTextMessage(TextMessage text);
+    void visitAnimal(Animal animal);
+    void visitHabitat(Habitat habitat);
+    void visitZoo(Zoo zoo);
+    void visitHabitatPlacementManager(HabitatPlacementManager hpm);
+    void visitAnimalPlacementManager(AnimalPlacementManager apm);
+    void visitFoodPlacementManager(FoodPlacementManager fpm);
+    void visitFoodDisplay(FoodArea.FoodDisplay foodDisplay);
+    void visitFoodArea(FoodArea foodArea);
+    void visitTextMessageManager(TextMessageManager manager);
+    void visitTextMessage(TextMessage text);
 }

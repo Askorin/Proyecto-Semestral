@@ -14,7 +14,7 @@ contenedor para que reciba un llamado de .update(), y luego llama al .update() d
  */
 public class TextMessageManager implements Updatable, Drawable {
     private static TextMessageManager singleton = null;
-    private static ArrayList<TextMessage> allTextMessages = new ArrayList<>();
+    private static final ArrayList<TextMessage> allTextMessages = new ArrayList<>();
     private TextMessageManager() {}
     public static TextMessageManager getInstance() {
         if (singleton == null) {

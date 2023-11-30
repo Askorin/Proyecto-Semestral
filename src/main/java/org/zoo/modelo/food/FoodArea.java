@@ -14,9 +14,9 @@ public class FoodArea implements Drawable, Unblockable {
     public int y;
     protected int width;
     protected int height;
-    private int [] foodQuantity;
-    private ArrayList<FoodDisplay> allFoodDisplays;
-    private Positionable owner;
+    private final int [] foodQuantity;
+    private final ArrayList<FoodDisplay> allFoodDisplays;
+    private final Positionable owner;
     public FoodArea(Positionable owner, int x, int y, int width, int height) {
         this.owner = owner;
         this.x = x;
@@ -113,12 +113,12 @@ public class FoodArea implements Drawable, Unblockable {
 
 
     public class FoodDisplay implements Drawable {
-        private EnumFood enumFood;
-        private int x;
-        private int y;
-        private int width = 32;
-        private int height = 32;
-        private int rotation;
+        private final EnumFood enumFood;
+        private final int x;
+        private final int y;
+        private final int width = 32;
+        private final int height = 32;
+        private final int rotation;
         public FoodDisplay(EnumFood enumFood) {
             //es importante que la comida se imprima dentro de org.zoo.modelo.food.FoodArea
             x = (int) (Math.random() * (FoodArea.this.width - width));
