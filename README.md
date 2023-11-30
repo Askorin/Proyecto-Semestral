@@ -1,4 +1,4 @@
-# Proyecto-Semestral
+# Proyecto Semestral
 Proyecto Semestral del curso de Programación II de la Universidad de Concepción.
 
 | Integrante                      | Matrícula  |
@@ -19,5 +19,5 @@ de estos, y sus compatibilidades con otros animales / entornos. Todo mediante un
 
 ------------------------------------------------
 
-## Diagrama de casos de uso de la Aplicación
+## Diagrama de Casos de Uso de la Aplicación
 ![Casos de uso de la aplicación](/UML_Use_Case.png?raw=true?)
