@@ -6,33 +6,43 @@ actor Usuario as user
 
 ' Package de zoológico.
 package Zoo {
-  usecase (Crear\nhabitat) as UC1
-  usecase (Seleccionar\nhabitat) as UC2
-  usecase (Seleccionar\ntipo de\nhabitat) as UC3
-  
-  usecase (Añadir\nanimal) as UC5
-  usecase (Añadir\ncomida) as UC6
+  usecase (Colocar\nhabitat) as ColHabitat
+  usecase (Colocar\nanimal) as ColAnimal
+  usecase (Colocar\ncomida) as ColComida
+  usecase (Explorar\nzoo) as ExZoo
 
-  usecase (Elegir\ntipo de\nanimal) as UC7
+  usecase (Elegir\ntipo de\nhabitat) as TipoHabitat
+  usecase (Mostrar\nconflictos\nhabitat) as ConfHabitat
+
+  usecase (Elegir\ntipo de\nanimal) as TipoAnimal
+  usecase (Mostrar\nconflictos\nanimal) as ConfAnimal
+  
+  usecase (Elegir\ntipo de \ncomida) as TipoComida
+
+  usecase (Ver\nhabitats) as VerHabitats
+  usecase (Ver\nanimales) as VerAnimales
+  usecase (Ver\ndepositos de\ncomida) as VerDepsComida
 }
 
 
 ' Includes, un caso de uso incluye, implica, este otro caso de uso.
+ColHabitat ..> TipoHabitat : <<Include>>
+ColAnimal ..> TipoAnimal : <<Include>>
+ColComida ..> TipoComida : <<Include>>
+ExZoo ..> VerHabitats : <<Include>>
+VerHabitats ..> VerAnimales : <<Include>>
+VerHabitats ..> VerDepsComida : <<Include>>
 
-' Esto podría expandirse en distintas elecciones.
-UC1 ..> UC3 : <<Include>>
-UC5 ..> UC7 : <<Include>>
-
-
-' Extends, estas son opciones opcionales que se ramifican de un caso de uso.
-UC2 <.. UC5 : <<Extend>>
-UC2 <.. UC6 : <<Extend>>
+' Extends, estas son situaciones opcionales que se ramifican de un caso de uso.
+ColHabitat <.. ConfHabitat : <<Extend>>
+ColAnimal <.. ConfAnimal : <<Extend>>
 
 
 ' Casos de uso usuario principal.
-user --> UC1
-user --> UC2
-
+user --> ColHabitat
+user --> ColAnimal
+user --> ColComida
+user --> ExZoo
 
 
 @enduml
