@@ -1,4 +1,5 @@
 package org.zoo.vista.sidepanels;
+import org.zoo.App;
 import org.zoo.modelo.MenuItem;
 import org.zoo.vista.VistaEscenaZoo;
 
@@ -26,17 +27,23 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         } catch (IOException e) {
 
         }
-        addNavArrowL(100, panelListener);
-        createLabels(panelListener);
-        addNavArrowR(100, panelListener);
+
+        setSize(new Dimension(App.SCREEN_WIDTH, 0));
+        setSize(getPreferredSize());
+        System.out.println(getSize());
+
+
+        addNavArrowL((int) (100 * App.SCALE_FACTOR), panelListener);
+        createLabels((int) (80 * App.SCALE_FACTOR), panelListener);
+        addNavArrowR((int) (100 * App.SCALE_FACTOR), panelListener);
     }
 
     private T[] values() {
         return clazz.getEnumConstants();
     }
-    private void createLabels(VistaEscenaZoo.PanelListener panelListener) {
+    private void createLabels(int height, VistaEscenaZoo.PanelListener panelListener) {
         for (T itemEnum : values())  {
-            ItemLabel<T> itemLabel = new ItemLabel<>(100, itemEnum);
+            ItemLabel<T> itemLabel = new ItemLabel<>(height, itemEnum);
             itemLabel.addMouseListener(panelListener);
             add(itemLabel);
             if (itemEnum.ordinal() != values().length - 1) {
@@ -69,10 +76,10 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         return new Dimension(panelWidth, panelHeight);
     }
 
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
 
         BufferedImage bg = new BufferedImage(
                 getWidth(),
@@ -85,6 +92,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         g2d.dispose();
 
         g.drawImage(bg, 0, 0, null);
+
 
     }
 }

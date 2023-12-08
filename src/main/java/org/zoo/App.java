@@ -15,6 +15,9 @@ public final class App {
 
     /** Timer del gameLoop, corre cada cierto tiempo fijo. */
     private Timer gameLoop;
+    public static final float SCALE_FACTOR = 1.2f;
+    public static final int SCREEN_WIDTH = (int) (850 * SCALE_FACTOR);
+    public static final int SCREEN_HEIGHT = (int) (480 * SCALE_FACTOR);
     private final float FPS = 60;
     public final float MS_PER_FRAME = 1.0f / FPS * 1000;
     private boolean corriendo;
@@ -51,9 +54,7 @@ public final class App {
         frame = new JFrame("Zoo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Ratio 16:9
-        int width = 850;
-        int height = 480;
-        frame.setSize(width, height);
+        frame.setSize(App.SCREEN_WIDTH, App.SCREEN_HEIGHT);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(vistaEscenaZoo);
         frame.setVisible(true);
