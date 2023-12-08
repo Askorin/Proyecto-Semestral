@@ -42,7 +42,7 @@ public class Zoo
         /* Primero revisamos que el habitat se encuentra dentro del Zoo. */
         Hitbox zooHitbox = new Hitbox(getAbsX(), getAbsY(), getWidth(), getHeight());
 
-        if (!Hitbox.isHitboxContained(zooHitbox, habitat.getAbsHitbox())) {
+        if (!Hitbox.isHitboxContained(zooHitbox, habitat.getAbsPlacementHitbox())) {
             String text = "El espacio se encuentra fuera del límite del zoológico.";
             new TextMessage(text);
             return false;
@@ -51,7 +51,7 @@ public class Zoo
 
         for (Drawable d: getContainables().getDrawables()) {
             if (d instanceof Habitat h) {
-                if (Hitbox.checkHitboxCollision(h.getAbsHitbox(), habitat.getAbsHitbox())) {
+                if (Hitbox.checkHitboxCollision(h.getAbsPlacementHitbox(), habitat.getAbsPlacementHitbox())) {
                     String text = "El espacio se encuentra ocupado.";
                     new TextMessage(text);
                     return false;
