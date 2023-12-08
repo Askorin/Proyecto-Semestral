@@ -8,11 +8,12 @@ import org.zoo.vista.VistaEscenaZoo;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     private Class<T> clazz;
-    Image background;
+    BufferedImage background;
     public ItemPanel(VistaEscenaZoo.PanelListener panelListener, Class<T> clazz) {
         super();
         this.clazz = clazz;
@@ -56,8 +57,17 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // background = background.getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST);
-        // g.drawImage(background, 0, 0, null);
+        BufferedImage bg = new BufferedImage(
+                getWidth(),
+                getHeight(),
+                background.getType()
+        );
+        Graphics2D g2d = bg.createGraphics();
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.drawImage(background, 0, 0, getWidth(), getHeight(), null);
+        g2d.dispose();
+
+        g.drawImage(bg, 0, 0, null);
 
     }
 }
