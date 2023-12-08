@@ -16,13 +16,10 @@ public class ItemLabel<T extends MenuItem> extends JLabel implements HoverVisual
     private final ImageIcon hoverIcon;
     private boolean hoverState;
 
-    ItemLabel(int width, int height, T itemEnum) {
+    ItemLabel(int height, T itemEnum) {
         super();
         this.itemEnum = itemEnum;
         this.hoverState = false;
-
-        setSize(width, height);
-        setPreferredSize(new Dimension(getWidth(), getHeight()));
 
         BufferedImage defaultBufferedImg = RenderedSprite.getFrame(itemEnum.getInGameSprite(), 0);
         BufferedImage hoverBufferedImg = new BufferedImage(
@@ -31,6 +28,17 @@ public class ItemLabel<T extends MenuItem> extends JLabel implements HoverVisual
                 defaultBufferedImg.getType()
         );
 
+        /* Las dimensiones de la imagen a usar */
+        Dimension imgDim = new Dimension(defaultBufferedImg.getWidth(), defaultBufferedImg.getHeight());
+
+        /* El ratio entre la altura dada y la altura de la imagen. */
+        float ratio = height / (float) imgDim.height;
+        Dimension size = new Dimension(
+                (int) (imgDim.width  * ratio),
+                (int) (imgDim.height * ratio)
+        );
+        setSize(size);
+
         /* Oscurecemos la imagen de hover state. */
         RescaleOp rescaleOp = new RescaleOp(0.7f, 0, null);
         rescaleOp.filter(defaultBufferedImg, hoverBufferedImg);
@@ -38,6 +46,8 @@ public class ItemLabel<T extends MenuItem> extends JLabel implements HoverVisual
         /* Conseguimos la imagenes escaladas. */
         Image defaultImg = defaultBufferedImg.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
         Image hoverImg = hoverBufferedImg.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
+
+
 
         /* Instanciamos los iconos para el label. */
         defaultIcon = new ImageIcon(defaultImg);

@@ -1,8 +1,5 @@
 package org.zoo.vista.sidepanels;
-
 import org.zoo.modelo.MenuItem;
-import org.zoo.modelo.food.EnumFood;
-import org.zoo.modelo.placementmanager.PlacementManager;
 import org.zoo.vista.VistaEscenaZoo;
 
 import javax.imageio.ImageIO;
@@ -12,21 +9,26 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
-    private Class<T> clazz;
-    BufferedImage background;
+    private final Class<T> clazz;
+    private BufferedImage background;
+    private Dimension bgDim;
+    /* Margen entre borde de panel y elemento más externo (flechas de nav) */
+    private final int BORDER_MARGIN = 35;
+    private final int ITEM_SPACING = 35;
     public ItemPanel(VistaEscenaZoo.PanelListener panelListener, Class<T> clazz) {
         super();
         this.clazz = clazz;
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
         try {
-            background = ImageIO.read(getClass().getResource("/menu.png"));
+            background = ImageIO.read(getClass().getResource("/cropped_panel.png"));
+            bgDim = new Dimension(background.getWidth(), background.getHeight());
         } catch (IOException e) {
 
         }
-        addNavArrowL(100, 100, panelListener);
+        addNavArrowL(100, panelListener);
         createLabels(panelListener);
-        addNavArrowR(100, 100, panelListener);
+        addNavArrowR(100, panelListener);
     }
 
     private T[] values() {
@@ -34,29 +36,44 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     }
     private void createLabels(VistaEscenaZoo.PanelListener panelListener) {
         for (T itemEnum : values())  {
-            ItemLabel<T> itemLabel = new ItemLabel<>(100, 100, itemEnum);
+            ItemLabel<T> itemLabel = new ItemLabel<>(100, itemEnum);
             itemLabel.addMouseListener(panelListener);
             add(itemLabel);
+            if (itemEnum.ordinal() != values().length - 1) {
+                add(Box.createHorizontalStrut(ITEM_SPACING));
+            }
         }
     }
 
-    public void addNavArrowR(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
-        LabelNavArrow labelNavArrow = new LabelNavArrow(width, height, LabelNavArrow.NavArrowOrientation.RIGHT);
+    public void addNavArrowR(int height, VistaEscenaZoo.PanelListener panelListener) {
+        LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.RIGHT);
         labelNavArrow.addMouseListener(panelListener);
         add(Box.createHorizontalGlue());
         add(labelNavArrow);
+        add(Box.createHorizontalStrut(BORDER_MARGIN));
     }
 
-    public void addNavArrowL(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
-        LabelNavArrow labelNavArrow = new LabelNavArrow(width, height, LabelNavArrow.NavArrowOrientation.LEFT);
+    public void addNavArrowL(int height, VistaEscenaZoo.PanelListener panelListener) {
+        LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.LEFT);
         labelNavArrow.addMouseListener(panelListener);
+        add(Box.createHorizontalStrut(BORDER_MARGIN));
         add(labelNavArrow);
         add(Box.createHorizontalGlue());
     }
 
     @Override
+    public Dimension getPreferredSize() {
+        float ratio = getWidth() / (float) bgDim.width;
+        int panelWidth = (int) (bgDim.width * ratio);
+        int panelHeight = (int) (bgDim.height * ratio);
+        return new Dimension(panelWidth, panelHeight);
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+
         BufferedImage bg = new BufferedImage(
                 getWidth(),
                 getHeight(),
