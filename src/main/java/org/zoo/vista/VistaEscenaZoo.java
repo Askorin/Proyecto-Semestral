@@ -167,11 +167,21 @@ public class VistaEscenaZoo extends JPanel {
 
         @Override
         public void mouseEntered(MouseEvent mouseEvent) {
+            Component source = mouseEvent.getComponent();
+
+            if (source instanceof HoverVisuals hoverable) {
+                hoverable.setHoverState(true);
+            }
 
         }
 
         @Override
         public void mouseExited(MouseEvent mouseEvent) {
+            Component source = mouseEvent.getComponent();
+
+            if (source instanceof HoverVisuals hoverable) {
+                hoverable.setHoverState(false);
+            }
 
         }
 
