@@ -19,8 +19,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
 
         try {
             background = ImageIO.read(getClass().getResource("/cropped_panel.png"));
-            bgDim = new Dimension(getWidth(), getHeight());
-            System.out.println(background.getHeight());
+            bgDim = new Dimension(background.getWidth(), background.getHeight());
         } catch (IOException e) {
 
         }
@@ -41,31 +40,37 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     }
 
     public void addNavArrowR(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
-        LabelNavArrow labelNavArrow = new LabelNavArrow(width, height, LabelNavArrow.NavArrowOrientation.RIGHT);
+        LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.RIGHT);
         labelNavArrow.addMouseListener(panelListener);
         add(Box.createHorizontalGlue());
         add(labelNavArrow);
+        add(Box.createHorizontalStrut(35));
     }
 
     public void addNavArrowL(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
-        LabelNavArrow labelNavArrow = new LabelNavArrow(width, height, LabelNavArrow.NavArrowOrientation.LEFT);
+        LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.LEFT);
         labelNavArrow.addMouseListener(panelListener);
+        add(Box.createHorizontalStrut(35));
         add(labelNavArrow);
         add(Box.createHorizontalGlue());
+    }
+
+    @Override
+    public Dimension getPreferredSize() {
+        float ratio = getWidth() / (float) bgDim.width;
+        int panelWidth = (int) (bgDim.width * ratio);
+        int panelHeight = (int) (bgDim.height * ratio);
+        return new Dimension(panelWidth, panelHeight);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        float ratio = getWidth() / (float) bgDim.width;
-        int panelWidth = (int) (bgDim.width * ratio);
-        int panelHeight = (int) (bgDim.height * ratio);
-
 
         BufferedImage bg = new BufferedImage(
-                panelWidth,
-                panelHeight,
+                getWidth(),
+                getHeight(),
                 background.getType()
         );
         Graphics2D g2d = bg.createGraphics();
