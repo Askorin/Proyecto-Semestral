@@ -10,10 +10,24 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+/**
+ * Contraparte grafica de la escena del zoologico.
+ */
 public class VistaEscenaZoo extends JPanel {
+
+    /** Encargado de renderizar la escena del zoologico. */
     private final DrawVisitor renderZoo;
+
+    /** Parte logica del simulador. */
     private final EscenaZoo escenaZoo;
+
+    /** Contenedor de paneles interactivos. */
     private final PanelContainer panelContainer;
+
+    /**
+     * Constructor unico de la clase VistaEscenaZoo
+     * @param escenaZoo La instancia de EscenaZoo que controla la logica.
+     */
     public VistaEscenaZoo(EscenaZoo escenaZoo) {
         /* No queremos que swing llame repaint. */
         setIgnoreRepaint(true);
@@ -42,6 +56,11 @@ public class VistaEscenaZoo extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
     }
+
+    /**
+     * Clase interna VistaEscenaZoo, se encarga del manejo de inputs del usuario dentro
+     * del area del zoologico.
+     */
     public class ZooListener implements MouseInputListener, MouseMotionListener {
 
         @Override
@@ -124,6 +143,11 @@ public class VistaEscenaZoo extends JPanel {
             escenaZoo.getFoodPlacementManager().setY(placementY);
         }
     }
+
+    /**
+     * Clase interna de VistaEscenaZoo, se encarga de manejar los inputs del usuario
+     * dentro de los paneles interactivos.
+     */
     public class PanelListener implements MouseInputListener {
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {
@@ -142,7 +166,7 @@ public class VistaEscenaZoo extends JPanel {
                 PlacementManager pm = escenaZoo.getPlacementManager(itemLabel.getEnum());
                 if (pm != null) pm.enablePlacement(itemLabel.getEnum());
             } else if (source instanceof LabelNavArrow arrowLabel) {
-                panelContainer.switchPanel(arrowLabel);
+                panelContainer.switchPanel(arrowLabel.getOrientation());
             }
         }
 

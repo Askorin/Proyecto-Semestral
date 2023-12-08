@@ -9,13 +9,24 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 
+/**
+ * Clase que se encarga de mostrar un item catalogado en el menu.
+ * @param <T> El tipo de elemento a ser catalogado.
+ */
 public class ItemLabel<T extends MenuItem> extends JLabel implements HoverVisuals {
 
+    /** Instancia particular del elemento a catalogar. */
     private T itemEnum;
     private final ImageIcon defaultIcon;
     private final ImageIcon hoverIcon;
+    /** Indica si el label debe mostrar HoverVisuals. */
     private boolean hoverState;
 
+    /**
+     * Constructor unico de la clase.
+     * @param height La altura que debe tomar el label.
+     * @param itemEnum El elemento a mostrar.
+     */
     ItemLabel(int height, T itemEnum) {
         super();
         this.itemEnum = itemEnum;
@@ -47,16 +58,14 @@ public class ItemLabel<T extends MenuItem> extends JLabel implements HoverVisual
         Image defaultImg = defaultBufferedImg.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
         Image hoverImg = hoverBufferedImg.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH);
 
-
-
         /* Instanciamos los iconos para el label. */
         defaultIcon = new ImageIcon(defaultImg);
         hoverIcon = new ImageIcon(hoverImg);
 
-
         setIcon(defaultIcon);
 
     }
+
 
     @Override
     public void setHoverState(boolean hoverState) {

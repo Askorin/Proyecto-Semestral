@@ -9,12 +9,24 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
 
+
+/**
+ * Clase que se encarga de mostrar flecha de navegacion de paneles.
+ */
 public class LabelNavArrow extends JLabel implements HoverVisuals {
+
+    /** La orientacion de la flecha. */
     private final NavArrowOrientation orientation;
     private final ImageIcon defaultIcon;
     private final ImageIcon hoverIcon;
     private boolean hoverState;
     private Dimension imgDim;
+
+    /**
+     * El constructor unico de la clase.
+     * @param height La altura que ocupa el label.
+     * @param orientation La orientacion de la flecha.
+     */
     public LabelNavArrow(int height, NavArrowOrientation orientation) {
         super();
         this.orientation = orientation;
@@ -67,6 +79,10 @@ public class LabelNavArrow extends JLabel implements HoverVisuals {
         this.hoverState = hoverState;
     }
 
+    /**
+     * Enumerador interno que espeicifica las orientaciones que puede tener una
+     * flecha de navegacion.
+     */
     public enum NavArrowOrientation {
         RIGHT("/ArrowRight.png"),
         LEFT("/ArrowLeft.png");
