@@ -17,6 +17,10 @@ public enum Sprite {
     LION_WALK("src/main/resources/LionWalk.png", 4, 120, 8*4, 7*4),
     LION_HUNGRY("src/main/resources/LionHungry.png", 2, 400, 8*4, 22*4),
     LION_EAT("src/main/resources/LionEat.png", 2, 100, 8*4, 7*4),
+    MONKEY_IDLE("src/main/resources/MonkeyIdle.png", 1, 1, 3*4, 5*4),
+    MONKEY_WALK("src/main/resources/MonkeyWalk.png", 4, 100, 5*4, 5*4),
+    MONKEY_HUNGRY("src/main/resources/MonkeyHungry.png", 2, 400, 6*4, 21*4),
+    MONKEY_EAT("src/main/resources/MonkeyEat.png", 2, 120, 3*4, 5*4),
     ANIMAL_DEAD("src/main/resources/AnimalDead.png", 1, 1, 5*4, 11*4),
     ANIMAL_DEAD_ANIM("src/main/resources/AnimalDeadAnim.png", 6, 100, 5*4, 11*4),
     MEADOWHABITAT("src/main/resources/MeadowHabitat.png", 1, 1, 37*4, 40*4),
@@ -24,6 +28,7 @@ public enum Sprite {
     FISH_INGAME("src/main/resources/FishIngame.png", 1, 1, 4*4, 4*4),
     LEAVES_INGAME("src/main/resources/LeavesIngame.png", 1, 1, 4*4, 3*4),
     MEAT_INGAME("src/main/resources/MeatIngame.png", 1, 1, 4*4, 3*4),
+    BANANA_INGAME("src/main/resources/BananaIngame.png", 1, 1, 2*4, 4*4),
     ZOO_BACKGROUND("src/main/resources/ZooBackground.png", 1, 1, 1024*4, 1024*4);
     private final String path;
     private final int framesNumber; //Numero de frames
