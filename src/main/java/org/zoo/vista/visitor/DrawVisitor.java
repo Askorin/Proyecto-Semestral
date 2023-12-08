@@ -2,7 +2,7 @@ package org.zoo.vista.visitor;
 
 import org.zoo.App;
 import org.zoo.modelo.*;
-import org.zoo.modelo.states.DeadState;
+import org.zoo.modelo.states.DeadAnimalState;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.animal.Animal;
@@ -52,7 +52,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         RenderedSprite.loadSprites(); //Importante
     }
     public void visitAnimal(Animal animal) {
-        boolean cond = (animal.getCurrentState().getClass() == DeadState.class);
+        boolean cond = (animal.getCurrentState().getClass() == DeadAnimalState.class);
         if (    (currentLayer == Layer.MIDDLE        && !cond)
              || (currentLayer == Layer.MIDDLE_BACK   &&  cond) ) {
             int x = animal.getAbsX() - getCameraX();

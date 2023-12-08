@@ -8,11 +8,11 @@ import org.zoo.modelo.animal.Animal;
 
 //Este estado corresponde a caminar a un punto aleatorio
 //es util para tener un comportamiente "por defecto" y no quedarse quieto
-public class WalkingState implements State {
+public class WalkingAnimalState implements AnimalState {
     private final Animal animal;
     private final ZooPoint target; //punto aleatorio el cual es a donde se dirige el animal
     private final int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
-    public WalkingState(Animal animal) {
+    public WalkingAnimalState(Animal animal) {
         this.animal = animal;
         int targetX;
         int targetY;
@@ -23,7 +23,7 @@ public class WalkingState implements State {
 
             //es importante que exista un camino al target donde pueda ir el animal
             //TODO: IMPORTANTE TENER EN CUENTA QUE:
-            /*Actualmente el org.zoo.modelo.states.State no calcula si el camino a seguir esta despejado,
+            /*Actualmente el State no calcula si el camino a seguir esta despejado,
               solo se fija si el punto final esta despejado (despejado = sin colisiones)
              */
             boolean collisionFound = false;
@@ -40,11 +40,18 @@ public class WalkingState implements State {
         animal.setSprite(animal.getWalkSprite());
     }
     @Override
-    public void stateBehavior() {
+    public void stateUpdate() {
+
+        /* Revisamos si el animal tiene hambre */
+        if (animal.getHungerTimeElapsed() >= animal.getHungerLimitMs()) {
+            animal.changeStateV2(new StarvingAnimalState(animal));
+            return;
+        }
+
+        /* El animal se dirige a el target */
         ZooPoint direction = ZooPoint.getDifference(target, new ZooPoint(animal.x, animal.y));
         ZooPoint velocity = Utilities.getNormalizedVector(direction, speed);
 
-        //el animal se mueve hasta que coincida con el target
         if (animal.x < target.x) {
             animal.x += velocity.x;
             if (animal.x > target.x) animal.x = target.x;
@@ -63,8 +70,10 @@ public class WalkingState implements State {
             if (animal.y < target.y) animal.y = target.y;
         }
 
+        /* Si el animal llega al target, salimos del estado */
         if (animal.x == target.x && animal.y == target.y) {
-            animal.changeState(this);
+            animal.changeStateV2(new IdleAnimalState(animal));
+            return;
         }
     }
 }

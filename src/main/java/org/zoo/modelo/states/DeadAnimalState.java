@@ -3,13 +3,13 @@ package org.zoo.modelo.states;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.animal.Animal;
 
-public class DeadState implements State {
+public class DeadAnimalState implements AnimalState {
     private final Animal animal;
     private final int ANIM_DURATION = Sprite.ANIMAL_DEAD_ANIM.getFramesNumber() * Sprite.ANIMAL_DEAD_ANIM.getTimePerFrame();
     private final long initMs;
     private long currentMs;
 
-    public DeadState(Animal animal) {
+    public DeadAnimalState(Animal animal) {
         this.animal = animal;
         initMs = System.currentTimeMillis();
         currentMs = initMs;
@@ -18,7 +18,7 @@ public class DeadState implements State {
     }
 
     @Override
-    public void stateBehavior() {
+    public void stateUpdate() {
         currentMs = System.currentTimeMillis();
         long timeElapsed = currentMs - initMs;
         if (timeElapsed >= ANIM_DURATION) {
