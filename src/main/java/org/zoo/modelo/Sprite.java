@@ -19,7 +19,7 @@ public enum Sprite {
     TAIGAHABITAT("src/main/resources/TaigaHabitat.png", 1, 1, 37*4, 40*4),
     FISH_INGAME("src/main/resources/FishIngame.png", 1, 1, 4*4, 4*4),
     LEAVES_INGAME("src/main/resources/LeavesIngame.png", 1, 1, 4*4, 4*3),
-    ZOO_BACKGROUND("src/main/resources/ZooBackground.png", 1, 1, 256*4, 256*4);
+    ZOO_BACKGROUND("src/main/resources/ZooBackground.png", 1, 1, 1024*4, 1024*4);
     private final String path;
     private final int framesNumber; //Numero de frames
     private final int timePerFrame; //Velocidad (mas bien el reciproco) de la animacion
