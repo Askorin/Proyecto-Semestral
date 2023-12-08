@@ -1,8 +1,5 @@
 package org.zoo.vista.sidepanels;
-
 import org.zoo.modelo.MenuItem;
-import org.zoo.modelo.food.EnumFood;
-import org.zoo.modelo.placementmanager.PlacementManager;
 import org.zoo.vista.VistaEscenaZoo;
 
 import javax.imageio.ImageIO;
@@ -12,15 +9,18 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
-    private Class<T> clazz;
-    BufferedImage background;
+    private final Class<T> clazz;
+    private BufferedImage background;
+    private Dimension bgDim;
     public ItemPanel(VistaEscenaZoo.PanelListener panelListener, Class<T> clazz) {
         super();
         this.clazz = clazz;
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
         try {
-            background = ImageIO.read(getClass().getResource("/menu.png"));
+            background = ImageIO.read(getClass().getResource("/cropped_panel.png"));
+            bgDim = new Dimension(getWidth(), getHeight());
+            System.out.println(background.getHeight());
         } catch (IOException e) {
 
         }
@@ -57,9 +57,15 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        float ratio = getWidth() / (float) bgDim.width;
+        int panelWidth = (int) (bgDim.width * ratio);
+        int panelHeight = (int) (bgDim.height * ratio);
+
+
         BufferedImage bg = new BufferedImage(
-                getWidth(),
-                getHeight(),
+                panelWidth,
+                panelHeight,
                 background.getType()
         );
         Graphics2D g2d = bg.createGraphics();
