@@ -1,10 +1,11 @@
 package org.zoo.modelo.animal;
 
+import org.zoo.modelo.MenuItem;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.Sprite;
 import org.zoo.utilities.ZooPoint;
 
-public enum EnumAnimal {
+public enum EnumAnimal implements MenuItem {
     GATO("org.zoo.modelo.animal.Gato", Gato.class, Sprite.CAT_IDLE, "/CatIdle1.png"),
     ELEPHANT("org.zoo.modelo.animal.Elephant", Elephant.class, Sprite.ELEPHANT_IDLE, "/ElephantIdle1.png"),
     PERRO("org.zoo.modelo.animal.Gato", Gato.class, Sprite.CAT_HUNGRY, "/CatHungry1.png");
@@ -27,9 +28,12 @@ public enum EnumAnimal {
         return nombre;
     }
 
-    public Sprite getSprite() {
+    @Override
+    public Sprite getInGameSprite() {
         return sprite;
     }
+
+
     public String getLabelPath() {
         return labelPath;
     }

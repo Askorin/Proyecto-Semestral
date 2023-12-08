@@ -2,6 +2,7 @@ package org.zoo.vista;
 import org.zoo.modelo.EscenaZoo;
 import org.zoo.modelo.placementmanager.AnimalPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
+import org.zoo.modelo.placementmanager.PlacementManager;
 import org.zoo.vista.sidepanels.*;
 import org.zoo.vista.visitor.DrawVisitor;
 
@@ -150,15 +151,12 @@ public class VistaEscenaZoo extends JPanel {
             escenaZoo.getFoodPlacementManager().disablePlacement();
 
             Component source = mouseEvent.getComponent();
-            // TODO: Esto se puede generalizar
-            if (source instanceof LabelHabitat label) {
-                escenaZoo.getHabitatPlacementManager().enablePlacement(label.getEnumHabitat());
-            } else if (source instanceof LabelAnimal label) {
-                escenaZoo.getAnimalPlacementManager().enablePlacement(label.getEnumAnimal());
-            } else if (source instanceof LabelFood label) {
-                escenaZoo.getFoodPlacementManager().enablePlacement(label.getEnumFood());
-            } else if (source instanceof LabelNavArrow label) {
-                panelContainer.switchPanel(label);
+
+            if (source instanceof ItemLabel<?> itemLabel) {
+                PlacementManager pm = escenaZoo.getPlacementManager(itemLabel.getEnum());
+                if (pm != null) pm.enablePlacement(itemLabel.getEnum());
+            } else if (source instanceof LabelNavArrow arrowLabel) {
+                panelContainer.switchPanel(arrowLabel);
             }
         }
 
