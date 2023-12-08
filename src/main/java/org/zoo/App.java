@@ -7,10 +7,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * Clase principal de la aplicación.
+ */
+
 public final class App {
 
+    /** Timer del gameLoop, corre cada cierto tiempo fijo. */
     private Timer gameLoop;
-    // En milisegundos
     private final float FPS = 60;
     public final float MS_PER_FRAME = 1.0f / FPS * 1000;
     private boolean corriendo;
@@ -21,6 +25,10 @@ public final class App {
     private boolean isLinux;
     public static boolean SEE_HITBOX = false;
 
+    /**
+     * Único constructor de la aplicación, crea e inicializa un timer que contiene
+     * el gameloop del juego.
+     */
     private App() {
         // En linux ocurrían problemas de rendimiento, esto lo "arregla".
         OS = System.getProperty("os.name").toLowerCase();
@@ -31,6 +39,9 @@ public final class App {
         crearYMostrarUI();
     }
 
+    /**
+     * Método que crea la escena, la vista e inicializa el gameloop.
+     */
     private void crearYMostrarUI() {
         escenaZoo = new EscenaZoo();
         vistaEscenaZoo = new VistaEscenaZoo(escenaZoo);
@@ -52,6 +63,9 @@ public final class App {
         this.gameLoop.start();
     }
 
+    /**
+     * Método que define el gameloop a correr.
+     */
     private void setupGameLoop() {
 
         gameLoop = new Timer((int) MS_PER_FRAME, (ActionEvent e) -> {
