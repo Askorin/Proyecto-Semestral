@@ -56,8 +56,8 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        background = background.getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST);
-        g.drawImage(background, 0, 0, null);
+        // background = background.getScaledInstance(getWidth(), getHeight(), Image.SCALE_FAST);
+        // g.drawImage(background, 0, 0, null);
 
     }
 }

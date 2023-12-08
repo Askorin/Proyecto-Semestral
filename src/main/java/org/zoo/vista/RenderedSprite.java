@@ -4,6 +4,7 @@ import org.zoo.modelo.Sprite;
 import org.zoo.utilities.Utilities;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 //Clase "estatica" no instanciable
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class RenderedSprite {
     private static boolean loaded = false;
     public static final int SCALE_FACTOR = 4; // Util si queremos hacer pixelart
-    private static ArrayList<ArrayList<Image>> frames; //Conjunto de las imagenes individuales de todos los Sprites
+    private static ArrayList<ArrayList<BufferedImage>> frames; //Conjunto de las imagenes individuales de todos los Sprites
     private RenderedSprite() {}
     public static void loadSprites() {
         if (!loaded) {
@@ -22,7 +23,8 @@ public class RenderedSprite {
                 Sprite spr = Sprite.values()[i];
                 for (int j = 0; j < spr.getFramesNumber(); j++) {
                     for (String p : getPaths(spr.getPath(), spr.getFramesNumber())) {
-                        frames.get(i).add(Utilities.loadImage(p, SCALE_FACTOR));
+                        Image img = Utilities.loadImage(p, SCALE_FACTOR);
+                        frames.get(i).add(toBufferedImage(img));
                     }
                 }
             }
@@ -30,9 +32,25 @@ public class RenderedSprite {
         }
     }
 
+    public static BufferedImage toBufferedImage(Image image) {
+        if (image instanceof BufferedImage) {
+            return (BufferedImage) image;
+        }
+
+        BufferedImage bufferedImage = new BufferedImage(
+                image.getWidth(null),
+                image.getHeight(null),
+                BufferedImage.TYPE_INT_ARGB
+        );
+        Graphics2D g = bufferedImage.createGraphics();
+        g.drawImage(image, 0, 0, null);
+        g.dispose();
+        return bufferedImage;
+    }
+
     //Devuelve el frame del sprite que le corresponde en un tiempo
-    public static Image getFrame(Sprite spr, long time) {
-        ArrayList<Image> spriteFrames = frames.get(spr.ordinal());
+    public static BufferedImage getFrame(Sprite spr, long time) {
+        ArrayList<BufferedImage> spriteFrames = frames.get(spr.ordinal());
         return spriteFrames.get((int)((time / spr.getTimePerFrame()) % spr.getFramesNumber()));
     }
 
