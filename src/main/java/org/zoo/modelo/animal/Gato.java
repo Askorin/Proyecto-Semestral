@@ -3,7 +3,7 @@ package org.zoo.modelo.animal;
 import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.Sprite;
-import org.zoo.modelo.states.WalkingState;
+import org.zoo.modelo.states.WalkingAnimalState;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
 
@@ -32,7 +32,7 @@ public class Gato extends Animal {
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);
         //Importante que el estado se defina DESPUES de las dimensiones
-        currentState =  new WalkingState(this);
+        currentAnimalState =  new WalkingAnimalState(this);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package org.zoo.modelo.states;
 
-public interface State {
+public interface AnimalState {
     //método que se ejecuta cada step
-    void stateBehavior();
+    public void stateUpdate();
 }

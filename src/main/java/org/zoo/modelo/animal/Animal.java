@@ -22,8 +22,8 @@ public abstract class Animal implements Updatable, Drawable {
     private EnumFood[] prefferedFood;
     /* Nota: no es necesario ser simetrico, Conejo NO convive con Zorro, Zorro SI convive con Conejo */
     private EnumAnimal[] invalidCompanion;
-    public Sprite currentSprite;
-    public State currentState;
+    private Sprite currentSprite;
+    public AnimalState currentAnimalState;
     public Habitat ownerHabitat;
     private final long initMs;
     private long currentMs;
@@ -61,57 +61,28 @@ public abstract class Animal implements Updatable, Drawable {
     }
 
     public void update() {
-        currentState.stateBehavior();
+        currentAnimalState.stateUpdate();
 
         currentMs = System.currentTimeMillis();
         spriteCurrentMs = System.currentTimeMillis();
         hungerCurrentMs = System.currentTimeMillis();
     }
 
-    //Administrador de estados, corresponde al grafo de estados en una maquina de estados finitos (No sé de que hablo)
-    // TODO: Refactorizar y arreglar bug de comida.
-    public void changeState(State currentState) {
-        if (getHungerTimeElapsed() >= getHungerMaxLimitMs()) {
-            //Default
-            this.currentState = new DeadState(this);
-            return;
-        }
-        if (getHungerTimeElapsed() >= getHungerLimitMs()) {
-            if (currentState.getClass() == EatingState.class) {
-                this.currentState = new StarvingState(this);
-                return;
-            }
-            if (currentState.getClass() == StarvingState.class) {
-                this.currentState = new GatheringState(this);
-                return;
-            }
-            if (currentState.getClass() == GatheringState.class) {
-                this.currentState = new EatingState(this);
-                return;
-            }
-            //Default
-            this.currentState = new StarvingState(this);
-            return;
-        }
-        if (currentState.getClass() == WalkingState.class) {
-            this.currentState = new IdleState(this);
-            return;
-        }
-        //Default
-        this.currentState = new WalkingState(this);
+    public void changeState(AnimalState newState) {
+        this.currentAnimalState = newState;
     }
 
     public static boolean doGetAlong(Animal animal1, Animal animal2) {
         for (EnumAnimal a: animal1.getInvalidCompanion()) {
             if (a.getTipo() == animal2.getClass()) {
-                if (animal2.getCurrentState().getClass() != DeadState.class) {
+                if (animal2.getCurrentState().getClass() != DeadAnimalState.class) {
                     return false;
                 }
             }
         }
         for (EnumAnimal a: animal2.getInvalidCompanion()) {
             if (a.getTipo() == animal1.getClass()) {
-                if (animal1.getCurrentState().getClass() != DeadState.class) {
+                if (animal1.getCurrentState().getClass() != DeadAnimalState.class) {
                     return false;
                 }
             }
@@ -219,7 +190,7 @@ public abstract class Animal implements Updatable, Drawable {
         return currentSprite;
     }
 
-    public State getCurrentState() {return currentState;}
+    public AnimalState getCurrentState() {return currentAnimalState;}
     public Hitbox getHitbox() {
         return hitbox;
     }

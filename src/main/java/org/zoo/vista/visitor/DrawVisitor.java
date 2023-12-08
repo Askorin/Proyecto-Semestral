@@ -2,7 +2,7 @@ package org.zoo.vista.visitor;
 
 import org.zoo.App;
 import org.zoo.modelo.*;
-import org.zoo.modelo.states.DeadState;
+import org.zoo.modelo.states.DeadAnimalState;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.animal.Animal;
@@ -18,8 +18,6 @@ import java.awt.*;
 import java.awt.font.GlyphVector;
 
 public class DrawVisitor extends JPanel implements Visitor {
-    private final int width;
-    private final int height;
     private Graphics g;
     private Layer currentLayer;
     private final EscenaZoo escenaZoo;
@@ -41,18 +39,18 @@ public class DrawVisitor extends JPanel implements Visitor {
         this.escenaZoo = escenaZoo;
         this.zoo = escenaZoo.getZoo();
 
-        width = zoo.getWidth();
-        height = zoo.getHeight();
-
-        cameraHeight = 850;
         cameraWidth = 480;
+        cameraHeight = 850;
+
+        cameraX = zoo.getWidth()/2 - cameraWidth + (256/4);
+        cameraY = -cameraHeightTol;
 
         setPreferredSize(new Dimension(cameraWidth, cameraHeight));
 
         RenderedSprite.loadSprites(); //Importante
     }
     public void visitAnimal(Animal animal) {
-        boolean cond = (animal.getCurrentState().getClass() == DeadState.class);
+        boolean cond = (animal.getCurrentState().getClass() == DeadAnimalState.class);
         if (    (currentLayer == Layer.MIDDLE        && !cond)
              || (currentLayer == Layer.MIDDLE_BACK   &&  cond) ) {
             int x = animal.getAbsX() - getCameraX();
@@ -95,7 +93,7 @@ public class DrawVisitor extends JPanel implements Visitor {
 
         /* Dibujamos camara */
         if (currentLayer == Layer.BOTTOM) {
-            RenderedSprite.draw(zoo.getBackgroundSprite(), g, p.x, p.y, width, height, 0, 1.0f);
+            RenderedSprite.draw(zoo.getBackgroundSprite(), g, p.x, p.y, zoo.getWidth(), zoo.getHeight(), 0, 1.0f);
         }
 
         for (Drawable d: zoo.getContainables().getDrawables()) {
@@ -230,6 +228,8 @@ public class DrawVisitor extends JPanel implements Visitor {
     ///// CAMERA //TODO: Mover a otra clase, ojala no anidada a esta?
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
+    /* Para poder ver un poco más que las dimensiones del zoo (modelo) */
+    private final int cameraWidthTol = 50; private final int cameraHeightTol = 230;
     private final int cameraSpeed = 1;
     private int mouseX; private int mouseY; private boolean isDragging;
     private ZooPoint prevMousePos;
@@ -261,7 +261,7 @@ public class DrawVisitor extends JPanel implements Visitor {
              * Si estamos en el borde derecho del mapa y el usuario quiere
              * seguir moviendose a la derecha.
              */
-            if (newCameraPos.x + cameraWidth > width && deltaMousePos.x > 0) {
+            if (newCameraPos.x + cameraWidth > zoo.getWidth() + cameraWidthTol && deltaMousePos.x > 0) {
                 changeX = false;
             }
 
@@ -269,7 +269,7 @@ public class DrawVisitor extends JPanel implements Visitor {
              * Si estamos en el borde izquierdo del mapa y el usuario quiere
              * seguir moviendose a la izquierda.
              */
-            if (newCameraPos.x < 0 && deltaMousePos.x < 0) {
+            if (newCameraPos.x < -cameraWidthTol && deltaMousePos.x < 0) {
                 changeX = false;
             }
 
@@ -277,7 +277,7 @@ public class DrawVisitor extends JPanel implements Visitor {
              * Si estamos en el borde inferior del mapa y el usuario quiere
              * seguir moviendo hacia abajo.
              */
-            if (newCameraPos.y + cameraHeight > height && deltaMousePos.y > 0) {
+            if (newCameraPos.y + cameraHeight > zoo.getHeight() + cameraHeightTol && deltaMousePos.y > 0) {
                 changeY = false;
             }
 
@@ -285,7 +285,7 @@ public class DrawVisitor extends JPanel implements Visitor {
              * Si estamos en el borde superior del mapa y el usuario quiere
              * seguir moviendose hacia arriba
              */
-            if (newCameraPos.y < 0 && deltaMousePos.y < 0) {
+            if (newCameraPos.y < -cameraHeightTol && deltaMousePos.y < 0) {
                 changeY = false;
             }
 
