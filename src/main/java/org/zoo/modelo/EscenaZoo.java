@@ -1,9 +1,13 @@
 package org.zoo.modelo;
 
+import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
+import org.zoo.modelo.food.EnumFood;
+import org.zoo.modelo.habitat.EnumHabitat;
 import org.zoo.modelo.placementmanager.AnimalPlacementManager;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
+import org.zoo.modelo.placementmanager.PlacementManager;
 
 public class EscenaZoo implements Updatable {
     private final Zoo zoo;
@@ -41,6 +45,19 @@ public class EscenaZoo implements Updatable {
 
     public Zoo getZoo() {
         return zoo;
+    }
+
+    public PlacementManager getPlacementManager(MenuItem itemEnum) {
+        if (itemEnum instanceof EnumHabitat) {
+            return habitatPlacementManager;
+        }
+        if (itemEnum instanceof EnumAnimal) {
+            return animalPlacementManager;
+        }
+        if (itemEnum instanceof EnumFood) {
+            return foodPlacementManager;
+        }
+        return null;
     }
 
     public HabitatPlacementManager getHabitatPlacementManager() {

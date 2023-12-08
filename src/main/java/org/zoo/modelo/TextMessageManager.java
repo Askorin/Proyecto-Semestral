@@ -1,9 +1,7 @@
 package org.zoo.modelo;
-
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.visitor.Visitor;
-
 import java.util.ArrayList;
 
 /*

@@ -113,7 +113,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     public void visitHabitatPlacementManager(HabitatPlacementManager hpm) {
         if (currentLayer == Layer.TOP) {
             if (hpm.isActivo()) {
-                Sprite spr = hpm.getEnumHabitat().getSprite();
+                Sprite spr = hpm.getEnumHabitat().getInGameSprite();
                 RenderedSprite.draw(spr, g, hpm.getAbsX() - getCameraX(), hpm.getAbsY() - getCameraY(), 0, 0, 0, 0.45f);
             }
         }
@@ -122,7 +122,7 @@ public class DrawVisitor extends JPanel implements Visitor {
     public void visitAnimalPlacementManager(AnimalPlacementManager apm) {
         if (currentLayer == Layer.TOP) {
             if (apm.isActivo()) {
-                Sprite spr = apm.getEnumAnimal().getSprite();
+                Sprite spr = apm.getEnumAnimal().getInGameSprite();
                 RenderedSprite.draw(spr, g, apm.getAbsX() - getCameraX(), apm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f);
             }
         }

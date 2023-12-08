@@ -12,6 +12,33 @@ public class Hitbox {
         this.height = height;
     }
 
+    /**
+     * Verifica que una hitbox se encuentre contenida dentro de otra.
+     * @param hitbox1 Hitbox externa que contiene.
+     * @param hitbox2 Hitbox interna que es contenida
+     * @return true si es que está contenida, false si es que no.
+     */
+    public static boolean isHitboxContained(Hitbox hitbox1, Hitbox hitbox2) {
+        /*
+         * El rectángulo 2 se encuentra dentro del rectángulo 1 si es que dados:
+         * - El ancho y altura del primer rectángulo: w1, h1.
+         * - Las coordenadas del primer rectángulo: x1, y1.
+         * - El ancho y altura del segundo rectángulo: w2, h2.
+         * - Las coordenadas del segundo rectángulo: x2, y2.
+         * Se cumple lo siguiente:
+         * - x2 + w2 <= x1 + w1
+         * - y2 + h2 <= y2 + h2
+         * - x2 >= x1
+         * - y2 >= y1
+         *
+         */
+        boolean cond1 = hitbox2.x + hitbox2.width <= hitbox1.x + hitbox1.width;
+        boolean cond2 = hitbox2.y + hitbox2.height <= hitbox1.y + hitbox1.height;
+        boolean cond3 = hitbox2.x >= hitbox1.x;
+        boolean cond4 = hitbox2.y >= hitbox1.y;
+        return cond1 && cond2 && cond3 && cond4;
+    }
+
     public static boolean checkPointHitboxCollision(Hitbox hitbox, ZooPoint p) {
         /*
          * Podemos crear un hitbox de ancho y largo 0, y ocupar la función

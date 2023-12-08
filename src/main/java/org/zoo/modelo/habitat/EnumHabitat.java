@@ -1,28 +1,21 @@
 package org.zoo.modelo.habitat;
 
+import org.zoo.modelo.MenuItem;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.utilities.ZooPoint;
 
 // TODO: Mover path a sprite, return ingameSprite, hacerlo igual que food.
-public enum EnumHabitat {
-    MEADOW("Meadow", "/MeadowHabitat.png", "/habitat.png", MeadowHabitat.class, Sprite.MEADOWHABITAT),
-    TAIGA("Taiga", "/TaigaHabitat.png", "/habitat.png", TaigaHabitat.class, Sprite.TAIGAHABITAT);
+public enum EnumHabitat implements MenuItem {
+    MEADOW("Meadow",  MeadowHabitat.class, Sprite.MEADOWHABITAT),
+    TAIGA("Taiga", TaigaHabitat.class, Sprite.TAIGAHABITAT);
     private final String nombre;
-    private final String path;
-    private final String labelPath;
     private final Class<?> tipo;
-    private final Sprite sprite;
-    EnumHabitat(String nombre, String path, String labelPath, Class<?> tipo, Sprite sprite) {
+    private final Sprite inGameSprite;
+    EnumHabitat(String nombre, Class<?> tipo, Sprite inGameSprite) {
         this.nombre = nombre;
-        this.path = path;
-        this.labelPath = labelPath;
         this.tipo = tipo;
-        this.sprite = sprite;
-    }
-
-    public String getPath() {
-        return path;
+        this.inGameSprite = inGameSprite;
     }
 
     public Class<?> getTipo() {
@@ -33,13 +26,10 @@ public enum EnumHabitat {
         return nombre;
     }
 
-    public String getLabelPath() {
-        return labelPath;
+    public Sprite getInGameSprite() {
+        return inGameSprite;
     }
 
-    public Sprite getSprite() {
-        return sprite;
-    }
 
     public Habitat newInstance(Positionable owner, ZooPoint p) {
         Habitat habitat = null;
