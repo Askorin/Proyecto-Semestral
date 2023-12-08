@@ -5,7 +5,8 @@ import org.zoo.modelo.Sprite;
 
 public enum EnumFood implements MenuItem {
     FISH(Sprite.FISH_INGAME),
-    LEAVES(Sprite.LEAVES_INGAME);
+    LEAVES(Sprite.LEAVES_INGAME),
+    MEAT(Sprite.MEAT_INGAME);
     private final Sprite inGameSprite;
     EnumFood(Sprite inGameSprite) {
         this.inGameSprite = inGameSprite;
