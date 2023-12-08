@@ -22,7 +22,7 @@ public abstract class Habitat implements Updatable, Drawable {
     private float temperature; //en °C porque no somos quiche
 
     /* Tolerancia porcentual para detección de colisiones con otros habitat. */
-    private final float PLACEMENT_TOLERANCE = 1.1f;
+    private final float PLACEMENT_TOLERANCE = 1.2f;
     protected Hitbox absHitbox;
     protected Sprite habitatSprite;
     private final Containables containables;
@@ -50,10 +50,6 @@ public abstract class Habitat implements Updatable, Drawable {
             Updatable u = getContainables().getUpdatables().get(i);
             if (u != null) {u.update();}
         }
-        // for (Updatable u: getContainables().getUpdatables()) {
-        //     System.out.println(u);
-        //     if (u != null) {u.update();}
-        // }
     }
   
     public Containables getContainables() {
