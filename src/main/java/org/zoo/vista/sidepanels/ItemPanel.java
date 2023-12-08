@@ -12,6 +12,9 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     private final Class<T> clazz;
     private BufferedImage background;
     private Dimension bgDim;
+    /* Margen entre borde de panel y elemento más externo (flechas de nav) */
+    private final int BORDER_MARGIN = 35;
+    private final int ITEM_SPACING = 35;
     public ItemPanel(VistaEscenaZoo.PanelListener panelListener, Class<T> clazz) {
         super();
         this.clazz = clazz;
@@ -23,9 +26,9 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         } catch (IOException e) {
 
         }
-        addNavArrowL(100, 100, panelListener);
+        addNavArrowL(100, panelListener);
         createLabels(panelListener);
-        addNavArrowR(100, 100, panelListener);
+        addNavArrowR(100, panelListener);
     }
 
     private T[] values() {
@@ -33,24 +36,27 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     }
     private void createLabels(VistaEscenaZoo.PanelListener panelListener) {
         for (T itemEnum : values())  {
-            ItemLabel<T> itemLabel = new ItemLabel<>(100, 100, itemEnum);
+            ItemLabel<T> itemLabel = new ItemLabel<>(100, itemEnum);
             itemLabel.addMouseListener(panelListener);
             add(itemLabel);
+            if (itemEnum.ordinal() != values().length - 1) {
+                add(Box.createHorizontalStrut(ITEM_SPACING));
+            }
         }
     }
 
-    public void addNavArrowR(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
+    public void addNavArrowR(int height, VistaEscenaZoo.PanelListener panelListener) {
         LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.RIGHT);
         labelNavArrow.addMouseListener(panelListener);
         add(Box.createHorizontalGlue());
         add(labelNavArrow);
-        add(Box.createHorizontalStrut(35));
+        add(Box.createHorizontalStrut(BORDER_MARGIN));
     }
 
-    public void addNavArrowL(int width, int height, VistaEscenaZoo.PanelListener panelListener) {
+    public void addNavArrowL(int height, VistaEscenaZoo.PanelListener panelListener) {
         LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.LEFT);
         labelNavArrow.addMouseListener(panelListener);
-        add(Box.createHorizontalStrut(35));
+        add(Box.createHorizontalStrut(BORDER_MARGIN));
         add(labelNavArrow);
         add(Box.createHorizontalGlue());
     }

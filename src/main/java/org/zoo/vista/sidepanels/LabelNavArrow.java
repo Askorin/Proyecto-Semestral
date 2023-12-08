@@ -29,14 +29,13 @@ public class LabelNavArrow extends JLabel implements HoverVisuals {
             System.err.println(e);
         }
 
+        /* El ratio entre la altura dada y la altura de la imagen. */
         float ratio = height / (float) imgDim.height;
         Dimension size = new Dimension(
                 (int) (imgDim.width  * ratio),
                 (int) (imgDim.height * ratio)
         );
         setSize(size);
-
-        System.out.println("width: " + size.width + ", height: " + size.height);
 
         hoverBufferedImg = new BufferedImage(
                 defaultBufferedImg.getWidth(),
@@ -56,12 +55,6 @@ public class LabelNavArrow extends JLabel implements HoverVisuals {
         hoverIcon = new ImageIcon(hoverImg);
 
         setIcon(defaultIcon);
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        System.out.println(getWidth());
-        return super.getPreferredSize();
     }
 
     @Override
