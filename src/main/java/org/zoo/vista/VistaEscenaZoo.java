@@ -1,7 +1,5 @@
 package org.zoo.vista;
 import org.zoo.modelo.EscenaZoo;
-import org.zoo.modelo.placementmanager.AnimalPlacementManager;
-import org.zoo.modelo.placementmanager.HabitatPlacementManager;
 import org.zoo.modelo.placementmanager.PlacementManager;
 import org.zoo.vista.sidepanels.*;
 import org.zoo.vista.visitor.DrawVisitor;
@@ -37,20 +35,8 @@ public class VistaEscenaZoo extends JPanel {
         add(renderZoo);
 
         /* Paneles. */
-        AnimalPlacementManager apm = escenaZoo.getAnimalPlacementManager();
-        HabitatPlacementManager hpm = escenaZoo.getHabitatPlacementManager();
-        panelContainer = new PanelContainer(apm, hpm, panelListener);
+        panelContainer = new PanelContainer(panelListener);
         add(panelContainer);
-
-        // PanelHabitat panelHabitat = new PanelHabitat(escenaZoo.getHabitatPlacementManager(), panelListener);
-        // PanelAnimal panelAnimal = new PanelAnimal(escenaZoo.getAnimalPlacementManager(), panelListener);
-        // panelHabitat.addMouseListener(panelListener);
-        // panelAnimal.addMouseListener(panelListener);
-
-        // TODO: Cambiar nombres de org.zoo.vista.sidepanels.PanelAnimal y org.zoo.vista.sidepanels.PanelHabitat, ver si se generalizar a una clase.
-        // add(panelHabitat);
-        // add(panelAnimal, BorderLayout.EAST);
-
     }
     @Override
     protected void paintComponent(Graphics g) {

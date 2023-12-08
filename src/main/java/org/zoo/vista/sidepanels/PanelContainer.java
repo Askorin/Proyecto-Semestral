@@ -13,7 +13,7 @@ import java.awt.*;
 public class PanelContainer extends JPanel {
     private final CardLayout cardLayout;
 
-    public PanelContainer(AnimalPlacementManager apm, HabitatPlacementManager hpm, VistaEscenaZoo.PanelListener panelListener) {
+    public PanelContainer(VistaEscenaZoo.PanelListener panelListener) {
         cardLayout = new CardLayout();
         setLayout(cardLayout);
 

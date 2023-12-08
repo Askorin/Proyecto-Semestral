@@ -25,7 +25,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
             background = ImageIO.read(getClass().getResource("/cropped_panel.png"));
             bgDim = new Dimension(background.getWidth(), background.getHeight());
         } catch (IOException e) {
-
+            System.err.println(e.getMessage());
         }
 
         setSize(new Dimension(App.SCREEN_WIDTH, 0));
