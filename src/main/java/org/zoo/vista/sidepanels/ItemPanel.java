@@ -9,6 +9,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+// TODO: Arreglar dimensiones y spacing entre componentes.
+
+
+/**
+ * Clase <code>JPanel</code> generica que representa un panel de items.
+ * @param <T> Un <code>Enum</code> que extienda <code>MenuItem</code> y catalogue los elementos a ser mostrados.
+ */
 public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     private final Class<T> clazz;
     private BufferedImage background;
@@ -28,10 +35,6 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
             System.err.println(e.getMessage());
         }
 
-        setSize(new Dimension(App.SCREEN_WIDTH, 0));
-        setSize(getPreferredSize());
-        System.out.println(getSize());
-
 
         addNavArrowL((int) (100 * App.SCALE_FACTOR), panelListener);
         createLabels((int) (80 * App.SCALE_FACTOR), panelListener);
@@ -41,6 +44,12 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     private T[] values() {
         return clazz.getEnumConstants();
     }
+
+    /**
+     * Crea los labels a mostrar en el panel.
+     * @param height La altura de los labels.
+     * @param panelListener El listener de eventos para panel.
+     */
     private void createLabels(int height, VistaEscenaZoo.PanelListener panelListener) {
         for (T itemEnum : values())  {
             ItemLabel<T> itemLabel = new ItemLabel<>(height, itemEnum);
@@ -52,7 +61,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         }
     }
 
-    public void addNavArrowR(int height, VistaEscenaZoo.PanelListener panelListener) {
+    private void addNavArrowR(int height, VistaEscenaZoo.PanelListener panelListener) {
         LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.RIGHT);
         labelNavArrow.addMouseListener(panelListener);
         add(Box.createHorizontalGlue());
@@ -60,7 +69,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         add(Box.createHorizontalStrut(BORDER_MARGIN));
     }
 
-    public void addNavArrowL(int height, VistaEscenaZoo.PanelListener panelListener) {
+    private void addNavArrowL(int height, VistaEscenaZoo.PanelListener panelListener) {
         LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.LEFT);
         labelNavArrow.addMouseListener(panelListener);
         add(Box.createHorizontalStrut(BORDER_MARGIN));
