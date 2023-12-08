@@ -44,7 +44,7 @@ public class WalkingAnimalState implements AnimalState {
 
         /* Revisamos si el animal tiene hambre */
         if (animal.getHungerTimeElapsed() >= animal.getHungerLimitMs()) {
-            animal.changeStateV2(new StarvingAnimalState(animal));
+            animal.changeState(new StarvingAnimalState(animal));
             return;
         }
 
@@ -72,7 +72,7 @@ public class WalkingAnimalState implements AnimalState {
 
         /* Si el animal llega al target, salimos del estado */
         if (animal.x == target.x && animal.y == target.y) {
-            animal.changeStateV2(new IdleAnimalState(animal));
+            animal.changeState(new IdleAnimalState(animal));
             return;
         }
     }

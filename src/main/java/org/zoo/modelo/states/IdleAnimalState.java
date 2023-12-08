@@ -18,7 +18,7 @@ public class IdleAnimalState implements AnimalState {
 
         /* Revisamos si el animal tiene hambre */
         if (animal.getHungerTimeElapsed() >= animal.getHungerLimitMs()) {
-            animal.changeStateV2(new StarvingAnimalState(animal));
+            animal.changeState(new StarvingAnimalState(animal));
             return;
         }
 
@@ -26,7 +26,7 @@ public class IdleAnimalState implements AnimalState {
         currentMs = System.currentTimeMillis();
         long timeElapsed = currentMs - initMs;
         if (timeElapsed >= IDLE_DURATION) {
-            animal.changeStateV2(new WalkingAnimalState(animal));
+            animal.changeState(new WalkingAnimalState(animal));
             return;
         }
     }

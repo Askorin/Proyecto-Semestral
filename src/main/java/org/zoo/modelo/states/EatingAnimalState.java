@@ -29,6 +29,7 @@ public class EatingAnimalState implements AnimalState {
         }
         /* Si no hay comida cambiamos de estado */
         animal.changeState(new StarvingAnimalState(animal));
+        return;
     }
     @Override
     public void stateUpdate() {
@@ -37,6 +38,7 @@ public class EatingAnimalState implements AnimalState {
         if (timeElapsed >= EATING_DURATION) {
             animal.restartHungerTimeElapsed();
             animal.changeState(new WalkingAnimalState(animal));
+            return;
         }
     }
 }

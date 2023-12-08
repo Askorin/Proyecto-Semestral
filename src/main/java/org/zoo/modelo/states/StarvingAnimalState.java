@@ -10,7 +10,7 @@ public class StarvingAnimalState implements AnimalState {
 
         /* Hacemos una busqueda inicial */
         if (searchForFood()) {
-            animal.changeStateV2(new GatheringAnimalState(animal));
+            animal.changeState(new GatheringAnimalState(animal));
             return;
         }
         animal.setSprite(animal.getHungrySprite());
@@ -19,13 +19,13 @@ public class StarvingAnimalState implements AnimalState {
     public void stateUpdate() {
         /* Este estado se termina si se encuentra comida */
         if (searchForFood()) {
-            animal.changeStateV2(new GatheringAnimalState(animal));
+            animal.changeState(new GatheringAnimalState(animal));
             return;
         }
 
         /* Este estado se termina si se lleva mucho tiempo sin comer */
         if (animal.getHungerTimeElapsed() >= animal.getHungerMaxLimitMs()) {
-            animal.changeStateV2(new DeadAnimalState(animal));
+            animal.changeState(new DeadAnimalState(animal));
             return;
         }
     }

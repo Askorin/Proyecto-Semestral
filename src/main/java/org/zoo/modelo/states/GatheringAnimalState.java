@@ -1,6 +1,5 @@
 package org.zoo.modelo.states;
 
-import org.zoo.modelo.Zoo;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.Utilities;
 import org.zoo.utilities.ZooPoint;
@@ -54,10 +53,10 @@ public class GatheringAnimalState implements AnimalState {
         if (animal.x == targetPoint.x && animal.y == targetPoint.y) {
             /* A cual estado cambiamos depende de si hay comida */
             if (searchForFood()) {
-                animal.changeStateV2(new EatingAnimalState(animal));
+                animal.changeState(new EatingAnimalState(animal));
                 return;
             }
-            animal.changeStateV2(new StarvingAnimalState(animal));
+            animal.changeState(new StarvingAnimalState(animal));
             return;
         }
     }

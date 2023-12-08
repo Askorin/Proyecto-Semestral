@@ -68,40 +68,8 @@ public abstract class Animal implements Updatable, Drawable {
         hungerCurrentMs = System.currentTimeMillis();
     }
 
-    public void changeStateV2(AnimalState newState) {
+    public void changeState(AnimalState newState) {
         this.currentAnimalState = newState;
-    }
-    //Administrador de estados, corresponde al grafo de estados en una maquina de estados finitos (No sé de que hablo)
-    // TODO: Refactorizar y arreglar bug de comida.
-    public void changeState(AnimalState currentAnimalState) {
-        if (getHungerTimeElapsed() >= getHungerMaxLimitMs()) {
-            //Default
-            this.currentAnimalState = new DeadAnimalState(this);
-            return;
-        }
-        if (getHungerTimeElapsed() >= getHungerLimitMs()) {
-            if (currentAnimalState.getClass() == EatingAnimalState.class) {
-                this.currentAnimalState = new StarvingAnimalState(this);
-                return;
-            }
-            if (currentAnimalState.getClass() == StarvingAnimalState.class) {
-                this.currentAnimalState = new GatheringAnimalState(this);
-                return;
-            }
-            if (currentAnimalState.getClass() == GatheringAnimalState.class) {
-                this.currentAnimalState = new EatingAnimalState(this);
-                return;
-            }
-            //Default
-            this.currentAnimalState = new StarvingAnimalState(this);
-            return;
-        }
-        if (currentAnimalState.getClass() == WalkingAnimalState.class) {
-            this.currentAnimalState = new IdleAnimalState(this);
-            return;
-        }
-        //Default
-        this.currentAnimalState = new WalkingAnimalState(this);
     }
 
     public static boolean doGetAlong(Animal animal1, Animal animal2) {
