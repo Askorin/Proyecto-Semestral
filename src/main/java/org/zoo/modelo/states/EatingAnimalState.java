@@ -4,9 +4,17 @@ import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.animal.Animal;
 
+/**
+ * Estado que describe el comportamiento de un <code>Animal</code>
+ * cuando este esta comiendo.
+ * Basicamente, este estado es la animación al comer
+ */
 public class EatingAnimalState implements AnimalState {
     private boolean hasBeenInitialized;
     private final Animal animal;
+    /**
+     * La duración de este estado es un numero aleatorio
+     */
     private final int EATING_DURATION = (int) (Math.random()*3000 + 2000); // entre 2 y 5 s
     private final long initMs;
     private long currentMs;

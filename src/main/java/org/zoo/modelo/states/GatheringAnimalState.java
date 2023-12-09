@@ -6,10 +6,21 @@ import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 
+/**
+ * Estado que describe el comportamiento de un <code>Animal</code>
+ * cuando este esta buscando comida.
+ * Basicamente, en este estado el animal ya localizo la comida y se dirige a ella.
+ */
 public class GatheringAnimalState implements AnimalState {
     private boolean hasBeenInitialized;
     private final Animal animal;
+    /**
+     * Corresponde al punto (<code>FoodArea</code>) donde el animal detecto comida y se dirige
+     */
     private ZooPoint targetPoint;
+    /**
+     * La velocidad con que se mueve es aleatoria y constante para la duracion del estado
+     */
     private final int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public GatheringAnimalState(Animal animal) {
         this.animal = animal;
@@ -79,6 +90,10 @@ public class GatheringAnimalState implements AnimalState {
         }
     }
 
+    /**
+     * Revisa si hay comida en el habitat
+     * @return <code>true</code> si encuentra, <code>false</code> en caso contrario
+     */
     private boolean searchForFood() {
         FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
 
