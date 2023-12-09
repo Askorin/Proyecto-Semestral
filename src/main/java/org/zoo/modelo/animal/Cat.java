@@ -14,8 +14,8 @@ public class Cat extends Animal {
     public static float maxTemperature = 35;
     public static EnumFood[] prefferedFood = {EnumFood.FISH, EnumFood.MEAT};
     public static EnumAnimal[] invalidCompanion = {EnumAnimal.LION};
-    private final long HUNGER_LIMIT_MS = 6000;
-    private final long HUNGER_MAX_LIMIT_MS = 18000;
+    private final long HUNGER_LIMIT_MS = 12000;
+    private final long HUNGER_MAX_LIMIT_MS = 36000;
     public Cat(Habitat habitat, ZooPoint p) {
         super(habitat, p);
         //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre

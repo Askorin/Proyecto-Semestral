@@ -15,8 +15,8 @@ public class Penguin extends Animal {
     public static float maxTemperature = 0;
     public static EnumFood[] prefferedFood = {EnumFood.FISH};
     public static EnumAnimal[] invalidCompanion = {EnumAnimal.LION};;
-    private final long HUNGER_LIMIT_MS = 8000;
-    private final long HUNGER_MAX_LIMIT_MS = 25000;
+    private final long HUNGER_LIMIT_MS = 16000;
+    private final long HUNGER_MAX_LIMIT_MS = 50000;
     public Penguin(Habitat habitat, ZooPoint p) {
         super(habitat, p);
         //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre

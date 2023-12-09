@@ -12,10 +12,10 @@ public class Elephant extends Animal {
     public static int height = 100;
     public static float minTemperature = 5;
     public static float maxTemperature = 35;
-    public static EnumFood[] prefferedFood = {EnumFood.LEAVES};
+    public static EnumFood[] prefferedFood = {EnumFood.LEAVES, EnumFood.BANANA};
     public static EnumAnimal[] invalidCompanion = {};
-    private final long HUNGER_LIMIT_MS = 10000;
-    private final long HUNGER_MAX_LIMIT_MS = 30000;
+    private final long HUNGER_LIMIT_MS = 20000;
+    private final long HUNGER_MAX_LIMIT_MS = 60000;
     public Elephant(Habitat habitat, ZooPoint p) {
         super(habitat, p);
         //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre
