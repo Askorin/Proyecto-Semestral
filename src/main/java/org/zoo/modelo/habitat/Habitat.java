@@ -119,11 +119,17 @@ public abstract class Habitat implements Updatable, Drawable {
     }
 
     public Hitbox getAbsPlacementHitbox() {
+        int newWidth = (int) (absHitbox.width * PLACEMENT_TOLERANCE);
+        int newHeight = (int) (absHitbox.height * PLACEMENT_TOLERANCE);
+
+        int newX = absHitbox.x - (newWidth - absHitbox.width);
+        int newY = absHitbox.y - (newHeight - absHitbox.height);
+
         Hitbox placementHitbox = new Hitbox(
-                x,
-                y,
-                (int) (absHitbox.width * PLACEMENT_TOLERANCE),
-                (int) (absHitbox.height * PLACEMENT_TOLERANCE)
+                newX,
+                newY,
+                newWidth,
+                newHeight
         );
         return placementHitbox;
     }
