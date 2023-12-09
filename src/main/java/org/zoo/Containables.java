@@ -6,7 +6,10 @@ import org.zoo.vista.Drawable;
 
 import java.util.ArrayList;
 
-
+/**
+ * Clase containables, para definir composicion entre objetos sobre los aspectos
+ * de renderizacion, actualizacion y chequeo de colisiones.
+ */
 public class Containables {
     /*
      * Es importante seguir las siguientes reglas:
@@ -39,6 +42,11 @@ public class Containables {
     public ArrayList<Drawable> getDrawables() {
         return drawables;
     }
+
+    /**
+     * Añade una instancia de objeto <code>Drawable</code> a la instancia <code>Containable</code>.
+     * @param d El objeto a añadir.
+     */
     private void addDrawable(Drawable d) {
         drawables.add(d);
     }
@@ -49,6 +57,11 @@ public class Containables {
     public ArrayList<Updatable> getUpdatables() {
         return updatables;
     }
+
+    /**
+     * Añade una instancia de objeto <code>Updatable</code> a la instancia <code>Containable</code>.
+     * @param u El objeto a añadir.
+     */
     private void addUpdatable(Updatable u) {
         updatables.add(u);
     }
@@ -58,6 +71,11 @@ public class Containables {
     public ArrayList<Unblockable> getUnblockables() {
         return unblockables;
     }
+
+    /**
+     * Añade una instancia de objeto <code>Unblockable</code> a la instancia <code>Containable</code>.
+     * @param u El objeto a añadir.
+     */
     private void addUnblockable(Unblockable u) {
         unblockables.add(u);
     }

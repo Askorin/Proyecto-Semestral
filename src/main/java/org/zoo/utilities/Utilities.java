@@ -10,6 +10,13 @@ public class Utilities {
     public static ZooPoint getNormalizedVector(ZooPoint vector) {
         return getNormalizedVector(vector, 1);
     }
+
+    /**
+     * Metodo estatico que normaliza un vector.
+     * @param vector El vector a normalizar.
+     * @param norm La norma del vector deseado.
+     * @return El vector, <code>ZooPoint</code> con norma <code>norm</code>.
+     */
     public static ZooPoint getNormalizedVector(ZooPoint vector, int norm) {
         double vectorXnotNorm = vector.x;
         double vectorYnotNorm = vector.y;
@@ -19,10 +26,13 @@ public class Utilities {
         int vectorY = (int)(norm * (vectorYnotNorm) / vectorNorm);
         return  new ZooPoint(vectorX, vectorY);
     }
-    // TODO: Retornar BufferedImage?
     public static Image loadImage(String path) {
         return loadImage(path, 1);
     }
+    /*
+     * TODO: Con mas tiempo se podria haber hecho para retoranr BufferedImage,
+     * tenemos codigo que hace la conversion por temas de necesidad.
+     */
     public static Image loadImage(String path, int scaleFactor) {
         BufferedImage buffImage = null;
         try {

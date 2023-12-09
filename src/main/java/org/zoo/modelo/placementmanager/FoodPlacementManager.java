@@ -7,6 +7,11 @@ import org.zoo.utilities.ZooPoint;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.visitor.Visitor;
 
+/**
+ * Clase posicionadora de comida, se identifica por un <code>EnumAnimal</code>
+ * @see EnumFood
+ * @see org.zoo.modelo.food.FoodArea.FoodDisplay
+ */
 public class FoodPlacementManager extends PlacementManager<EnumFood> implements Drawable {
     private EnumFood enumFood;
     public FoodPlacementManager() {
@@ -27,23 +32,7 @@ public class FoodPlacementManager extends PlacementManager<EnumFood> implements 
 
     @Override
     public void place() {
-        // Field fieldWidth = null;
-        // Field fieldHeight = null;
-        // int width = 0, height = 0;
-        // try {
-        //     fieldWidth = enumAnimal.getTipo().getField("width");
-        //     fieldHeight = enumAnimal.getTipo().getField("height");
-        // } catch (NoSuchFieldException e) {}
-        // try {
-        //     width = fieldWidth.getInt(null);
-        //     height = fieldHeight.getInt(null);
-        // } catch (IllegalAccessException e) {}
-
         Habitat habitat = getZoo().getHabitatFromPoint(new ZooPoint(getAbsX(), getAbsY()));
-
-        // Coordenadas en las que se posicionará el gato.
-        // int posX = getAbsX() - width / 2;
-        // int posY = getAbsY() - height / 2;
 
         if (habitat != null) {
             FoodArea foodArea = habitat.getFoodAreaFromPoint(new ZooPoint(getAbsX(), getAbsY()));

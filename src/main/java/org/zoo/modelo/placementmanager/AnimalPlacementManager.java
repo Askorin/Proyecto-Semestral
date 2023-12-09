@@ -8,6 +8,11 @@ import org.zoo.vista.visitor.Visitor;
 
 import java.lang.reflect.Field;
 
+/**
+ * Clase posicionadora de animales, se identifica por un <code>EnumAnimal</code>
+ * @see EnumAnimal
+ * @see org.zoo.modelo.animal.Animal
+ */
 public class AnimalPlacementManager extends PlacementManager<EnumAnimal> implements Drawable {
     private EnumAnimal enumAnimal;
     public AnimalPlacementManager() {

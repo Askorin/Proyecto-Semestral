@@ -6,7 +6,11 @@ import org.zoo.vista.visitor.Visitor;
 
 import java.lang.reflect.Field;
 
-
+/**
+ * Clase posicionadora de habitats, se identifica por un <code>EnumAnimal</code>
+ * @see EnumHabitat
+ * @see org.zoo.modelo.habitat.Habitat
+ */
 public class HabitatPlacementManager extends PlacementManager<EnumHabitat> implements Drawable {
     private EnumHabitat enumHabitat;
     public HabitatPlacementManager() {
