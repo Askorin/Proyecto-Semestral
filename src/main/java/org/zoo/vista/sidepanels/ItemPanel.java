@@ -23,10 +23,23 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     /* Margen entre borde de panel y elemento más externo (flechas de nav) */
     private final int BORDER_MARGIN = 35;
     private final int ITEM_SPACING = 35;
+    private JPanel labelPanel;
     public ItemPanel(VistaEscenaZoo.PanelListener panelListener, Class<T> clazz) {
         super();
         this.clazz = clazz;
-        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        // setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        setLayout(new BorderLayout());
+
+        labelPanel = new JPanel();
+        labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.X_AXIS));
+        labelPanel.setOpaque(false);
+        labelPanel.add(Box.createHorizontalGlue());
+        createLabels((int) (80 * App.SCALE_FACTOR), panelListener);
+        labelPanel.add(Box.createHorizontalGlue());
+
+        if (App.SEE_HITBOX) {
+            labelPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        }
 
         try {
             background = ImageIO.read(getClass().getResource("/cropped_panel.png"));
@@ -37,7 +50,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
 
 
         addNavArrowL((int) (100 * App.SCALE_FACTOR), panelListener);
-        createLabels((int) (80 * App.SCALE_FACTOR), panelListener);
+        add(labelPanel);
         addNavArrowR((int) (100 * App.SCALE_FACTOR), panelListener);
     }
 
@@ -53,28 +66,35 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     private void createLabels(int height, VistaEscenaZoo.PanelListener panelListener) {
         for (T itemEnum : values())  {
             ItemLabel<T> itemLabel = new ItemLabel<>(height, itemEnum);
+
+            if (App.SEE_HITBOX) {
+                itemLabel.setBorder(BorderFactory.createLineBorder(Color.RED));
+            }
+
             itemLabel.addMouseListener(panelListener);
-            add(itemLabel);
-            if (itemEnum.ordinal() != values().length - 1) {
-                add(Box.createHorizontalStrut(ITEM_SPACING));
+            labelPanel.add(itemLabel);
+            if (itemEnum.ordinal() < values().length - 1) {
+                labelPanel.add(Box.createRigidArea(new Dimension(ITEM_SPACING, 0)));
             }
         }
     }
 
     private void addNavArrowR(int height, VistaEscenaZoo.PanelListener panelListener) {
         LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.RIGHT);
+
+        labelNavArrow.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, BORDER_MARGIN));
+
         labelNavArrow.addMouseListener(panelListener);
-        add(Box.createHorizontalGlue());
-        add(labelNavArrow);
-        add(Box.createHorizontalStrut(BORDER_MARGIN));
+        add(labelNavArrow, BorderLayout.EAST);
     }
 
     private void addNavArrowL(int height, VistaEscenaZoo.PanelListener panelListener) {
         LabelNavArrow labelNavArrow = new LabelNavArrow(height, LabelNavArrow.NavArrowOrientation.LEFT);
+
+        labelNavArrow.setBorder(BorderFactory.createEmptyBorder(0, BORDER_MARGIN, 0,0));
+
         labelNavArrow.addMouseListener(panelListener);
-        add(Box.createHorizontalStrut(BORDER_MARGIN));
-        add(labelNavArrow);
-        add(Box.createHorizontalGlue());
+        add(labelNavArrow, BorderLayout.WEST);
     }
 
     @Override
@@ -101,7 +121,5 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         g2d.dispose();
 
         g.drawImage(bg, 0, 0, null);
-
-
     }
 }
