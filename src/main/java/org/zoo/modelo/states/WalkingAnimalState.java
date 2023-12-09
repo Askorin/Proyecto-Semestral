@@ -9,11 +9,20 @@ import org.zoo.modelo.animal.Animal;
 //Este estado corresponde a caminar a un punto aleatorio
 //es util para tener un comportamiente "por defecto" y no quedarse quieto
 public class WalkingAnimalState implements AnimalState {
+    private boolean hasBeenInitialized;
     private final Animal animal;
-    private final ZooPoint target; //punto aleatorio el cual es a donde se dirige el animal
+    private ZooPoint target; //punto aleatorio el cual es a donde se dirige el animal
     private final int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public WalkingAnimalState(Animal animal) {
         this.animal = animal;
+    }
+    @Override
+    public void stateInit() {
+        if (hasBeenInitialized) {
+            System.err.println("Se ha intentado inicializar un estado que ya ha sido inicializado.");
+        }
+        hasBeenInitialized = true;
+
         int targetX;
         int targetY;
         while (true) {
@@ -39,9 +48,12 @@ public class WalkingAnimalState implements AnimalState {
         target = new ZooPoint(targetX, targetY);
         animal.setSprite(animal.getWalkSprite());
     }
+
     @Override
     public void stateUpdate() {
-
+        if (!hasBeenInitialized) {
+            System.err.println("Se ha detectado un estado.update() sin haber inicializado el estado.");
+        }
         /* Revisamos si el animal tiene hambre */
         if (animal.getHungerTimeElapsed() >= animal.getHungerLimitMs()) {
             animal.changeState(new StarvingAnimalState(animal));

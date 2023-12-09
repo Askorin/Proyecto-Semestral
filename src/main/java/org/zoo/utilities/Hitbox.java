@@ -122,7 +122,7 @@ public class Hitbox {
      */
     static public ZooPoint getCloserPointToHitbox(Hitbox movableHitbox, Hitbox targetHitbox) {
         int targetX;
-        if (movableHitbox.x < targetHitbox.x) {
+        if (movableHitbox.x + movableHitbox.width < targetHitbox.x) {
             targetX = targetHitbox.x - movableHitbox.width;
         }
         else if (movableHitbox.x > targetHitbox.x + targetHitbox.width) {
@@ -132,7 +132,7 @@ public class Hitbox {
             targetX = movableHitbox.x;
         }
         int targetY;
-        if (movableHitbox.y < targetHitbox.y) {
+        if (movableHitbox.y + movableHitbox.height < targetHitbox.y) {
             targetY = targetHitbox.y - movableHitbox.height;
         }
         else if (movableHitbox.y > targetHitbox.y + targetHitbox.height) {

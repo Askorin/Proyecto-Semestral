@@ -25,7 +25,7 @@ public abstract class Animal implements Updatable, Drawable {
     /* Nota: no es necesario ser simetrico, Conejo NO convive con Zorro, Zorro SI convive con Conejo */
     private EnumAnimal[] invalidCompanion;
     private Sprite currentSprite;
-    public AnimalState currentAnimalState;
+    private AnimalState currentState;
     public Habitat ownerHabitat;
     private final long initMs;
     private long currentMs;
@@ -63,7 +63,7 @@ public abstract class Animal implements Updatable, Drawable {
     }
 
     public void update() {
-        currentAnimalState.stateUpdate();
+        currentState.stateUpdate();
 
         currentMs = System.currentTimeMillis();
         spriteCurrentMs = System.currentTimeMillis();
@@ -71,7 +71,8 @@ public abstract class Animal implements Updatable, Drawable {
     }
 
     public void changeState(AnimalState newState) {
-        this.currentAnimalState = newState;
+        this.currentState = newState;
+        currentState.stateInit();
     }
 
     public static boolean doGetAlong(Animal animal1, Animal animal2) {
@@ -192,7 +193,7 @@ public abstract class Animal implements Updatable, Drawable {
         return currentSprite;
     }
 
-    public AnimalState getCurrentState() {return currentAnimalState;}
+    public AnimalState getCurrentState() {return currentState;}
     public Hitbox getHitbox() {
         return hitbox;
     }

@@ -31,8 +31,9 @@ public class Monkey extends Animal {
 
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);
+
         //Importante que el estado se defina DESPUES de las dimensiones
-        currentAnimalState =  new WalkingAnimalState(this);
+        changeState(new WalkingAnimalState(this));
     }
 
     @Override

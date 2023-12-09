@@ -7,11 +7,19 @@ import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 
 public class GatheringAnimalState implements AnimalState {
+    private boolean hasBeenInitialized;
     private final Animal animal;
     private ZooPoint targetPoint;
     private final int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public GatheringAnimalState(Animal animal) {
         this.animal = animal;
+    }
+    @Override
+    public void stateInit() {
+        if (hasBeenInitialized) {
+            System.err.println("Se ha intentado inicializar un estado que ya ha sido inicializado.");
+        }
+        hasBeenInitialized = true;
 
         /* Buscamos el punto con comida a donde dirigirse */
         FoodArea targetFood = FoodArea.searchFoodContainer(animal.ownerHabitat);
@@ -25,8 +33,12 @@ public class GatheringAnimalState implements AnimalState {
         }
         animal.setSprite(animal.getWalkSprite());
     }
+
     @Override
     public void stateUpdate() {
+        if (!hasBeenInitialized) {
+            System.err.println("Se ha detectado un estado.update() sin haber inicializado el estado.");
+        }
         /* El animal se dirige a el target */
         ZooPoint direction = ZooPoint.getDifference(targetPoint, new ZooPoint(animal.x, animal.y));
         ZooPoint velocity = Utilities.getNormalizedVector(direction, speed);
