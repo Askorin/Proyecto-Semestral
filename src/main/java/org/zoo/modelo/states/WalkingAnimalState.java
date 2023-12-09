@@ -9,11 +9,22 @@ import org.zoo.modelo.animal.Animal;
 //Este estado corresponde a caminar a un punto aleatorio
 //es util para tener un comportamiente "por defecto" y no quedarse quieto
 public class WalkingAnimalState implements AnimalState {
+    private boolean hasBeenInitialized;
     private final Animal animal;
-    private final ZooPoint target; //punto aleatorio el cual es a donde se dirige el animal
+    private ZooPoint targetPoint; //punto aleatorio el cual es a donde se dirige el animal
     private final int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public WalkingAnimalState(Animal animal) {
         this.animal = animal;
+    }
+    @Override
+    public void stateInit() {
+        /* Revisamos si ya se inicializo el estado */
+        if (hasBeenInitialized) {
+            System.err.println("Se ha intentado inicializar un estado que ya ha sido inicializado.");
+        }
+        hasBeenInitialized = true;
+
+        /* Definimos el punto a donde va a moverse el animal */
         int targetX;
         int targetY;
         while (true) {
@@ -36,12 +47,21 @@ public class WalkingAnimalState implements AnimalState {
             }
             if ( ! collisionFound ) {break;}
         }
-        target = new ZooPoint(targetX, targetY);
+
+        targetPoint = new ZooPoint(targetX, targetY);
+
+        /* Cambiamos el Sprite */
         animal.setSprite(animal.getWalkSprite());
+
+        if (targetPoint.x < animal.x) animal.setFlipped(true); // Damos vuelta el Sprite en caso de necesario
+        else if (targetPoint.x > animal.x) animal.setFlipped(false);
     }
+
     @Override
     public void stateUpdate() {
-
+        if (!hasBeenInitialized) {
+            System.err.println("Se ha detectado un estado.update() sin haber inicializado el estado.");
+        }
         /* Revisamos si el animal tiene hambre */
         if (animal.getHungerTimeElapsed() >= animal.getHungerLimitMs()) {
             animal.changeState(new StarvingAnimalState(animal));
@@ -49,29 +69,29 @@ public class WalkingAnimalState implements AnimalState {
         }
 
         /* El animal se dirige a el target */
-        ZooPoint direction = ZooPoint.getDifference(target, new ZooPoint(animal.x, animal.y));
+        ZooPoint direction = ZooPoint.getDifference(targetPoint, new ZooPoint(animal.x, animal.y));
         ZooPoint velocity = Utilities.getNormalizedVector(direction, speed);
 
-        if (animal.x < target.x) {
+        if (animal.x < targetPoint.x) {
             animal.x += velocity.x;
-            if (animal.x > target.x) animal.x = target.x;
+            if (animal.x > targetPoint.x) animal.x = targetPoint.x;
         }
-        else if (animal.x > target.x) {
+        else if (animal.x > targetPoint.x) {
             animal.x += velocity.x;
-            if (animal.x < target.x) animal.x = target.x;
+            if (animal.x < targetPoint.x) animal.x = targetPoint.x;
         }
 
-        if (animal.y < target.y) {
+        if (animal.y < targetPoint.y) {
             animal.y += velocity.y;
-            if (animal.y > target.y) animal.y = target.y;
+            if (animal.y > targetPoint.y) animal.y = targetPoint.y;
         }
-        else if (animal.y > target.y) {
+        else if (animal.y > targetPoint.y) {
             animal.y += velocity.y;
-            if (animal.y < target.y) animal.y = target.y;
+            if (animal.y < targetPoint.y) animal.y = targetPoint.y;
         }
 
         /* Si el animal llega al target, salimos del estado */
-        if (animal.x == target.x && animal.y == target.y) {
+        if (animal.x == targetPoint.x && animal.y == targetPoint.y) {
             animal.changeState(new IdleAnimalState(animal));
             return;
         }

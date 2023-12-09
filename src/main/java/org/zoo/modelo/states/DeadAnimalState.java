@@ -5,6 +5,7 @@ import org.zoo.modelo.TextMessageManager;
 import org.zoo.modelo.animal.Animal;
 
 public class DeadAnimalState implements AnimalState {
+    private boolean hasBeenInitialized;
     private final Animal animal;
     private final long initMs;
     private long currentMs;
@@ -14,6 +15,15 @@ public class DeadAnimalState implements AnimalState {
     public DeadAnimalState(Animal animal) {
         this.animal = animal;
         initMs = System.currentTimeMillis();
+    }
+
+    @Override
+    public void stateInit() {
+        if (hasBeenInitialized) {
+            System.err.println("Se ha intentado inicializar un estado que ya ha sido inicializado.");
+        }
+        hasBeenInitialized = true;
+
         currentMs = initMs;
         animal.setSprite(Sprite.ANIMAL_DEAD_ANIM);
         animal.restartSpriteTimeElapsed();
@@ -21,6 +31,10 @@ public class DeadAnimalState implements AnimalState {
 
     @Override
     public void stateUpdate() {
+        if (!hasBeenInitialized) {
+            System.err.println("Se ha detectado un estado.update() sin haber inicializado el estado.");
+        }
+
         currentMs = System.currentTimeMillis();
         long timeElapsed = currentMs - initMs;
         if (timeElapsed >= ANIM_DURATION) {

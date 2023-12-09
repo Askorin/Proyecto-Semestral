@@ -14,8 +14,8 @@ public class Monkey extends Animal {
     public static float maxTemperature = 35;
     public static EnumFood[] prefferedFood = {EnumFood.BANANA, EnumFood.FISH, EnumFood.MEAT, EnumFood.LEAVES};
     public static EnumAnimal[] invalidCompanion = {EnumAnimal.LION};
-    private final long HUNGER_LIMIT_MS = 9000;
-    private final long HUNGER_MAX_LIMIT_MS = 25000;
+    private final long HUNGER_LIMIT_MS = 18000;
+    private final long HUNGER_MAX_LIMIT_MS = 50000;
     public Monkey(Habitat habitat, ZooPoint p) {
         super(habitat, p);
         //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre
@@ -31,8 +31,9 @@ public class Monkey extends Animal {
 
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);
+
         //Importante que el estado se defina DESPUES de las dimensiones
-        currentAnimalState =  new WalkingAnimalState(this);
+        changeState(new WalkingAnimalState(this));
     }
 
     @Override

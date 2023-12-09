@@ -25,7 +25,8 @@ public abstract class Animal implements Updatable, Drawable {
     /* Nota: no es necesario ser simetrico, Conejo NO convive con Zorro, Zorro SI convive con Conejo */
     private EnumAnimal[] invalidCompanion;
     private Sprite currentSprite;
-    public AnimalState currentAnimalState;
+    private boolean isFlipped;
+    private AnimalState currentState;
     public Habitat ownerHabitat;
     private final long initMs;
     private long currentMs;
@@ -63,7 +64,7 @@ public abstract class Animal implements Updatable, Drawable {
     }
 
     public void update() {
-        currentAnimalState.stateUpdate();
+        currentState.stateUpdate();
 
         currentMs = System.currentTimeMillis();
         spriteCurrentMs = System.currentTimeMillis();
@@ -71,7 +72,8 @@ public abstract class Animal implements Updatable, Drawable {
     }
 
     public void changeState(AnimalState newState) {
-        this.currentAnimalState = newState;
+        this.currentState = newState;
+        currentState.stateInit();
     }
 
     public static boolean doGetAlong(Animal animal1, Animal animal2) {
@@ -94,11 +96,8 @@ public abstract class Animal implements Updatable, Drawable {
 
     //TODO: Actualmente es necesario que los hijos definan metodos para acceder a sus sprites
     public abstract Sprite getIdleSprite();
-
     public abstract Sprite getWalkSprite();
-
     public abstract Sprite getEatSprite();
-
     public abstract Sprite getHungrySprite();
 
     public long getTimeElapsed() {
@@ -108,7 +107,6 @@ public abstract class Animal implements Updatable, Drawable {
     public long getSpriteTimeElapsed() {
         return spriteCurrentMs - spriteInitMs;
     }
-
     public void restartSpriteTimeElapsed() {
         spriteInitMs = System.currentTimeMillis();
         spriteCurrentMs = spriteInitMs;
@@ -117,7 +115,6 @@ public abstract class Animal implements Updatable, Drawable {
     public long getHungerTimeElapsed() {
         return hungerCurrentMs - hungerInitMs;
     }
-
     public void restartHungerTimeElapsed() {
         hungerInitMs = System.currentTimeMillis();
         hungerCurrentMs = hungerInitMs;
@@ -126,35 +123,25 @@ public abstract class Animal implements Updatable, Drawable {
     public long getHungerLimitMs() {
         return HUNGER_LIMIT_MS;
     }
-
     protected void setHungerLimitMs(long timeMs) {
         this.HUNGER_LIMIT_MS = timeMs;
     }
-
     public long getHungerMaxLimitMs() {
         return HUNGER_MAX_LIMIT_MS;
     }
-
     protected void setHungerMaxLimitMs(long timeMs) {
         this.HUNGER_MAX_LIMIT_MS = timeMs;
-    }
-
-    public void setSprite(Sprite sprite) {
-        currentSprite = sprite;
     }
 
     public int getWidth() {
         return width;
     }
-
     protected void setWidth(int width) {
         this.width = width;
     }
-
     public int getHeight() {
         return height;
     }
-
     protected void setHeight(int height) {
         this.height = height;
     }
@@ -162,15 +149,12 @@ public abstract class Animal implements Updatable, Drawable {
     public float getMinTemperature() {
         return minTemperature;
     }
-
     protected void setMinTemperature(float minTemperature) {
         this.minTemperature = minTemperature;
     }
-
     public float getMaxTempperature() {
         return maxTempperature;
     }
-
     protected void setMaxTempperature(float maxTempperature) {
         this.maxTempperature = maxTempperature;
     }
@@ -181,6 +165,7 @@ public abstract class Animal implements Updatable, Drawable {
     protected void setPrefferedFood(EnumFood[] prefferedFood) {
         this.prefferedFood = prefferedFood;
     }
+
     public EnumAnimal[] getInvalidCompanion() {
         return invalidCompanion;
     }
@@ -188,11 +173,21 @@ public abstract class Animal implements Updatable, Drawable {
         this.invalidCompanion = invalidCompanion;
     }
 
-    public Sprite getCurrentSprite() {
+    public Sprite getSprite() {
         return currentSprite;
     }
+    public void setSprite(Sprite sprite) {
+        currentSprite = sprite;
+    }
 
-    public AnimalState getCurrentState() {return currentAnimalState;}
+    public boolean isFlipped() {
+        return isFlipped;
+    }
+    public void setFlipped(boolean isFlipped) {
+        this.isFlipped = isFlipped;
+    }
+
+    public AnimalState getCurrentState() {return currentState;}
     public Hitbox getHitbox() {
         return hitbox;
     }

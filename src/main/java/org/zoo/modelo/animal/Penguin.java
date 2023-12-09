@@ -3,6 +3,7 @@ package org.zoo.modelo.animal;
 import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.Sprite;
+import org.zoo.modelo.states.GatheringAnimalState;
 import org.zoo.modelo.states.WalkingAnimalState;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
@@ -14,8 +15,8 @@ public class Penguin extends Animal {
     public static float maxTemperature = 0;
     public static EnumFood[] prefferedFood = {EnumFood.FISH};
     public static EnumAnimal[] invalidCompanion = {EnumAnimal.LION};;
-    private final long HUNGER_LIMIT_MS = 8000;
-    private final long HUNGER_MAX_LIMIT_MS = 25000;
+    private final long HUNGER_LIMIT_MS = 16000;
+    private final long HUNGER_MAX_LIMIT_MS = 50000;
     public Penguin(Habitat habitat, ZooPoint p) {
         super(habitat, p);
         //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre
@@ -31,8 +32,9 @@ public class Penguin extends Animal {
 
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);
+
         //Importante que el estado se defina DESPUES de las dimensiones
-        currentAnimalState =  new WalkingAnimalState(this);
+        changeState(new WalkingAnimalState(this));
     }
 
     @Override

@@ -12,10 +12,10 @@ public class Lion extends Animal {
     public static int height = 60;
     public static float minTemperature = 15;
     public static float maxTemperature = 35;
-    public static EnumFood[] prefferedFood = {EnumFood.MEAT};
+    public static EnumFood[] prefferedFood = {EnumFood.MEAT, EnumFood.FISH};
     public static EnumAnimal[] invalidCompanion = {};
-    private final long HUNGER_LIMIT_MS = 6000;
-    private final long HUNGER_MAX_LIMIT_MS = 22000;
+    private final long HUNGER_LIMIT_MS = 12000;
+    private final long HUNGER_MAX_LIMIT_MS = 44000;
     public Lion(Habitat habitat, ZooPoint p) {
         super(habitat, p);
         //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre
@@ -31,8 +31,9 @@ public class Lion extends Animal {
 
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);
+
         //Importante que el estado se defina DESPUES de las dimensiones
-        currentAnimalState =  new WalkingAnimalState(this);
+        changeState(new WalkingAnimalState(this));
     }
 
     @Override
