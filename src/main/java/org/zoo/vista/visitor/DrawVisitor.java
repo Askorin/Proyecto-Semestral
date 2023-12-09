@@ -44,7 +44,7 @@ public class DrawVisitor extends JPanel implements Visitor {
         cameraWidth = 1020;
         cameraHeight = 576;
 
-        cameraX = zoo.getWidth()/2 - cameraWidth + (256/4);
+        cameraX = (zoo.getWidth() - cameraWidth)/2;
         cameraY = -cameraHeightTol;
 
         setPreferredSize(new Dimension(cameraWidth, cameraHeight));
