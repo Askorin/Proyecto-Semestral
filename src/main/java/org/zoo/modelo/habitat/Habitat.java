@@ -12,19 +12,34 @@ import org.zoo.vista.Drawable;
 import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.vista.visitor.Visitor;
 
+/**
+ * Clase que modela un habitat a ser ocupado por un animal.
+ * @see org.zoo.modelo.Zoo
+ * @see Animal
+ */
 public abstract class Habitat implements Updatable, Drawable {
+    /** El dueño del <code>Habitat</code> dentro del modelo. */
     private final Positionable owner;
     public int x;
     public int y;
     private int width;
     private int height;
+    /** La temperatura del <code>Habitat</code>, de relevancia para los animales. */
     private float temperature; //en °C porque no somos quiche
 
-    /* Tolerancia porcentual para detección de colisiones con otros habitat. */
-    private final float PLACEMENT_TOLERANCE = 1.2f;
+    /** Tolerancia para detección de colisiones con otros <code>Habitat</code>. */
+    private final int PLACEMENT_TOLERANCE = 60;
+    /** <code>Hitbox</code> en coordenadas absolutas del <code>Habitat</code> */
     protected Hitbox absHitbox;
     protected Sprite habitatSprite;
+    /** Para representar elementos contenidos dentro del <code>Habitat</code> */
     private final Containables containables;
+
+    /**
+     * Constructor unico del <code>Habitat</code>
+     * @param owner El dueño del <code>Habitat</code>, probablemente un <code>Zoo</code>.
+     * @param p Su ubicación en el zoológico.
+     */
     public Habitat(Positionable owner, ZooPoint p) {
         this.owner = owner;
         this.x = p.x;
@@ -55,6 +70,12 @@ public abstract class Habitat implements Updatable, Drawable {
         return containables;
     }
 
+    /**
+     * Intenta agregar un <code>Animal</code> al <code>Habitat</code>.
+     * @param enumAnimal El enumerador que identifica al animal.
+     * @param p El punto del animal, relativo al <code>Habitat</code>:
+     * @return <code>True</code> en caso de haberse podido agregar el animal con éxito, <code>False</code> en caso contrario.
+     */
     public boolean addAnimal(EnumAnimal enumAnimal, ZooPoint p) {
         Animal a = enumAnimal.newInstance(this, p);
         //Revisamos si la temperatura falla
@@ -77,6 +98,11 @@ public abstract class Habitat implements Updatable, Drawable {
         return true;
     }
 
+    /**
+     * Retorna el area de comida en algún punto del <code>Habitat</code>.
+     * @param p El <code>ZooPoint</code> en cuestion.
+     * @return Una <code>FoodArea</code> que contenga al punto.
+     */
     public FoodArea getFoodAreaFromPoint(ZooPoint p) {
         for (Drawable d: getContainables().getDrawables()) {
             if (d instanceof FoodArea f)   {
@@ -118,12 +144,17 @@ public abstract class Habitat implements Updatable, Drawable {
         return absHitbox;
     }
 
+    /**
+     * Retorna la <code>Hitbox</code> usada para chequear colisiones entre
+     * otros habitats, al momento de su posicionamiento.
+     * @return Una <code>Hitbox</code>.
+     */
     public Hitbox getAbsPlacementHitbox() {
-        int newWidth = (int) (absHitbox.width * PLACEMENT_TOLERANCE);
-        int newHeight = (int) (absHitbox.height * PLACEMENT_TOLERANCE);
+        int newWidth = absHitbox.width + PLACEMENT_TOLERANCE;
+        int newHeight = absHitbox.height + PLACEMENT_TOLERANCE;
 
-        int newX = absHitbox.x - (newWidth - absHitbox.width);
-        int newY = absHitbox.y - (newHeight - absHitbox.height);
+        int newX = absHitbox.x - PLACEMENT_TOLERANCE;
+        int newY = absHitbox.y - PLACEMENT_TOLERANCE;
 
         Hitbox placementHitbox = new Hitbox(
                 newX,

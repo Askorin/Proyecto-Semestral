@@ -1,20 +1,24 @@
 package org.zoo.vista;
-
 import org.zoo.modelo.Sprite;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.Utilities;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-//Clase "estatica" no instanciable
-// TODO: Implementar esto para los labels y el resto del codigo (Habitats, por ej)
+/**
+ * Clase no instanciable que proporciona funcionalidades de renderizado de Sprites.
+ * @see Sprite
+ */
 public class RenderedSprite {
     private static boolean loaded = false;
     public static final int SCALE_FACTOR = 4; // Util si queremos hacer pixelart
     private static ArrayList<ArrayList<BufferedImage>> frames; //Conjunto de las imagenes individuales de todos los Sprites
     private RenderedSprite() {}
+
+    /**
+     * Metodo que carga los frames de los sprites como BufferedImage.
+     */
     public static void loadSprites() {
         if (!loaded) {
             frames = new ArrayList<>();
@@ -33,6 +37,11 @@ public class RenderedSprite {
         }
     }
 
+    /**
+     * Método que convierte una instancia de <code>Image</code> a <code>BufferedImage</code>
+     * @param image La imagen a ser convertida.
+     * @return Una <code>BufferedImage</code> equivalente.
+     */
     public static BufferedImage toBufferedImage(Image image) {
         if (image instanceof BufferedImage) {
             return (BufferedImage) image;
@@ -50,11 +59,27 @@ public class RenderedSprite {
     }
 
     //Devuelve el frame del sprite que le corresponde en un tiempo
+
+    /**
+     * Devuelve la imagen del frame que le corresponde a un <code>Sprite</code> en un instante dado.
+     * @param spr El <code>Sprite</code> del cual queremos el frame.
+     * @param time El tiempo a revisar.
+     * @return Una <code>BufferedImage</code> correspondiente al frame solicitado.
+     */
     public static BufferedImage getFrame(Sprite spr, long time) {
         ArrayList<BufferedImage> spriteFrames = frames.get(spr.ordinal());
         return spriteFrames.get((int)((time / spr.getTimePerFrame()) % spr.getFramesNumber()));
     }
 
+    /**
+     * Metodo que contiene los detalles de como dibujar un <code>Sprite</code>
+     * @param sprite El <code>Sprite</code> a dibujar.
+     * @param g Las graficas a utilizar.
+     * @param hitbox El <code>Hitbox</code> correspondiente.
+     * @param timeElapsed El tiempo transcurrido.
+     * @param opacidad La opacidad que se desea.
+     * @param isFlipped True si es que la imagen debe estar dada vuelta con respecto al eje y.
+     */
     public static void draw(Sprite sprite,
                             Graphics g,
                             Hitbox hitbox,

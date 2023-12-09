@@ -11,11 +11,11 @@ import java.io.IOException;
 
 
 /**
- * Clase que se encarga de mostrar flecha de navegacion de paneles.
+ * Clase que se encarga de mostrar flecha de navegación de paneles.
  */
 public class LabelNavArrow extends JLabel implements HoverVisuals {
 
-    /** La orientacion de la flecha. */
+    /** La orientación de la flecha. */
     private final NavArrowOrientation orientation;
     private final ImageIcon defaultIcon;
     private final ImageIcon hoverIcon;
@@ -23,7 +23,7 @@ public class LabelNavArrow extends JLabel implements HoverVisuals {
     private Dimension imgDim;
 
     /**
-     * El constructor unico de la clase.
+     * El constructor único de la clase.
      * @param height La altura que ocupa el label.
      * @param orientation La orientacion de la flecha.
      */
