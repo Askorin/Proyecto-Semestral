@@ -32,7 +32,7 @@ public class Cat extends Animal {
         setHungerLimitMs(HUNGER_LIMIT_MS);
         setHungerMaxLimitMs(HUNGER_MAX_LIMIT_MS);
         //Importante que el estado se defina DESPUES de las dimensiones
-        currentAnimalState =  new WalkingAnimalState(this);
+        currentAnimalState = new WalkingAnimalState(this);
     }
 
     @Override
