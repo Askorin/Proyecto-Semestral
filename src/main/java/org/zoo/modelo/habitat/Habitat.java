@@ -22,7 +22,7 @@ public abstract class Habitat implements Updatable, Drawable {
     private float temperature; //en °C porque no somos quiche
 
     /* Tolerancia porcentual para detección de colisiones con otros habitat. */
-    private final float PLACEMENT_TOLERANCE = 1.2f;
+    private final float PLACEMENT_TOLERANCE = 2.0f;
     protected Hitbox absHitbox;
     protected Sprite habitatSprite;
     private final Containables containables;
