@@ -1,5 +1,4 @@
 package org.zoo.modelo.animal;
-
 import org.zoo.modelo.*;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.food.EnumFood;
@@ -10,6 +9,9 @@ import org.zoo.utilities.ZooPoint;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.visitor.Visitor;
 
+/**
+ * Clase que modela un animal en el zoologico.
+ */
 public abstract class Animal implements Updatable, Drawable {
     public int x;
     public int y;
