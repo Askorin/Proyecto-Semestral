@@ -50,7 +50,6 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
             ZooPoint habitatAbs = new ZooPoint(habitat.getAbsX(), habitat.getAbsY());
             ZooPoint placementAbs = new ZooPoint(posX, posY);
             ZooPoint relative = ZooPoint.getDifference(placementAbs, habitatAbs);
-            System.out.println(relative);
             habitat.addAnimal(enumAnimal, relative);
         }
     }

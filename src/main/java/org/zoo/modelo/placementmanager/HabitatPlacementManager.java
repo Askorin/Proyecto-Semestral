@@ -42,7 +42,6 @@ public class HabitatPlacementManager extends PlacementManager<EnumHabitat> imple
         int posX = getX() - width / 2;
         int posY = getY() - height / 2;
         getZoo().addHabitat(posX, posY, enumHabitat);
-        // System.out.println("Posicionando con coordenadas: (" + posX + ", " + posY + ")");
     }
 
 
