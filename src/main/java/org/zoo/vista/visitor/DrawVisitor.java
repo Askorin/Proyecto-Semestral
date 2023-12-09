@@ -374,8 +374,6 @@ public class DrawVisitor extends JPanel implements Visitor {
         return cameraY;
     }
 
-    /// Layers
-
     /**
      * Enumerador que describe las posibles capas sobre las que puede ser
      * renderizado un objeto.

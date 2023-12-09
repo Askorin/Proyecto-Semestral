@@ -33,7 +33,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.X_AXIS));
         labelPanel.setOpaque(false);
         labelPanel.add(Box.createHorizontalGlue());
-        createLabels((int) (80 * App.SCALE_FACTOR), panelListener);
+        createLabels((int) (60 * App.SCALE_FACTOR), panelListener);
         labelPanel.add(Box.createHorizontalGlue());
 
         if (App.SEE_HITBOX) {
@@ -51,6 +51,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         addNavArrowL((int) (100 * App.SCALE_FACTOR), panelListener);
         add(labelPanel);
         addNavArrowR((int) (100 * App.SCALE_FACTOR), panelListener);
+
     }
 
     private T[] values() {
