@@ -6,9 +6,12 @@ import org.zoo.modelo.Sprite;
 import org.zoo.utilities.ZooPoint;
 
 public enum EnumAnimal implements MenuItem {
-    GATO("org.zoo.modelo.animal.Gato", Gato.class, Sprite.CAT_IDLE, "/CatIdle1.png"),
+    GATO("org.zoo.modelo.animal.Cat", Cat.class, Sprite.CAT_IDLE, "/CatIdle1.png"),
     ELEPHANT("org.zoo.modelo.animal.Elephant", Elephant.class, Sprite.ELEPHANT_IDLE, "/ElephantIdle1.png"),
-    PERRO("org.zoo.modelo.animal.Gato", Gato.class, Sprite.CAT_HUNGRY, "/CatHungry1.png");
+    LION("org.zoo.modelo.animal.Lion", Lion.class, Sprite.LION_IDLE, "/LionIdle1.png"),
+    MONKEY("org.zoo.modelo.animal.Monkey", Monkey.class, Sprite.MONKEY_IDLE, "/MonkeyIdle.png"),
+    PANDA("org.zoo.modelo.animal.Panda", Panda.class, Sprite.PANDA_IDLE, "/PandaIdle.png"),
+    PENGUIN("org.zoo.modelo.animal.Penguin", Penguin.class, Sprite.PENGUIN_IDLE, "/PenguinIdle.png");
     private final String nombre;
     private final Class<?> tipo;
     private final Sprite sprite;

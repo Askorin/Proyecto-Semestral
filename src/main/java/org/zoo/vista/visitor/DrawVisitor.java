@@ -1,8 +1,10 @@
 package org.zoo.vista.visitor;
 import org.zoo.App;
 import org.zoo.modelo.*;
+import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.states.DeadAnimalState;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
+import org.zoo.modelo.states.StarvingAnimalState;
 import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
@@ -44,10 +46,10 @@ public class DrawVisitor extends JPanel implements Visitor {
         this.escenaZoo = escenaZoo;
         this.zoo = escenaZoo.getZoo();
 
-        cameraWidth = 480;
-        cameraHeight = 850;
+        cameraWidth = 1020;
+        cameraHeight = 576;
 
-        cameraX = zoo.getWidth()/2 - cameraWidth + (256/4);
+        cameraX = (zoo.getWidth() - cameraWidth)/2;
         cameraY = -cameraHeightTol;
 
         setPreferredSize(new Dimension(cameraWidth, cameraHeight));
@@ -55,11 +57,30 @@ public class DrawVisitor extends JPanel implements Visitor {
         RenderedSprite.loadSprites(); //Importante
     }
     public void visitAnimal(Animal animal) {
-        boolean cond = (animal.getCurrentState().getClass() == DeadAnimalState.class);
-        if (    (currentLayer == Layer.MIDDLE        && !cond)
-             || (currentLayer == Layer.MIDDLE_BACK   &&  cond) ) {
+
+        boolean isDead = (animal.getCurrentState().getClass() == DeadAnimalState.class);
+        /* En caso de hacer la impresión del animal comun y corriente */
+        if (currentLayer == Layer.MIDDLE && !isDead) {
             int x = animal.getAbsX() - getCameraX();
             int y = animal.getAbsY() - getCameraY();
+
+            /* Por si queremos ver la Hitbox */
+            if (App.SEE_HITBOX) {
+                g.setColor(Color.RED);
+                g.drawRect(x, y, animal.getWidth(), animal.getHeight());
+            }
+
+            Sprite spr = animal.getCurrentSprite();
+            RenderedSprite.draw(spr, g, x, y, animal.getWidth(), animal.getHeight(), animal.getSpriteTimeElapsed(), 1.0f);
+        }
+
+        /* En caso de hacer la impesión del animal muerto */
+        if (currentLayer == Layer.MIDDLE_BACK && isDead) {
+            int x = animal.getAbsX() - getCameraX();
+            int y = animal.getAbsY() - getCameraY();
+
+            float lifetimeRatio = ((float) animal.getSpriteTimeElapsed()) / ((float) DeadAnimalState.LIFETIME);
+            float opacidad = 1.0f - (float) Math.pow(lifetimeRatio, 10.0);
 
             //Dibujar org.zoo.modelo.utilities.Hitbox (Borrar luego)
             if (App.SEE_HITBOX) {
@@ -68,7 +89,28 @@ public class DrawVisitor extends JPanel implements Visitor {
             }
 
             Sprite spr = animal.getCurrentSprite();
-            RenderedSprite.draw(spr, g, x, y, animal.getWidth(), animal.getHeight(), animal.getSpriteTimeElapsed(), 1.0f);
+            RenderedSprite.draw(spr, g, x, y, animal.getWidth(), animal.getHeight(), animal.getSpriteTimeElapsed(), opacidad);
+        }
+
+        /* Imprimir burbuja de hambre en caso de estar en StarvingState */
+        else if (currentLayer == Layer.TOP) {
+            if (animal.getCurrentState().getClass() == StarvingAnimalState.class ) {
+
+                int x = animal.getAbsX() - getCameraX();
+                int y = animal.getAbsY() - getCameraY();
+
+                x += animal.getWidth()/2;
+                y += -36; //numero magico
+
+                int spriteTime = (int)animal.getSpriteTimeElapsed();  // Solo para legibilidad
+                EnumFood[] foodList = animal.getPrefferedFood();      // Solo para legibilidad
+
+                y += 4 * ( (spriteTime / 300) % 2);
+                EnumFood foodToShow = foodList[ (spriteTime / 1000) % foodList.length];
+
+                RenderedSprite.draw(Sprite.HUNGER_BUBBLE, g, x ,y, 0, 0, 0, 1.0f);
+                RenderedSprite.draw(foodToShow.getInGameSprite(),g, x ,y, 0, 0, 0, 1.0f);
+            }
         }
     }
 
@@ -79,6 +121,12 @@ public class DrawVisitor extends JPanel implements Visitor {
 
             Sprite spr = habitat.getHabitatSprite();
             RenderedSprite.draw(spr, g, x, y, habitat.getWidth(), habitat.getHeight(), 0, 1.0f);
+
+            /* Por si queremos ver la Hitbox */
+            if (App.SEE_HITBOX) {
+                g.setColor(Color.RED);
+                g.drawRect(x, y, habitat.getWidth(), habitat.getHeight());
+            }
         }
         for (Drawable d: habitat.getContainables().getDrawables()) {
             d.accept(this);

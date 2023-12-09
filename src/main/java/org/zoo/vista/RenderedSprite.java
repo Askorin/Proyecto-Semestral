@@ -60,7 +60,10 @@ public class RenderedSprite {
                             int hitboxWidth, int hitboxHeight,
                             long timeElapsed,
                             float opacidad) {
+
         Graphics2D g2d = (Graphics2D) g;
+
+        /* Cambiamos la transparencia */
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacidad));
 
         //Calculos para centrar el sprite, de forma que se imprima al centro de la hitbox del objeto que lo llama
@@ -70,6 +73,9 @@ public class RenderedSprite {
         int drawY = hitboxCenterY - sprite.getCenterY();
 
         g2d.drawImage(getFrame(sprite, timeElapsed), drawX, drawY, null);
+
+        /* Volvemos a un estado limpio de la transparencia */
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
     }
 
     //Permite determinar la direccion de cada frame solo entregando la direccion de uno

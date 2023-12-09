@@ -8,7 +8,9 @@ import org.zoo.utilities.ZooPoint;
 // TODO: Mover path a sprite, return ingameSprite, hacerlo igual que food.
 public enum EnumHabitat implements MenuItem {
     MEADOW("Meadow",  MeadowHabitat.class, Sprite.MEADOWHABITAT),
-    TAIGA("Taiga", TaigaHabitat.class, Sprite.TAIGAHABITAT);
+    FOREST("Forest", ForestHabitat.class, Sprite.FORESTHABITAT),
+    SAVANNA("Savanna",  SavannaHabitat.class, Sprite.SAVANNAHABITAT),
+    SNOWY("Snowy", SnowyHabitat.class, Sprite.SNOWYHABITAT);
     private final String nombre;
     private final Class<?> tipo;
     private final Sprite inGameSprite;
