@@ -5,6 +5,7 @@ import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.states.DeadAnimalState;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.modelo.states.StarvingAnimalState;
+import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
@@ -58,7 +59,9 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
     public void visitAnimal(Animal animal) {
 
+        boolean isStarving = (animal.getCurrentState().getClass() == StarvingAnimalState.class);
         boolean isDead = (animal.getCurrentState().getClass() == DeadAnimalState.class);
+
         /* En caso de hacer la impresión del animal comun y corriente */
         if (currentLayer == Layer.MIDDLE && !isDead) {
             int x = animal.getAbsX() - getCameraX();
@@ -70,8 +73,10 @@ public class DrawVisitor extends JPanel implements Visitor {
                 g.drawRect(x, y, animal.getWidth(), animal.getHeight());
             }
 
-            Sprite spr = animal.getCurrentSprite();
-            RenderedSprite.draw(spr, g, x, y, animal.getWidth(), animal.getHeight(), animal.getSpriteTimeElapsed(), 1.0f);
+            Sprite spr = animal.getSprite();
+            Hitbox hitbox = new Hitbox(x, y, animal.getWidth(), animal.getHeight());
+            boolean isFlipped = animal.isFlipped();
+            RenderedSprite.draw(spr, g, hitbox, animal.getSpriteTimeElapsed(), 1.0f, isFlipped);
         }
 
         /* En caso de hacer la impesión del animal muerto */
@@ -88,29 +93,27 @@ public class DrawVisitor extends JPanel implements Visitor {
                 g.drawRect(x, y, animal.getWidth(), animal.getHeight());
             }
 
-            Sprite spr = animal.getCurrentSprite();
-            RenderedSprite.draw(spr, g, x, y, animal.getWidth(), animal.getHeight(), animal.getSpriteTimeElapsed(), opacidad);
+            Sprite spr = animal.getSprite();
+            Hitbox hitbox = new Hitbox(x, y, animal.getWidth(), animal.getHeight());
+            RenderedSprite.draw(spr, g, hitbox, animal.getSpriteTimeElapsed(), opacidad, false);
         }
 
         /* Imprimir burbuja de hambre en caso de estar en StarvingState */
-        else if (currentLayer == Layer.TOP) {
-            if (animal.getCurrentState().getClass() == StarvingAnimalState.class ) {
+        else if (currentLayer == Layer.TOP && isStarving) {
+            int x = animal.getAbsX() - getCameraX();
+            int y = animal.getAbsY() - getCameraY();
 
-                int x = animal.getAbsX() - getCameraX();
-                int y = animal.getAbsY() - getCameraY();
+            x += animal.getWidth()/2;
+            y += -36; //numero magico
 
-                x += animal.getWidth()/2;
-                y += -36; //numero magico
+            int spriteTime = (int)animal.getSpriteTimeElapsed();  // Solo para legibilidad
+            EnumFood[] foodList = animal.getPrefferedFood();      // Solo para legibilidad
 
-                int spriteTime = (int)animal.getSpriteTimeElapsed();  // Solo para legibilidad
-                EnumFood[] foodList = animal.getPrefferedFood();      // Solo para legibilidad
+            y += 4 * ( (spriteTime / 300) % 2);
+            EnumFood foodToShow = foodList[ (spriteTime / 1000) % foodList.length];
 
-                y += 4 * ( (spriteTime / 300) % 2);
-                EnumFood foodToShow = foodList[ (spriteTime / 1000) % foodList.length];
-
-                RenderedSprite.draw(Sprite.HUNGER_BUBBLE, g, x ,y, 0, 0, 0, 1.0f);
-                RenderedSprite.draw(foodToShow.getInGameSprite(),g, x ,y, 0, 0, 0, 1.0f);
-            }
+            RenderedSprite.draw(Sprite.HUNGER_BUBBLE, g, x ,y);
+            RenderedSprite.draw(foodToShow.getInGameSprite(), g, x ,y);
         }
     }
 
@@ -120,7 +123,8 @@ public class DrawVisitor extends JPanel implements Visitor {
             int y = habitat.getAbsY() - getCameraY();
 
             Sprite spr = habitat.getHabitatSprite();
-            RenderedSprite.draw(spr, g, x, y, habitat.getWidth(), habitat.getHeight(), 0, 1.0f);
+            Hitbox hitbox = new Hitbox(x, y, habitat.getWidth(), habitat.getHeight());
+            RenderedSprite.draw(spr, g, hitbox, 0);
 
             /* Por si queremos ver la Hitbox */
             if (App.SEE_HITBOX) {
@@ -142,11 +146,13 @@ public class DrawVisitor extends JPanel implements Visitor {
         }
         int cameraX = getCameraX();
         int cameraY = getCameraY();
-        ZooPoint p = new ZooPoint(-cameraX, -cameraY);
+        ZooPoint drawingPoint = new ZooPoint(-cameraX, -cameraY);
 
         /* Dibujamos camara */
         if (currentLayer == Layer.BOTTOM) {
-            RenderedSprite.draw(zoo.getBackgroundSprite(), g, p.x, p.y, zoo.getWidth(), zoo.getHeight(), 0, 1.0f);
+            Sprite spr = zoo.getBackgroundSprite();
+            Hitbox hitbox = new Hitbox(drawingPoint.x, drawingPoint.y, zoo.getWidth(), zoo.getHeight());
+            RenderedSprite.draw(spr, g, hitbox, 0);
         }
 
         for (Drawable d: zoo.getContainables().getDrawables()) {
@@ -165,7 +171,10 @@ public class DrawVisitor extends JPanel implements Visitor {
         if (currentLayer == Layer.TOP) {
             if (hpm.isActivo()) {
                 Sprite spr = hpm.getEnumHabitat().getInGameSprite();
-                RenderedSprite.draw(spr, g, hpm.getAbsX() - getCameraX(), hpm.getAbsY() - getCameraY(), 0, 0, 0, 0.45f);
+                int x = hpm.getAbsX() - getCameraX();
+                int y = hpm.getAbsY() - getCameraY();
+                Hitbox hitbox = new Hitbox(x, y, 0, 0);
+                RenderedSprite.draw(spr, g, hitbox, 0, 0.45f, false);
             }
         }
     }
@@ -174,7 +183,10 @@ public class DrawVisitor extends JPanel implements Visitor {
         if (currentLayer == Layer.TOP) {
             if (apm.isActivo()) {
                 Sprite spr = apm.getEnumAnimal().getInGameSprite();
-                RenderedSprite.draw(spr, g, apm.getAbsX() - getCameraX(), apm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f);
+                int x = apm.getAbsX() - getCameraX();
+                int y = apm.getAbsY() - getCameraY();
+                Hitbox hitbox = new Hitbox(x, y, 0, 0);
+                RenderedSprite.draw(spr, g, hitbox, 0, 0.7f, false);
             }
         }
     }
@@ -183,7 +195,10 @@ public class DrawVisitor extends JPanel implements Visitor {
         if (currentLayer == Layer.TOP) {
             if (fpm.isActivo()) {
                 Sprite spr = fpm.getEnumFood().getInGameSprite();
-                RenderedSprite.draw(spr, g, fpm.getAbsX() - getCameraX(), fpm.getAbsY() - getCameraY(), 0, 0, 0, 0.7f);
+                int x = fpm.getAbsX() - getCameraX();
+                int y = fpm.getAbsY() - getCameraY();
+                Hitbox hitbox = new Hitbox(x, y, 0, 0);
+                RenderedSprite.draw(spr, g, hitbox, 0, 0.7f, false);
             }
         }
     }
@@ -200,8 +215,10 @@ public class DrawVisitor extends JPanel implements Visitor {
                 g.setColor(Color.CYAN);
                 g.drawRect(x, y, width, height);
             }
+
             Sprite spr = foodDisplay.getFood().getInGameSprite();
-            RenderedSprite.draw(spr, g, x, y, width, height, 0, 1.0f);
+            Hitbox hitbox = new Hitbox(x, y, width, height);
+            RenderedSprite.draw(spr, g, hitbox, 0);
         }
     }
 

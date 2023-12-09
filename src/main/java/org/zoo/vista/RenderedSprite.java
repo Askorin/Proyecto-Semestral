@@ -1,6 +1,7 @@
 package org.zoo.vista;
 
 import org.zoo.modelo.Sprite;
+import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.Utilities;
 
 import java.awt.*;
@@ -56,10 +57,12 @@ public class RenderedSprite {
 
     public static void draw(Sprite sprite,
                             Graphics g,
-                            int x, int y,
-                            int hitboxWidth, int hitboxHeight,
+                            Hitbox hitbox,
                             long timeElapsed,
-                            float opacidad) {
+                            float opacidad,
+                            boolean isFlipped) {
+        int x = hitbox.x; int y = hitbox.y;
+        int hitboxWidth = hitbox.width; int hitboxHeight = hitbox.height;
 
         Graphics2D g2d = (Graphics2D) g;
 
@@ -72,11 +75,37 @@ public class RenderedSprite {
         int hitboxCenterY = y + (hitboxHeight/2);
         int drawY = hitboxCenterY - sprite.getCenterY();
 
-        g2d.drawImage(getFrame(sprite, timeElapsed), drawX, drawY, null);
+        /* Dibujamos la imagen */
+        BufferedImage image = getFrame(sprite, timeElapsed);
+        int imageWidth = image.getWidth();
+        int imageHeight = image.getHeight();
+        if (!isFlipped) {
+            /* En caso de no tener que dar vuelta la imagen */
+            g2d.drawImage(image, drawX, drawY, imageWidth, imageHeight,null);
+        }
+        else {
+            /* En caso de tener que dar vuelta la imagen */
+            int newSpriteCenterX = imageWidth - sprite.getCenterX();
+            drawX = hitboxCenterX - newSpriteCenterX;
+
+            g2d.drawImage(image, drawX + imageWidth, drawY, -imageWidth, imageHeight,null);
+        }
 
         /* Volvemos a un estado limpio de la transparencia */
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
     }
+    public static void draw(Sprite sprite,
+                            Graphics g,
+                            Hitbox hitbox,
+                            long timeElapsed) {
+        draw(sprite, g, hitbox, timeElapsed, 1.0f, false);
+    }
+    public static void draw(Sprite sprite,
+                            Graphics g,
+                            int x, int y) {
+        draw(sprite, g, new Hitbox(x, y, 0, 0), 0, 1.0f, false);
+    }
+
 
     //Permite determinar la direccion de cada frame solo entregando la direccion de uno
     //Por ejemplo: entregar .../animacion.png y devolver .../animacion1.png, .../animacion2.png,... etc.
@@ -94,4 +123,5 @@ public class RenderedSprite {
         }
         return paths;
     }
+
 }

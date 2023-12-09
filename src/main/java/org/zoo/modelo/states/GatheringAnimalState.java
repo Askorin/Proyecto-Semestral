@@ -31,7 +31,13 @@ public class GatheringAnimalState implements AnimalState {
             Hitbox foodHitbox = targetFood.getHitbox();
             targetPoint = Hitbox.getCloserPointToHitbox(animalHitbox, foodHitbox);
         }
+
+
+        /* Cambiamos el Sprite */
         animal.setSprite(animal.getWalkSprite());
+
+        if (targetPoint.x < animal.x) animal.setFlipped(true); // Damos vuelta el Sprite en caso de necesario
+        else if (targetPoint.x > animal.x) animal.setFlipped(false);
     }
 
     @Override
