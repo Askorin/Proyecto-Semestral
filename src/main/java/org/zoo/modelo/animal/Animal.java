@@ -61,8 +61,6 @@ public abstract class Animal implements Updatable, Drawable {
     }
 
     public void update() {
-        System.out.println("Soy un Animal!");
-
         currentAnimalState.stateUpdate();
 
         currentMs = System.currentTimeMillis();

@@ -1,8 +1,5 @@
 package org.zoo.modelo;
 
-import java.awt.*;
-import java.util.ArrayList;
-
 //Almacena información de una animación, pero sin cargarla graficamente
 public enum Sprite {
     CAT_IDLE("src/main/resources/CatIdle.png", 6, 150, 13*4, 9*4),
@@ -21,10 +18,20 @@ public enum Sprite {
     MONKEY_WALK("src/main/resources/MonkeyWalk.png", 4, 100, 5*4, 5*4),
     MONKEY_HUNGRY("src/main/resources/MonkeyIdle.png", 1, 1, 3*4, 5*4),
     MONKEY_EAT("src/main/resources/MonkeyEat.png", 2, 120, 3*4, 5*4),
+    PANDA_IDLE("src/main/resources/PandaIdle.png", 1, 1, 6*4, 6*4),
+    PANDA_WALK("src/main/resources/PandaWalk.png", 4, 150, 6*4, 6*4),
+    PANDA_HUNGRY("src/main/resources/PandaIdle.png", 1, 1, 6*4, 6*4),
+    PANDA_EAT("src/main/resources/PandaEat.png", 4, 120, 5*4, 6*4),
+    PENGUIN_IDLE("src/main/resources/PenguinIdle.png", 1, 1, 3*4, 7*4),
+    PENGUIN_WALK("src/main/resources/PenguinWalk.png", 4, 90, 4*4, 7*4),
+    PENGUIN_HUNGRY("src/main/resources/PenguinIdle.png", 1, 1, 3*4, 7*4),
+    PENGUIN_EAT("src/main/resources/PenguinEat.png", 4, 130, 5*4, 7*4),
     ANIMAL_DEAD("src/main/resources/AnimalDead.png", 1, 1, 5*4, 11*4),
     ANIMAL_DEAD_ANIM("src/main/resources/AnimalDeadAnim.png", 6, 100, 5*4, 11*4),
-    MEADOWHABITAT("src/main/resources/MeadowHabitat.png", 1, 1, 37*4, 40*4),
-    TAIGAHABITAT("src/main/resources/TaigaHabitat.png", 1, 1, 37*4, 40*4),
+    MEADOWHABITAT("src/main/resources/MeadowHabitat.png", 1, 1, 106/2 * 4, 112/2 * 4),
+    FORESTHABITAT("src/main/resources/ForestHabitat.png", 1, 1, 106/2 * 4, 96/2 * 4),
+    SAVANNAHABITAT("src/main/resources/SavannaHabitat.png", 1, 1, 90/2 * 4, 112/2 * 4),
+    SNOWYHABITAT("src/main/resources/SnowyHabitat.png", 1, 1, 90/2 * 4, 96/2 * 4),
     FISH_INGAME("src/main/resources/FishIngame.png", 1, 1, 4*4, 4*4),
     LEAVES_INGAME("src/main/resources/LeavesIngame.png", 1, 1, 4*4, 3*4),
     MEAT_INGAME("src/main/resources/MeatIngame.png", 1, 1, 4*4, 3*4),

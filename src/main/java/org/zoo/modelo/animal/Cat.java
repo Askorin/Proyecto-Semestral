@@ -7,16 +7,16 @@ import org.zoo.modelo.states.WalkingAnimalState;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
 
-public class Monkey extends Animal {
-    public static int width = 50;
-    public static int height = 50;
-    public static float minTemperature = 0;
+public class Cat extends Animal {
+    public static int width = 80;
+    public static int height = 80;
+    public static float minTemperature = 15;
     public static float maxTemperature = 35;
-    public static EnumFood[] prefferedFood = {EnumFood.BANANA, EnumFood.FISH, EnumFood.MEAT, EnumFood.LEAVES};
+    public static EnumFood[] prefferedFood = {EnumFood.FISH, EnumFood.MEAT};
     public static EnumAnimal[] invalidCompanion = {EnumAnimal.LION};
-    private final long HUNGER_LIMIT_MS = 9000;
-    private final long HUNGER_MAX_LIMIT_MS = 25000;
-    public Monkey(Habitat habitat, ZooPoint p) {
+    private final long HUNGER_LIMIT_MS = 6000;
+    private final long HUNGER_MAX_LIMIT_MS = 18000;
+    public Cat(Habitat habitat, ZooPoint p) {
         super(habitat, p);
         //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre
         setWidth(width);
@@ -36,11 +36,11 @@ public class Monkey extends Animal {
     }
 
     @Override
-    public Sprite getIdleSprite() {return Sprite.MONKEY_IDLE;}
+    public Sprite getIdleSprite() {return Sprite.CAT_IDLE;}
     @Override
-    public Sprite getWalkSprite() {return Sprite.MONKEY_WALK;}
+    public Sprite getWalkSprite() {return Sprite.CAT_WALK;}
     @Override
-    public Sprite getEatSprite() {return Sprite.MONKEY_EAT;}
+    public Sprite getEatSprite() {return Sprite.CAT_EAT;}
     @Override
-    public Sprite getHungrySprite() {return Sprite.MONKEY_HUNGRY;}
+    public Sprite getHungrySprite() {return Sprite.CAT_HUNGRY;}
 }

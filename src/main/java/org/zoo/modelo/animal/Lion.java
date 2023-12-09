@@ -9,13 +9,13 @@ import org.zoo.utilities.ZooPoint;
 
 public class Lion extends Animal {
     public static int width = 80;
-    public static int height = 80;
-    public static float minTemperature = 10;
+    public static int height = 60;
+    public static float minTemperature = 15;
     public static float maxTemperature = 35;
     public static EnumFood[] prefferedFood = {EnumFood.MEAT};
     public static EnumAnimal[] invalidCompanion = {};
-    private final long HUNGER_LIMIT_MS = 5000;
-    private final long HUNGER_MAX_LIMIT_MS = 18000;
+    private final long HUNGER_LIMIT_MS = 6000;
+    private final long HUNGER_MAX_LIMIT_MS = 22000;
     public Lion(Habitat habitat, ZooPoint p) {
         super(habitat, p);
         //Hay que entregar los parametros del hijo para sobreescribir las parametros del padre

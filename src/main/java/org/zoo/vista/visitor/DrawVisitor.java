@@ -41,8 +41,8 @@ public class DrawVisitor extends JPanel implements Visitor {
         this.escenaZoo = escenaZoo;
         this.zoo = escenaZoo.getZoo();
 
-        cameraWidth = 480;
-        cameraHeight = 850;
+        cameraWidth = 1020;
+        cameraHeight = 576;
 
         cameraX = zoo.getWidth()/2 - cameraWidth + (256/4);
         cameraY = -cameraHeightTol;
@@ -59,7 +59,7 @@ public class DrawVisitor extends JPanel implements Visitor {
             int x = animal.getAbsX() - getCameraX();
             int y = animal.getAbsY() - getCameraY();
 
-            //Dibujar org.zoo.modelo.utilities.Hitbox (Borrar luego)
+            /* Por si queremos ver la Hitbox */
             if (App.SEE_HITBOX) {
                 g.setColor(Color.RED);
                 g.drawRect(x, y, animal.getWidth(), animal.getHeight());
@@ -116,6 +116,12 @@ public class DrawVisitor extends JPanel implements Visitor {
 
             Sprite spr = habitat.getHabitatSprite();
             RenderedSprite.draw(spr, g, x, y, habitat.getWidth(), habitat.getHeight(), 0, 1.0f);
+
+            /* Por si queremos ver la Hitbox */
+            if (App.SEE_HITBOX) {
+                g.setColor(Color.RED);
+                g.drawRect(x, y, habitat.getWidth(), habitat.getHeight());
+            }
         }
         for (Drawable d: habitat.getContainables().getDrawables()) {
             d.accept(this);

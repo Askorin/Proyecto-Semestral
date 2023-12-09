@@ -40,8 +40,8 @@ public final class App {
         frame = new JFrame("Zoo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Ratio 16:9
-        int width = 850;
-        int height = 480;
+        int width = 1020;
+        int height = 576;
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(vistaEscenaZoo);
