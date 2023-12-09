@@ -1,5 +1,4 @@
 package org.zoo.modelo.habitat;
-
 import org.zoo.Containables;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.TextMessage;
@@ -22,7 +21,7 @@ public abstract class Habitat implements Updatable, Drawable {
     private float temperature; //en °C porque no somos quiche
 
     /* Tolerancia porcentual para detección de colisiones con otros habitat. */
-    private final float PLACEMENT_TOLERANCE = 2.0f;
+    private final float PLACEMENT_TOLERANCE = 1.2f;
     protected Hitbox absHitbox;
     protected Sprite habitatSprite;
     private final Containables containables;
@@ -120,11 +119,17 @@ public abstract class Habitat implements Updatable, Drawable {
     }
 
     public Hitbox getAbsPlacementHitbox() {
+        int newWidth = (int) (absHitbox.width * PLACEMENT_TOLERANCE);
+        int newHeight = (int) (absHitbox.height * PLACEMENT_TOLERANCE);
+
+        int newX = absHitbox.x - (newWidth - absHitbox.width);
+        int newY = absHitbox.y - (newHeight - absHitbox.height);
+
         Hitbox placementHitbox = new Hitbox(
-                x,
-                y,
-                (int) (absHitbox.width * PLACEMENT_TOLERANCE),
-                (int) (absHitbox.height * PLACEMENT_TOLERANCE)
+                newX,
+                newY,
+                newWidth,
+                newHeight
         );
         return placementHitbox;
     }

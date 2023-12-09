@@ -1,11 +1,8 @@
 package org.zoo.vista;
 import org.zoo.modelo.EscenaZoo;
-import org.zoo.modelo.Zoo;
 import org.zoo.modelo.placementmanager.PlacementManager;
-import org.zoo.utilities.ZooPoint;
 import org.zoo.vista.sidepanels.*;
 import org.zoo.vista.visitor.DrawVisitor;
-
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -27,8 +24,8 @@ public class VistaEscenaZoo extends JPanel {
     private final PanelContainer panelContainer;
 
     /**
-     * Constructor unico de la clase VistaEscenaZoo
-     * @param escenaZoo La instancia de EscenaZoo que controla la logica.
+     * Constructor único de la clase VistaEscenaZoo
+     * @param escenaZoo La instancia de EscenaZoo que controla la lógica.
      */
     public VistaEscenaZoo(EscenaZoo escenaZoo) {
         /* No queremos que swing llame repaint. */
