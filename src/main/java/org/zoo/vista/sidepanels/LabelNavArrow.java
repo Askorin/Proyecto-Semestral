@@ -9,24 +9,45 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
 
+
+/**
+ * Clase que se encarga de mostrar flecha de navegacion de paneles.
+ */
 public class LabelNavArrow extends JLabel implements HoverVisuals {
+
+    /** La orientacion de la flecha. */
     private final NavArrowOrientation orientation;
     private final ImageIcon defaultIcon;
     private final ImageIcon hoverIcon;
     private boolean hoverState;
-    public LabelNavArrow(int width, int height, NavArrowOrientation orientation) {
+    private Dimension imgDim;
+
+    /**
+     * El constructor unico de la clase.
+     * @param height La altura que ocupa el label.
+     * @param orientation La orientacion de la flecha.
+     */
+    public LabelNavArrow(int height, NavArrowOrientation orientation) {
         super();
         this.orientation = orientation;
         this.hoverState = false;
 
-        setSize(new Dimension(width, height));
         BufferedImage defaultBufferedImg = null;
         BufferedImage hoverBufferedImg = null;
         try {
             defaultBufferedImg = ImageIO.read(getClass().getResource(orientation.getPath()));
+            imgDim = new Dimension(defaultBufferedImg.getWidth(), defaultBufferedImg.getHeight());
         } catch (IOException e) {
             System.err.println(e);
         }
+
+        /* El ratio entre la altura dada y la altura de la imagen. */
+        float ratio = height / (float) imgDim.height;
+        Dimension size = new Dimension(
+                (int) (imgDim.width  * ratio),
+                (int) (imgDim.height * ratio)
+        );
+        setSize(size);
 
         hoverBufferedImg = new BufferedImage(
                 defaultBufferedImg.getWidth(),
@@ -48,7 +69,6 @@ public class LabelNavArrow extends JLabel implements HoverVisuals {
         setIcon(defaultIcon);
     }
 
-
     @Override
     public void setHoverState(boolean hoverState) {
         if (hoverState & !this.hoverState) {
@@ -59,9 +79,13 @@ public class LabelNavArrow extends JLabel implements HoverVisuals {
         this.hoverState = hoverState;
     }
 
+    /**
+     * Enumerador interno que espeicifica las orientaciones que puede tener una
+     * flecha de navegacion.
+     */
     public enum NavArrowOrientation {
-        RIGHT("/NavArrowR.png"),
-        LEFT("/NavArrowL.png");
+        RIGHT("/ArrowRight.png"),
+        LEFT("/ArrowLeft.png");
         private final String path;
         NavArrowOrientation(String path) {
             this.path = path;

@@ -9,20 +9,28 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 
+/**
+ * Clase que se encarga de mostrar un item catalogado en el menu.
+ * @param <T> El tipo de elemento a ser catalogado.
+ */
 public class ItemLabel<T extends MenuItem> extends JLabel implements HoverVisuals {
 
+    /** Instancia particular del elemento a catalogar. */
     private T itemEnum;
     private final ImageIcon defaultIcon;
     private final ImageIcon hoverIcon;
+    /** Indica si el label debe mostrar HoverVisuals. */
     private boolean hoverState;
 
-    ItemLabel(int width, int height, T itemEnum) {
+    /**
+     * Constructor unico de la clase.
+     * @param height La altura que debe tomar el label.
+     * @param itemEnum El elemento a mostrar.
+     */
+    ItemLabel(int height, T itemEnum) {
         super();
         this.itemEnum = itemEnum;
         this.hoverState = false;
-
-        setSize(width, height);
-        setPreferredSize(new Dimension(getWidth(), getHeight()));
 
         BufferedImage defaultBufferedImg = RenderedSprite.getFrame(itemEnum.getInGameSprite(), 0);
         BufferedImage hoverBufferedImg = new BufferedImage(
@@ -30,6 +38,17 @@ public class ItemLabel<T extends MenuItem> extends JLabel implements HoverVisual
                 defaultBufferedImg.getHeight(),
                 defaultBufferedImg.getType()
         );
+
+        /* Las dimensiones de la imagen a usar */
+        Dimension imgDim = new Dimension(defaultBufferedImg.getWidth(), defaultBufferedImg.getHeight());
+
+        /* El ratio entre la altura dada y la altura de la imagen. */
+        float ratio = height / (float) imgDim.height;
+        Dimension size = new Dimension(
+                (int) (imgDim.width  * ratio),
+                (int) (imgDim.height * ratio)
+        );
+        setSize(size);
 
         /* Oscurecemos la imagen de hover state. */
         RescaleOp rescaleOp = new RescaleOp(0.7f, 0, null);
@@ -43,10 +62,10 @@ public class ItemLabel<T extends MenuItem> extends JLabel implements HoverVisual
         defaultIcon = new ImageIcon(defaultImg);
         hoverIcon = new ImageIcon(hoverImg);
 
-
         setIcon(defaultIcon);
 
     }
+
 
     @Override
     public void setHoverState(boolean hoverState) {

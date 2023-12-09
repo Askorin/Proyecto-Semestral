@@ -10,10 +10,23 @@ import org.zoo.vista.VistaEscenaZoo;
 import javax.swing.*;
 import java.awt.*;
 
+
+/**
+ * Contenedor de paneles de interaccion del zoo.
+ */
 public class PanelContainer extends JPanel {
+
+    /**
+     * El layout del panel, corresponde a un CardLayout que puede ser navegado para
+     * acceder a los distintos paneles.
+     */
     private final CardLayout cardLayout;
 
-    public PanelContainer(AnimalPlacementManager apm, HabitatPlacementManager hpm, VistaEscenaZoo.PanelListener panelListener) {
+    /**
+     * Constructor unico de PanelContainer.
+     * @param panelListener La referencia al listener de eventos para paneles.
+     */
+    public PanelContainer(VistaEscenaZoo.PanelListener panelListener) {
         cardLayout = new CardLayout();
         setLayout(cardLayout);
 
@@ -32,8 +45,12 @@ public class PanelContainer extends JPanel {
         super.paintComponent(g);
     }
 
-    public void switchPanel(LabelNavArrow labelNavArrow) {
-        switch (labelNavArrow.getOrientation()) {
+    /**
+     * Funcion que controla el cambio de paneles dentro del contenedor.
+     * @param orientation La orientacion en la que debe cambiar el layout.
+     */
+    public void switchPanel(LabelNavArrow.NavArrowOrientation orientation) {
+        switch (orientation) {
             case RIGHT -> cardLayout.next(this);
             case LEFT -> cardLayout.previous(this);
         }

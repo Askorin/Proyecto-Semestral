@@ -1,7 +1,5 @@
 package org.zoo.vista;
 import org.zoo.modelo.EscenaZoo;
-import org.zoo.modelo.placementmanager.AnimalPlacementManager;
-import org.zoo.modelo.placementmanager.HabitatPlacementManager;
 import org.zoo.modelo.placementmanager.PlacementManager;
 import org.zoo.vista.sidepanels.*;
 import org.zoo.vista.visitor.DrawVisitor;
@@ -12,10 +10,24 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+/**
+ * Contraparte grafica de la escena del zoologico.
+ */
 public class VistaEscenaZoo extends JPanel {
+
+    /** Encargado de renderizar la escena del zoologico. */
     private final DrawVisitor renderZoo;
+
+    /** Parte logica del simulador. */
     private final EscenaZoo escenaZoo;
+
+    /** Contenedor de paneles interactivos. */
     private final PanelContainer panelContainer;
+
+    /**
+     * Constructor unico de la clase VistaEscenaZoo
+     * @param escenaZoo La instancia de EscenaZoo que controla la logica.
+     */
     public VistaEscenaZoo(EscenaZoo escenaZoo) {
         /* No queremos que swing llame repaint. */
         setIgnoreRepaint(true);
@@ -37,25 +49,18 @@ public class VistaEscenaZoo extends JPanel {
         add(renderZoo);
 
         /* Paneles. */
-        AnimalPlacementManager apm = escenaZoo.getAnimalPlacementManager();
-        HabitatPlacementManager hpm = escenaZoo.getHabitatPlacementManager();
-        panelContainer = new PanelContainer(apm, hpm, panelListener);
+        panelContainer = new PanelContainer(panelListener);
         add(panelContainer);
-
-        // PanelHabitat panelHabitat = new PanelHabitat(escenaZoo.getHabitatPlacementManager(), panelListener);
-        // PanelAnimal panelAnimal = new PanelAnimal(escenaZoo.getAnimalPlacementManager(), panelListener);
-        // panelHabitat.addMouseListener(panelListener);
-        // panelAnimal.addMouseListener(panelListener);
-
-        // TODO: Cambiar nombres de org.zoo.vista.sidepanels.PanelAnimal y org.zoo.vista.sidepanels.PanelHabitat, ver si se generalizar a una clase.
-        // add(panelHabitat);
-        // add(panelAnimal, BorderLayout.EAST);
-
     }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
     }
+
+    /**
+     * Clase interna VistaEscenaZoo, se encarga del manejo de inputs del usuario dentro
+     * del area del zoologico.
+     */
     public class ZooListener implements MouseInputListener, MouseMotionListener {
 
         @Override
@@ -138,6 +143,11 @@ public class VistaEscenaZoo extends JPanel {
             escenaZoo.getFoodPlacementManager().setY(placementY);
         }
     }
+
+    /**
+     * Clase interna de VistaEscenaZoo, se encarga de manejar los inputs del usuario
+     * dentro de los paneles interactivos.
+     */
     public class PanelListener implements MouseInputListener {
         @Override
         public void mouseClicked(MouseEvent mouseEvent) {
@@ -156,7 +166,7 @@ public class VistaEscenaZoo extends JPanel {
                 PlacementManager pm = escenaZoo.getPlacementManager(itemLabel.getEnum());
                 if (pm != null) pm.enablePlacement(itemLabel.getEnum());
             } else if (source instanceof LabelNavArrow arrowLabel) {
-                panelContainer.switchPanel(arrowLabel);
+                panelContainer.switchPanel(arrowLabel.getOrientation());
             }
         }
 

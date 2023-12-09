@@ -1,5 +1,4 @@
 package org.zoo.vista.visitor;
-
 import org.zoo.App;
 import org.zoo.modelo.*;
 import org.zoo.modelo.food.EnumFood;
@@ -14,17 +13,18 @@ import org.zoo.modelo.placementmanager.AnimalPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.RenderedSprite;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.GlyphVector;
 
+/**
+ * Visitor que se encarga del renderizado del Zoo, trabaja de manera recursiva.
+ */
 public class DrawVisitor extends JPanel implements Visitor {
     private Graphics g;
     private Layer currentLayer;
     private final EscenaZoo escenaZoo;
     private final Zoo zoo;
-    // TODO: El paintComponent lo debería llevar ventana en verdad?
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -37,6 +37,11 @@ public class DrawVisitor extends JPanel implements Visitor {
             escenaZoo.getTextMessageManager().accept(this);
         }
     }
+
+    /**
+     * Constructor unico del <code>DrawVisitor</code>.
+     * @param escenaZoo La EscenaZoo, que contiene la logica del modelo.
+     */
     public DrawVisitor(EscenaZoo escenaZoo) {
         this.escenaZoo = escenaZoo;
         this.zoo = escenaZoo.getZoo();
@@ -273,7 +278,6 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
 
 
-    ///// CAMERA //TODO: Mover a otra clase, ojala no anidada a esta?
     private int cameraX; private int cameraY;
     private int cameraWidth; private int cameraHeight;
     /* Para poder ver un poco más que las dimensiones del zoo (modelo) */
@@ -281,6 +285,10 @@ public class DrawVisitor extends JPanel implements Visitor {
     private final int cameraSpeed = 1;
     private int mouseX; private int mouseY; private boolean isDragging;
     private ZooPoint prevMousePos;
+
+    /**
+     * Actualiza la posicion de la camara.
+     */
     private void updateCamera() {
 
 
@@ -367,6 +375,11 @@ public class DrawVisitor extends JPanel implements Visitor {
     }
 
     /// Layers
+
+    /**
+     * Enumerador que describe las posibles capas sobre las que puede ser
+     * renderizado un objeto.
+     */
     private enum Layer {
         BOTTOM,
         MIDDLE_BACK,
