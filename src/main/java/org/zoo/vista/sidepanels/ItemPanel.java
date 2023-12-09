@@ -27,7 +27,6 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     public ItemPanel(VistaEscenaZoo.PanelListener panelListener, Class<T> clazz) {
         super();
         this.clazz = clazz;
-        // setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setLayout(new BorderLayout());
 
         labelPanel = new JPanel();
@@ -101,7 +100,8 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     public Dimension getPreferredSize() {
         float ratio = getWidth() / (float) bgDim.width;
         int panelWidth = (int) (bgDim.width * ratio);
-        int panelHeight = (int) (bgDim.height * ratio);
+        // TODO: tuve que multiplicar por 0.6 :(. Arreglar o usar otro panelbg
+        int panelHeight = (int) (bgDim.height * ratio * 0.6);
         return new Dimension(panelWidth, panelHeight);
     }
 
