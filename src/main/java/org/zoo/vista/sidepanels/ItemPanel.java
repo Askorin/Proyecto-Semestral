@@ -108,6 +108,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        revalidate();
         super.paintComponent(g);
 
         BufferedImage bg = new BufferedImage(

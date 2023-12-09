@@ -15,7 +15,7 @@ public final class App {
 
     /** Timer del gameLoop, corre cada cierto tiempo fijo. */
     private Timer gameLoop;
-    public static final float SCALE_FACTOR = 1.2f;
+    public static final float SCALE_FACTOR = 1.4f;
     public static final int SCREEN_WIDTH = (int) (850 * SCALE_FACTOR);
     public static final int SCREEN_HEIGHT = (int) (480 * SCALE_FACTOR);
     private final float FPS = 60;
