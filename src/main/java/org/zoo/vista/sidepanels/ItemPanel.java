@@ -41,7 +41,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
         }
 
         try {
-            background = ImageIO.read(getClass().getResource("/cropped_panel.png"));
+            background = ImageIO.read(getClass().getResource("/MenuPanel.png"));
             bgDim = new Dimension(background.getWidth(), background.getHeight());
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -100,7 +100,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     public Dimension getPreferredSize() {
         float ratio = getWidth() / (float) bgDim.width;
         int panelWidth = (int) (bgDim.width * ratio);
-        // TODO: tuve que multiplicar por 0.6 :(. Arreglar o usar otro panelbg
+        // TODO: tuve que multiplicar por 0.6 :(
         int panelHeight = (int) (bgDim.height * ratio * 0.6);
         return new Dimension(panelWidth, panelHeight);
     }
