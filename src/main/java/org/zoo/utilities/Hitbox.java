@@ -1,10 +1,22 @@
 package org.zoo.utilities;
 
+
+/**
+ * Clase que modela una HitBox en el zoologico.
+ */
 public class Hitbox {
     public int x;
     public int y;
     public int width;
     public int height;
+
+    /**
+     * Constructor unico para un HitBox.
+     * @param x Su posicion en el eje x.
+     * @param y Su posicion en el eje y.
+     * @param width Su ancho.
+     * @param height Su altura.
+     */
     public Hitbox(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -39,6 +51,12 @@ public class Hitbox {
         return cond1 && cond2 && cond3 && cond4;
     }
 
+    /**
+     * Verifica que un punto este colisionando con una HitBox.
+     * @param hitbox La <code>HitBox</code>a chequear.
+     * @param p El <code>ZooPoint</code> a chequear.
+     * @return True si existe colision, false en caso contrario.
+     */
     public static boolean checkPointHitboxCollision(Hitbox hitbox, ZooPoint p) {
         /*
          * Podemos crear un hitbox de ancho y largo 0, y ocupar la función
@@ -47,6 +65,12 @@ public class Hitbox {
         return checkHitboxCollision(hitbox, new Hitbox(p.x, p.y, 0, 0));
     }
 
+    /**
+     * Verifica que dos Hitbox esten colisonando.
+     * @param hitbox1 La primera <code>HitBox</code> a chequear.
+     * @param hitbox2 La segunda <code>HitBox</code> a chequear.
+     * @return True si existe colision, false en caso contrario.
+     */
     public static boolean checkHitboxCollision(Hitbox hitbox1, Hitbox hitbox2) {
         boolean cond1 = false;
         boolean cond2 = false;
@@ -85,6 +109,16 @@ public class Hitbox {
       este metodo devuelve al punto más cercano que se deberia mover movableHitbox para
       estar adyacente a targetHitbox (rozandolo, pero sin estar uno sobre el otro)
       Importante: No funciona si los objetos estan uno sobre el otro
+     */
+
+    /**
+     * Devuelve el punto mas cercano al que se deberia mover movableHitbox para
+     * estar adyacente a targetHitbox, rozandolo, sin quedar sobrepuesta.
+     * Tener en cuenta que este metodo no funciona si las <code>HitBox</code>
+     * Se encuentar sobrepuestas.
+     * @param movableHitbox La <code>HitBox</code> que se mueve.
+     * @param targetHitbox La <code>HitBox</code> que no se mueve.
+     * @return El <code>ZooPoint</code> mas cercano al que se debe mover movableHitbox
      */
     static public ZooPoint getCloserPointToHitbox(Hitbox movableHitbox, Hitbox targetHitbox) {
         int targetX;

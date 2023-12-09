@@ -7,6 +7,9 @@ import org.zoo.modelo.placementmanager.AnimalPlacementManager;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
 
+/**
+ * Interfaz Visitor. Actua sobre el modelo.
+ */
 public interface Visitor {
     void visitAnimal(Animal animal);
     void visitHabitat(Habitat habitat);
