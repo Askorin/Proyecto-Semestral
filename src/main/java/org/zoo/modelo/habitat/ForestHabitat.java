@@ -6,6 +6,9 @@ import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
 
+/**
+ * Modela un habitat de bosque, y sus caracteristicas correspondientes.
+ */
 public class ForestHabitat extends Habitat {
     public static int width = 96*4;
     public static int height = 80*4;

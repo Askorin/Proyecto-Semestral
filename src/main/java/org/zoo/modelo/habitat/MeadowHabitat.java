@@ -6,6 +6,9 @@ import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
 
+/**
+ * Modela un habitat de prado, y sus caracteristicas correspondientes.
+ */
 public class MeadowHabitat extends Habitat {
     public static int width = 96*4;
     public static int height = 96*4;

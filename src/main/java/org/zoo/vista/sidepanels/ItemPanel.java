@@ -2,15 +2,11 @@ package org.zoo.vista.sidepanels;
 import org.zoo.App;
 import org.zoo.modelo.MenuItem;
 import org.zoo.vista.VistaEscenaZoo;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
-// TODO: Arreglar dimensiones y spacing entre componentes.
-
 
 /**
  * Clase <code>JPanel</code> generica que representa un panel de items.
