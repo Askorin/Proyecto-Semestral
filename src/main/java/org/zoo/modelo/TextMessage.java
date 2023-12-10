@@ -9,13 +9,33 @@ import org.zoo.vista.visitor.Visitor;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
+/**
+ * Clase logica para enviar mensajes que contengan solo texto,
+ * en concreto, una instancia de esta clase corresponde a un mensaje.
+ * @see TextMessageManager
+ */
 public class TextMessage implements Updatable, Drawable {
+    /**
+     * Texto que contiene el mensaje
+     */
     private final String text;
+    /**
+     * En que tiempo (en ms) se creo el mensaje
+     */
     private final long initMs;
+    /**
+     * Tiempo (en ms) actual
+     */
     private long currentMs;
+    /**
+     * Tiempo de vida en que debe permanecer el mensaje
+     */
     public static final long  LIFETIME = 8000;
 
-    // ¡IMPORTANTE!: TextMessage se pone solito en el Manager, no es necesario colocarlo uno
+    /**
+     * Constructor unico de un mensaje
+     * @param text Texto que va a contener el mensaje
+     */
     public TextMessage(String text) {
         this.text = text;
 
@@ -24,6 +44,11 @@ public class TextMessage implements Updatable, Drawable {
 
         TextMessageManager.addTextMessage(this);
     }
+
+    /**
+     * Permite cronometrizar cuando tiempo lleva el mensaje desde su creacion
+     * @return Tiempo (en ms) que ha pasado de la creacion del mensaje
+     */
     public long getTimeElapsed() {
         return currentMs - initMs;
     }
@@ -47,6 +72,11 @@ public class TextMessage implements Updatable, Drawable {
     public int getAbsY() {
         return 0;
     }
+
+    /**
+     * Permite saber el contenido del mensaje
+     * @return Texto que contiene el mensaje
+     */
     public String getText() {
         return text;
     }

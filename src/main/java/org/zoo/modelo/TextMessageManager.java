@@ -4,39 +4,57 @@ import org.zoo.vista.Drawable;
 import org.zoo.vista.visitor.Visitor;
 import java.util.ArrayList;
 
-/*
- * Es un singleton porque necesitamos que haya una sola instancia que sea accesible por todos sin
- * tener que traer la referencia constantemente. Ademas necesita ser instanciable y no basta con
- * solo tener metodos estaticos porque necesitamos que sea una instancia que se puede pasar a un
- * contenedor para que reciba un llamado de .update(), y luego llama al .update() de sus componentes.
+/**
+ * Clase que permite manejar todos los mensajes de texto que estan en circulacion
+ * @see TextMessage
  */
 public class TextMessageManager implements Updatable, Drawable {
+    /**
+     * Lista de todos los mensajes de texto que hay en ciruculación
+     * @see TextMessage
+     */
     private static final ArrayList<TextMessage> allTextMessages = new ArrayList<>();
     public TextMessageManager() {}
+    @Override
     public void update() {
         for (int i = getAllTextMessages().size() - 1; i >= 0; --i) {
             TextMessage t = getAllTextMessages().get(i);
             if (t != null) {t.update();}
         }
     }
-
     @Override
     public void accept(Visitor v) {
         v.visitTextMessageManager(this);
     }
 
+    /**
+     * Metodo que se debe usar para agregar mensajes en circulacion al <code>TextMessageManager</code>
+     * @param text <code>TextMessage</code> que se debe agregar al <code>TextMessageManager</code>
+     */
     public static void addTextMessage(TextMessage text) {
         allTextMessages.add(text);
     }
+    /**
+     * Metodo que se debe usar inmediatamente despues de que un mensaje
+     * termine de estar en circulacion para eliminarlo de <code>TextMessageManager</code>
+     * @param text <code>TextMessage</code> que se debe eliminar de <code>TextMessageManager</code>
+     */
     public static void removeTextMessage(TextMessage text) {
         allTextMessages.remove(text);
     }
+
+    /**
+     * Metodo que permite ver la lista de todos los mensajes de texto que estan en circulacion
+     * @return Lista de todos los <code>TextMessage</code> actuales
+     */
     public static ArrayList<TextMessage> getAllTextMessages() {
         return allTextMessages;
     }
+    @Override
     public int getAbsX() {
         return 0;
     }
+    @Override
     public int getAbsY() {
         return 0;
     }
