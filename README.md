@@ -21,3 +21,11 @@ de estos, y sus compatibilidades con otros animales / entornos. Todo mediante un
 
 ## Diagrama de Casos de Uso de la Aplicación
 ![Casos de uso de la aplicación](/UML_Use_Case.png?raw=true?)
+
+------------------------------------------------
+## Interfaz
+![Casos de uso de la aplicación](/interfaz1.png?raw=true?)
+![Casos de uso de la aplicación](/interfaz2.png?raw=true?)
+![Casos de uso de la aplicación](/interfaz3.png?raw=true?)
+![Casos de uso de la aplicación](/interfaz4.png?raw=true?)
+
