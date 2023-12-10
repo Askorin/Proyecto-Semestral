@@ -13,6 +13,10 @@ import org.zoo.vista.Drawable;
 import org.zoo.vista.visitor.Visitable;
 import org.zoo.vista.visitor.Visitor;
 
+/**
+ * Clase que contiene toda la logica del zoologico,
+ * contiene a todos los elementos que estan en el zoologico (Habitats, animales, etc.)
+ */
 public class Zoo
         implements Updatable, Drawable, Visitable {
 
@@ -20,9 +24,25 @@ public class Zoo
     private final int height = 2048;
     private final Sprite backgroundSprite = Sprite.ZOO_BACKGROUND;
     // TODO: Se podría tener una arraylist de habitats? // y los habitats podrian tener un arrayList de animales?
+    /**
+     * <code>Zoo</code> contiene una instancia de <code>Containables</code>,
+     * es donde se almacenaran los elementos contenidos en el <code>Zoo</code>
+     */
     private final Containables containables;
+    /**
+     * Manejador de <code>Habitat</code> del zoo.
+     * Es el intermediario que permite colocar habitats en el <code>Zoo</code>
+     */
     private final HabitatPlacementManager habitatPlacementManager;
+    /**
+     * Manejador de <code>Animal</code> del zoo
+     * Es el intermediario que permite colocar animales en el<code>Zoo</code>
+     */
     private final AnimalPlacementManager animalPlacementManager;
+    /**
+     * Manejador de tipos de comida del zoo.
+     * Es el intermediario que permite colocar comida en el <code>Zoo</code>
+     */
     private final FoodPlacementManager foodPlacementManager;
       
     public Zoo(HabitatPlacementManager habitatPlacementManager, AnimalPlacementManager animalPlacementManager, FoodPlacementManager foodPlacementManager) {
@@ -34,6 +54,16 @@ public class Zoo
     }
 
     // TODO: Chequear si habitat esa fuera de zoologico, imprimir texto warning en casos fallidos.
+
+    /***
+     * Metodo que permite agregar un <code>Habitat</code> al <code>Zoo</code>
+     * @param x Coordenada x del <code>Zoo</code> donde colocar el <code>Habitat</code> deseado
+     * @param y Coordenada y del <code>Zoo</code> donde colocar el <code>Habitat</code> deseado
+     * @param enumHabitat Corresponde al elemento de <code>EnumHabitat</code> que referencia
+     *                    a la subclase de <code>Habitat</code> que queremos agregar al <code>Zoo</code>
+     * @return Devuelve <code>true</code> si el <code>Habitat</code> se coloco exitosamente,
+     *         devuelve <code>false</code> en caso contrario
+     */
     public boolean addHabitat(int x, int y, EnumHabitat enumHabitat) {
         Habitat habitat = enumHabitat.newInstance(this, new ZooPoint(x, y));
         habitat.x = x;
@@ -63,7 +93,9 @@ public class Zoo
     }
 
     /**
-     * Retorna el habitat que contiene un punto específico, retorna null si no existe.
+     * Metodo que permite conocer si existe un <code>Habitat</code> en un determinado punto del <code>Zoo</code>
+     * @param p Punto del <code> Zoo</code>donde queremos revisar si hay un <code>Habitat</code>
+     * @return Retorna el <code>Habitat</code> contenido en el punto, retorna <code>null</code> si no existe.
      */
     public Habitat getHabitatFromPoint(ZooPoint p) {
         for (Drawable d: getContainables().getDrawables()) {
@@ -76,28 +108,20 @@ public class Zoo
         return null;
     }
 
+    @Override
     public void accept(Visitor v) {
         v.visitZoo(this);
-
-        // int x = -cameraX;
-        // int y = -cameraY;
-        // drawCamera(g);
-        // for (Drawable d: getContainables().getDrawables()) {
-        //     // Este check de null es medio quiche.
-        //     if (d != null) {d.draw(g, x, y);}
-        // }
-        // // TODO: Sistema de layers para no tener que hacerlo manual, que es lo contrario a lo que queremos.
-        // habitatPlacementManager.draw(g, 0, 0);
-        // animalPlacementManager.draw(g, 0, 0);
     }
 
+    @Override
     public int getAbsX() {
         return 0;
     }
+    @Override
     public int getAbsY() {
         return 0;
     }
-
+    @Override
     public void update() {
         for (int i = getContainables().getUpdatables().size() - 1; i >= 0; --i) {
             Updatable u = getContainables().getUpdatables().get(i);
@@ -105,16 +129,32 @@ public class Zoo
         }
     }
 
+    /**
+     * Permite obtener la coleccion de todos los elementos contenibles contenidos en el <code>Zoo</code>
+     * @return Instancia de <code>Containables</code> que contiene los elementos contenidos
+     */
     public Containables getContainables() {
         return containables;
     }
 
+    /**
+     * Permite obtener el majeador de <code>Habitat</code> del <code>Zoo</code>
+     * @return Devuelve el <code>HabitatPlacementManager</code> que usa el <code>Zoo</code>
+     */
     public HabitatPlacementManager getHabitatPlacementManager() {
         return habitatPlacementManager;
     }
+    /**
+     * Permite obtener el majeador de <code>Animal</code> del <code>Zoo</code>
+     * @return Devuelve el <code>AnimalPlacementManager</code> que usa el <code>Zoo</code>
+     */
     public AnimalPlacementManager getAnimalPlacementManager() {
         return animalPlacementManager;
     }
+    /**
+     * Permite obtener el majeador de tipos de comida del <code>Zoo</code>
+     * @return Devuelve el <code>FoodPlacementManager</code> que usa el <code>Zoo</code>
+     */
     public FoodPlacementManager getFoodPlacementManager() {
         return foodPlacementManager;
     }
