@@ -91,8 +91,8 @@ class HabitatTest {
                 Hitbox expected = new Hitbox(
                         p.x - Habitat.PLACEMENT_TOLERANCE,
                         p.y - Habitat.PLACEMENT_TOLERANCE,
-                        h.getWidth() + Habitat.PLACEMENT_TOLERANCE,
-                        h.getHeight() + Habitat.PLACEMENT_TOLERANCE
+                        h.getWidth() + Habitat.PLACEMENT_TOLERANCE  * 2,
+                        h.getHeight() + Habitat.PLACEMENT_TOLERANCE * 2
                 );
                 assertEquals(expected, h.getAbsPlacementHitbox());
             }
