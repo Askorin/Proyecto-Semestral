@@ -13,7 +13,7 @@ legend
 endlegend
 
 
-package "Vista" {
+package "vista" {
   class VistaEscenaZoo {
 
   }
@@ -88,9 +88,27 @@ package "Vista" {
 }
 
 
-interface Visitor
 
-package "Modelo" {
+package "visitor" {
+  interface Visitor {
+    {method} visitAnimal(Animal) : void
+    {method} visitHabitat(Habitat) : void
+    {method} visitZoo(Zoo) : void
+    {method} visitHabitatPlacementManager(HabitatPlacementManager) : void
+    {method} visitAnimalPlacementManager(AnimalPlacementManager) : void
+    {method} visitFoodPlacementManager(FoodPlacementManager) : void
+    {method} visitFoodDisplay(FoodDisplay) : void
+    {method} visitFoodArea(FoodArea) : void
+    {method} visitTextMessageManager(TextMessageManager) : void
+    {method} visitTextMessage(TextMessage) : void
+  }
+  interface Visitable {
+    {method} accept(Visitor) : void
+  }
+}
+
+
+package "modelo" {
   class EscenaZoo
   class Zoo
 }
@@ -138,13 +156,11 @@ DrawVisitor +-- Layer
 ItemPanel ..> PanelListener
 PanelContainer ..> PanelListener
 PanelContainer ..> NavArrowOrientation
+Visitable ..> Visitor
 
 
 ' Herencia/Generalización no Swing
 
 
 ' Herencia/Generalización Swing
-
-
-
 @enduml
