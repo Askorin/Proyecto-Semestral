@@ -27,5 +27,4 @@ de estos, y sus compatibilidades con otros animales / entornos. Todo mediante un
 ![Casos de uso de la aplicación](/interfaz1.png?raw=true?)
 ![Casos de uso de la aplicación](/interfaz2.png?raw=true?)
 ![Casos de uso de la aplicación](/interfaz3.png?raw=true?)
-![Casos de uso de la aplicación](/interfaz4.png?raw=true?)
 
