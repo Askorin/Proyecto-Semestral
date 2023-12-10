@@ -44,6 +44,9 @@ public class Hitbox {
          * - y2 >= y1
          *
          */
+
+        System.out.println(hitbox1);
+        System.out.println(hitbox2);
         boolean cond1 = hitbox2.x + hitbox2.width <= hitbox1.x + hitbox1.width;
         boolean cond2 = hitbox2.y + hitbox2.height <= hitbox1.y + hitbox1.height;
         boolean cond3 = hitbox2.x >= hitbox1.x;
@@ -152,5 +155,14 @@ public class Hitbox {
                 ", width=" + width +
                 ", height=" + height +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Hitbox hb) {
+            return hb.x == x && hb.y == y && hb.width == width && hb.height == height;
+        } else {
+            return false;
+        }
     }
 }

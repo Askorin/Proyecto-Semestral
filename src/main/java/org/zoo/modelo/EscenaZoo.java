@@ -1,5 +1,4 @@
 package org.zoo.modelo;
-
 import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.food.EnumFood;
