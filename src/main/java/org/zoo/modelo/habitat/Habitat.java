@@ -28,7 +28,7 @@ public abstract class Habitat implements Updatable, Drawable {
     private float temperature; //en °C porque no somos quiche
 
     /** Tolerancia para detección de colisiones con otros <code>Habitat</code>. */
-    private final int PLACEMENT_TOLERANCE = 60;
+    public static final int PLACEMENT_TOLERANCE = 60;
     /** <code>Hitbox</code> en coordenadas absolutas del <code>Habitat</code> */
     protected Hitbox absHitbox;
     protected Sprite habitatSprite;
@@ -144,14 +144,15 @@ public abstract class Habitat implements Updatable, Drawable {
         return absHitbox;
     }
 
+
     /**
      * Retorna la <code>Hitbox</code> usada para chequear colisiones entre
      * otros habitats, al momento de su posicionamiento.
      * @return Una <code>Hitbox</code>.
      */
     public Hitbox getAbsPlacementHitbox() {
-        int newWidth = absHitbox.width + PLACEMENT_TOLERANCE;
-        int newHeight = absHitbox.height + PLACEMENT_TOLERANCE;
+        int newWidth = absHitbox.width + 2 * PLACEMENT_TOLERANCE;
+        int newHeight = absHitbox.height + 2 * PLACEMENT_TOLERANCE;
 
         int newX = absHitbox.x - PLACEMENT_TOLERANCE;
         int newY = absHitbox.y - PLACEMENT_TOLERANCE;

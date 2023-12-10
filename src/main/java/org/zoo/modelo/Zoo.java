@@ -41,7 +41,6 @@ public class Zoo
 
         /* Primero revisamos que el habitat se encuentra dentro del Zoo. */
         Hitbox zooHitbox = new Hitbox(getAbsX(), getAbsY(), getWidth(), getHeight());
-        System.out.println(zooHitbox);
 
         if (!Hitbox.isHitboxContained(zooHitbox, habitat.getAbsPlacementHitbox())) {
             String text = "El espacio se encuentra fuera del límite del zoológico.";
