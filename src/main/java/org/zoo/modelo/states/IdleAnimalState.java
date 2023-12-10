@@ -1,6 +1,8 @@
 package org.zoo.modelo.states;
 
 import org.zoo.modelo.animal.Animal;
+import org.zoo.modelo.exception.AlreadyInitializedStateException;
+import org.zoo.modelo.exception.NoInitializedStateException;
 
 /**
  * Estado que describe el comportamiento de un <code>Animal</code>
@@ -21,9 +23,10 @@ public class IdleAnimalState implements AnimalState {
         initMs = System.currentTimeMillis();
     }
     @Override
-    public void stateInit() {
+    public void stateInit() throws AlreadyInitializedStateException {
+        /* Revisamos si ya se inicializo el estado */
         if (hasBeenInitialized) {
-            System.err.println("Se ha intentado inicializar un estado que ya ha sido inicializado.");
+            throw new AlreadyInitializedStateException();
         }
         hasBeenInitialized = true;
 
@@ -32,9 +35,10 @@ public class IdleAnimalState implements AnimalState {
     }
 
     @Override
-    public void stateUpdate() {
+    public void stateUpdate() throws NoInitializedStateException {
+        /* Revisamos si el estado se ha inicializado */
         if (!hasBeenInitialized) {
-            System.err.println("Se ha detectado un estado.update() sin haber inicializado el estado.");
+            throw new NoInitializedStateException();
         }
         /* Revisamos si el animal tiene hambre */
         if (animal.getHungerTimeElapsed() >= animal.getHungerLimitMs()) {

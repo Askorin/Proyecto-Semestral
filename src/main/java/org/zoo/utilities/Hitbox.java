@@ -45,8 +45,6 @@ public class Hitbox {
          *
          */
 
-        System.out.println(hitbox1);
-        System.out.println(hitbox2);
         boolean cond1 = hitbox2.x + hitbox2.width <= hitbox1.x + hitbox1.width;
         boolean cond2 = hitbox2.y + hitbox2.height <= hitbox1.y + hitbox1.height;
         boolean cond3 = hitbox2.x >= hitbox1.x;

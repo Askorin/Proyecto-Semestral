@@ -1,5 +1,7 @@
 package org.zoo.modelo.states;
 
+import org.zoo.modelo.exception.AlreadyInitializedStateException;
+import org.zoo.modelo.exception.NoInitializedStateException;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.Utilities;
 import org.zoo.utilities.ZooPoint;
@@ -26,9 +28,10 @@ public class GatheringAnimalState implements AnimalState {
         this.animal = animal;
     }
     @Override
-    public void stateInit() {
+    public void stateInit() throws AlreadyInitializedStateException {
+        /* Revisamos si ya se inicializo el estado */
         if (hasBeenInitialized) {
-            System.err.println("Se ha intentado inicializar un estado que ya ha sido inicializado.");
+            throw new AlreadyInitializedStateException();
         }
         hasBeenInitialized = true;
 
@@ -52,9 +55,10 @@ public class GatheringAnimalState implements AnimalState {
     }
 
     @Override
-    public void stateUpdate() {
+    public void stateUpdate() throws NoInitializedStateException {
+        /* Revisamos si el estado se ha inicializado */
         if (!hasBeenInitialized) {
-            System.err.println("Se ha detectado un estado.update() sin haber inicializado el estado.");
+            throw new NoInitializedStateException();
         }
         /* El animal se dirige a el target */
         ZooPoint direction = ZooPoint.getDifference(targetPoint, new ZooPoint(animal.x, animal.y));

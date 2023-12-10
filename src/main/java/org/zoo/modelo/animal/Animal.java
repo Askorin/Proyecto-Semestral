@@ -1,6 +1,8 @@
 package org.zoo.modelo.animal;
 import org.zoo.modelo.*;
 import org.zoo.modelo.characteristics.Updatable;
+import org.zoo.modelo.exception.AlreadyInitializedStateException;
+import org.zoo.modelo.exception.NoInitializedStateException;
 import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.states.*;
@@ -120,7 +122,13 @@ public abstract class Animal implements Updatable, Drawable {
 
     @Override
     public void update() {
-        currentState.stateUpdate();
+        try {
+            currentState.stateUpdate();
+        }
+        catch (NoInitializedStateException e) {
+            System.err.println(e);
+            ownerHabitat.getContainables().removeComponent(this);
+        }
 
         currentMs = System.currentTimeMillis();
         spriteCurrentMs = System.currentTimeMillis();
@@ -132,8 +140,13 @@ public abstract class Animal implements Updatable, Drawable {
      * @param newState Nuevo <code>State</code> que va a tomar el <code>Animal</code>
      */
     public void changeState(AnimalState newState) {
-        this.currentState = newState;
-        currentState.stateInit();
+        try {
+            this.currentState = newState;
+            currentState.stateInit();
+        }
+        catch (AlreadyInitializedStateException e) {
+            System.err.println(e);
+        }
     }
 
     /**
