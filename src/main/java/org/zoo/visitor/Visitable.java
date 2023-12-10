@@ -1,4 +1,4 @@
-package org.zoo.vista.visitor;
+package org.zoo.visitor;
 
 /**
  * Interfaz que describe una clase visitable por un Visitor.

@@ -5,7 +5,7 @@ import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.utilities.ZooPoint;
 import org.zoo.vista.Drawable;
-import org.zoo.vista.visitor.Visitor;
+import org.zoo.visitor.Visitor;
 
 /**
  * Clase posicionadora de comida, se identifica por un <code>EnumAnimal</code>

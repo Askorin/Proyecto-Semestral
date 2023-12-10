@@ -5,7 +5,7 @@ import org.zoo.utilities.Hitbox;
 import org.zoo.modelo.characteristics.Unblockable;
 import org.zoo.vista.Drawable;
 import org.zoo.modelo.characteristics.Positionable;
-import org.zoo.vista.visitor.Visitor;
+import org.zoo.visitor.Visitor;
 
 import java.util.ArrayList;
 

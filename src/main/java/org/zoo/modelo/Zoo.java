@@ -10,8 +10,8 @@ import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.placementmanager.AnimalPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
 import org.zoo.vista.Drawable;
-import org.zoo.vista.visitor.Visitable;
-import org.zoo.vista.visitor.Visitor;
+import org.zoo.visitor.Visitable;
+import org.zoo.visitor.Visitor;
 
 public class Zoo
         implements Updatable, Drawable, Visitable {
