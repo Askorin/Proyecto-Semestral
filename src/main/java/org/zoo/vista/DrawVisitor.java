@@ -13,8 +13,8 @@ import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.placementmanager.AnimalPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
 import org.zoo.visitor.Visitor;
-import org.zoo.vista.Drawable;
-import org.zoo.vista.RenderedSprite;
+import org.zoo.modelo.characteristics.Drawable;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.font.GlyphVector;

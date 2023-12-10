@@ -4,7 +4,7 @@ import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.utilities.ZooPoint;
-import org.zoo.vista.Drawable;
+import org.zoo.modelo.characteristics.Drawable;
 import org.zoo.visitor.Visitor;
 
 /**

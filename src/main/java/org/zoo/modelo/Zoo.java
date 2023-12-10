@@ -1,5 +1,6 @@
 package org.zoo.modelo;
 
+import org.zoo.modelo.characteristics.Containables;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.utilities.ZooPoint;
@@ -8,8 +9,7 @@ import org.zoo.modelo.habitat.EnumHabitat;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.placementmanager.AnimalPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
-import org.zoo.vista.Drawable;
-import org.zoo.visitor.Visitable;
+import org.zoo.modelo.characteristics.Drawable;
 import org.zoo.visitor.Visitor;
 
 /**
@@ -17,7 +17,7 @@ import org.zoo.visitor.Visitor;
  * contiene a todos los elementos que estan en el zoologico (Habitats, animales, etc.)
  */
 public class Zoo
-        implements Updatable, Drawable, Visitable {
+        implements Updatable, Drawable {
 
     private final int width = 2048;
     private final int height = 2048;

@@ -1,7 +1,7 @@
 package org.zoo.modelo;
 
 import org.zoo.modelo.characteristics.Updatable;
-import org.zoo.vista.Drawable;
+import org.zoo.modelo.characteristics.Drawable;
 import org.zoo.visitor.Visitor;
 
 /**

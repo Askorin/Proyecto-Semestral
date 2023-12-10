@@ -1,5 +1,5 @@
 package org.zoo.modelo.habitat;
-import org.zoo.modelo.Containables;
+import org.zoo.modelo.characteristics.Containables;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.TextMessage;
 import org.zoo.modelo.animal.EnumAnimal;
@@ -8,7 +8,7 @@ import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
-import org.zoo.vista.Drawable;
+import org.zoo.modelo.characteristics.Drawable;
 import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.visitor.Visitor;
 
@@ -46,6 +46,7 @@ public abstract class Habitat implements Updatable, Drawable {
         this.y = p.y;
         containables = new Containables();
     }
+    @Override
     public void accept(Visitor v) {
         v.visitHabitat(this);
     }
@@ -58,7 +59,7 @@ public abstract class Habitat implements Updatable, Drawable {
     public int getAbsY() {
         return y + owner.getAbsY();
     }
-
+    @Override
     public void update() {
         for (int i = getContainables().getUpdatables().size() - 1; i >= 0; --i) {
             Updatable u = getContainables().getUpdatables().get(i);

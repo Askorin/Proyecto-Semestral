@@ -3,7 +3,7 @@ package org.zoo.modelo.placementmanager;
 import org.zoo.modelo.animal.EnumAnimal;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.utilities.ZooPoint;
-import org.zoo.vista.Drawable;
+import org.zoo.modelo.characteristics.Drawable;
 import org.zoo.visitor.Visitor;
 
 import java.lang.reflect.Field;
