@@ -1,0 +1,12 @@
+org.zoo
+org.zoo.modelo
+org.zoo.modelo.animal
+org.zoo.modelo.characteristics
+org.zoo.modelo.food
+org.zoo.modelo.habitat
+org.zoo.modelo.placementmanager
+org.zoo.modelo.states
+org.zoo.utilities
+org.zoo.visitor
+org.zoo.vista
+org.zoo.vista.sidepanels
