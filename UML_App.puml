@@ -1,0 +1,57 @@
+@startuml
+hide empty methods
+skinparam linetype ortho
+hide empty fields
+skinparam legendBackgroundColor #ffffff
+legend
+
+|= field |= method |=  |
+|  <img:http://s.plantuml.com/private-field.png>     |   <img:http://s.plantuml.com/private-method.png>     | private |
+|  <img:http://s.plantuml.com/protected-field.png>   |   <img:http://s.plantuml.com/protected-method.png>   | protected |
+|  <img:http://s.plantuml.com/package-private-field.png>     |   <img:http://s.plantuml.com/package-private-method.png>    | package private |
+|  <img:http://s.plantuml.com/public-field.png>     |   <img:http://s.plantuml.com/public-method.png>     | public |
+
+endlegend
+
+
+class App {
+  {field} - gameLoop : Timer
+  {field} {static} + SCALE_FACTOR : float
+  {field} {static} + SCREEN_WIDTH : int
+  {field} {static} + SCREEN_HEIGHT : int
+  {field} - FPS : float
+  {field} + MS_PER_FRAME : float
+  {field} - corriendo : boolean
+  {field} - OS : String
+  {field} - isLinux : boolean
+  {field} {static} + SEE_HITBOX : boolean
+  {method} - crearYMostrarUI() : void
+  {method} - setupGameLoop() : void
+  {method} {static} + main(String[]) : void
+}
+
+class EscenaZoo {
+}
+
+class VistaEscenaZoo {
+
+}
+
+class JFrame {
+
+}
+
+
+' Composición
+App *-- EscenaZoo
+App *-- VistaEscenaZoo
+App o-- JFrame
+
+
+
+
+' Herencia/Generalización no Swing
+
+
+' Herencia/Generalización Swing
+@enduml

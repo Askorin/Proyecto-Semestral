@@ -1,6 +1,5 @@
 package org.zoo.modelo;
 
-import org.zoo.Containables;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.utilities.ZooPoint;

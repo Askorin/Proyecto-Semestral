@@ -1,5 +1,5 @@
 package org.zoo.modelo.habitat;
-import org.zoo.Containables;
+import org.zoo.modelo.Containables;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.TextMessage;
 import org.zoo.modelo.animal.EnumAnimal;
