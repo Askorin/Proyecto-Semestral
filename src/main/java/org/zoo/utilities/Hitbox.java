@@ -123,7 +123,7 @@ public class Hitbox {
      * @param targetHitbox La <code>HitBox</code> que no se mueve.
      * @return El <code>ZooPoint</code> mas cercano al que se debe mover movableHitbox
      */
-    static public ZooPoint getCloserPointToHitbox(Hitbox movableHitbox, Hitbox targetHitbox) {
+    static public ZooPoint getClosestPointToHitbox(Hitbox movableHitbox, Hitbox targetHitbox) {
         int targetX;
         if (movableHitbox.x + movableHitbox.width < targetHitbox.x) {
             targetX = targetHitbox.x - movableHitbox.width;

@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Utilities {
+
+    // TODO: en verdad esto debería estar en clase ZooPoint...
     public static ZooPoint getNormalizedVector(ZooPoint vector) {
         return getNormalizedVector(vector, 1);
     }
