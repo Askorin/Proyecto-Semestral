@@ -1,0 +1,352 @@
+@startuml
+hide empty methods
+hide empty fields
+skinparam legendBackgroundColor #ffffff
+skinparam linetype ortho
+legend
+
+|= field |= method |=  |
+|  <img:http://s.plantuml.com/private-field.png>     |   <img:http://s.plantuml.com/private-method.png>     | private |
+|  <img:http://s.plantuml.com/protected-field.png>   |   <img:http://s.plantuml.com/protected-method.png>   | protected |
+|  <img:http://s.plantuml.com/package-private-field.png>     |   <img:http://s.plantuml.com/package-private-method.png>    | package private |
+|  <img:http://s.plantuml.com/public-field.png>     |   <img:http://s.plantuml.com/public-method.png>     | public |
+
+endlegend
+
+package "visitor" {
+  interface Visitor {
+  }
+  interface Visitable {
+    {method} accept(Visitor) : void
+  }
+}
+
+package "modelo" {
+  abstract Animal {
+    + x : int
+    + y : int 
+    # hitbox : Hitbox
+    # width : int 
+    # height : int 
+    - minTemperature : float
+    - maxTemperature : float
+    - prefferedFood : EnumFood[]
+    - invalidCompanion : EnumAnimal[]
+    - currentSprite : Sprite
+    - isFlipped : boolean 
+    - currentState : AnimalState
+    + ownerHabitat : Habitat
+    - initMs : long
+    - currentMs : long 
+    - spriteInitMs : long
+    - spriteCurrentMs : long 
+    - hungerInitMs : long 
+    - hungerCurrentMs : long
+    - HUNGER_LIMIT_MS : long 
+    - HUNGER_MAX_LIMIT_MS : long
+
+    + changeState(AnimalState) : void
+    + {static} doGetAlong(Animal, Animal) : boolean
+    + {abstract} getIdleSprite() : Sprite
+    + {abstract} getWalkSprite() : Sprite
+    + {abstract} getEatSprite() : Sprite
+    + {abstract} getHungrySprite() : Sprite
+    + getTimeElapsed() : long
+    + getSpriteTimeElapsed() : long
+    + restartSpriteTimeElapsed() : void
+    + getHungerTimeElapsed() : long
+    + restartHungerTimeElapsed() : void
+  }
+
+  class Cat {
+  }
+  class Elephant {
+  }
+  class Lion {
+  }
+  class Monkey {
+  }
+  class Panda {
+  }
+  class Penguin {
+  }
+
+  enum EnumAnimal {
+    - nombre : String 
+    - tipo: Class
+    - sprite : Sprite
+    - labelPath : String
+    + newInstance(Habitat, ZooPoint) : Animal
+  }
+
+  interface Drawable {
+  }
+
+  interface Positionable {
+    + getAbsX() : int
+    + getAbsY() : int
+  }
+
+  interface Unblockable {
+    + getHitbox() : Hitbox
+    + getAbsHitbox() : Hitbox
+  }
+
+  interface Updatable {
+    + update() : void
+  }
+
+  class Containables {
+    - updatables : ArrayList<Updatable>
+    - drawables : ArrayList<Drawable>
+    - unblockables : ArrayList<Unblockable>
+    + addComponent(Object) : void
+    + removeComponent(Object) : void
+    - addUpdatable(Drawable) : void
+    - removeUpdatable(Drawable) : void
+    - addDrawable(Drawable) : void
+    - removeDrawable(Drawable) : void
+    - addUnblockable(Drawable) : void
+    - removeUnblockable(Drawable) : void
+  }
+
+  enum EnumFood {
+    - inGameSprite : Sprite 
+  }
+
+  class FoodArea {
+    + x : int
+    + y : int 
+    # width : int 
+    # height : int 
+    - foodQuantity : int[]
+    - allFoodDisplays : ArrayList<FoodDisplay>
+    - owner : Positionable
+    + add(EnumFood) : void
+    + remove(EnumFood) : boolean
+    + find(EnumFood[]) : EnumFood
+    + {static} searchFoodContainer(Habitat) : FoodArea
+  }
+
+  class FoodDisplay {
+    - enumFood : EnumFood
+    - x : int
+    - y : int
+    - width : int
+    - height : int
+  }
+
+  abstract Habitat {
+    - owner : Positionable
+    + x : int
+    + y : int
+    - width : int
+    - height : int
+    - temperature : float
+    - PLACEMENT_TOLERANCE : int
+    # absHitbox : Hitbox
+    # habitatSprite : Sprite 
+    - containables : Containables
+    + addAnimal(EnumAnimal, ZooPoint) : boolean
+    + getFoodAreaFromPoint(ZooPoint) : FoodArea
+    + getAbsPlacementHitbox() : Hitbox
+  }
+
+  class MeadowHabitat {
+  }
+  class ForestHabitat {
+  }
+  class SavannaHabitat {
+  }
+  class SnowyHabitat {
+  }
+
+  enum EnumHabitat {
+    - nombre : String
+    - tipo : Class
+    - inGameSprite : Sprite
+    + newInstance(Positionable, ZooPoint) : Habitat
+  }
+
+  abstract PlacementManager<T> {
+    - activo : boolean
+    - x : int
+    - y : int
+    - zoo : Zoo
+    + {abstract} enablePlacement(T) : void
+    + {abstract} disablePlacement() : void
+    + {abstract} place() : void
+  }
+
+  class AnimalPlacementManager {
+    - enumAnimal : EnumAnimal
+  }
+  class FoodPlacementManager {
+    - enumFood : EnumFood
+  }
+  class HabitatPlacementManager {
+    - enumHabitat : EnumHabitat
+  }
+
+  interface AnimalState {
+    + stateInit() : void
+    + stateUpdate() : void
+  }
+
+  class DeadAnimalState {
+    - hasBeenInitialized : boolean
+    - animal : Animal
+    - initMs : long
+    - currentMs : long
+    - ANIM_DURATION : int
+    + {static} LIFETIME : long
+  }
+  class EatingAnimalState {
+    - hasBeenInitialized : boolean
+    - animal : Animal
+    - EATING_DURATION : int
+    - initMs : long
+    - currentMs : long
+  }
+  class GatheringAnimalState {
+    - hasBeenInitialized : boolean
+    - animal : Animal
+    - targetPoint : ZooPoint
+    - speed : int
+    - searchForFood() : boolean
+  }
+  class IdleAnimalState {
+    - hasBeenInitialized : boolean
+    - animal : Animal
+    - IDLE_DURATION : int
+    - initMs : long
+    - currentMs : long
+  }
+  class StarvingAnimalState {
+    - hasBeenInitialized : boolean
+    - animal : Animal
+    - searchForFood() : boolean
+  }
+  class WalkingAnimalState {
+    - hasBeenInitialized : boolean
+    - animal : Animal
+    - targetPoint : ZooPoint
+    - speed : int
+  }
+
+  class EscenaZoo {
+    - zoo : Zoo
+    - habitatPlacementManager : HabitatPlacementManager
+    - animalPlacementManager : AnimalPlacementManager
+    - textMessageManager : TextMessageManager
+    - foodPlacementManager : FoodPlacementManager
+  }
+
+  class Zoo {
+    - width : int 
+    - height : int
+    - backgroundSprite : Sprite
+    - containables: Containables
+    - habitatPlacementManager : HabitatPlacementManager
+    - animalPlacementManager : AnimalPlacementManager
+    - foodPlacementManager : FoodPlacementManager
+    + addHabitat(int, int, EnumHabitat) : boolean
+    + getHabitatFromPoint(ZooPoint) : Habitat
+  }
+
+  interface MenuItem {
+    + getInGameSprite() : Sprite
+  }
+
+  enum Sprite {
+    - path : String
+    - framesNumber : int
+    - timePerFrame : int
+    - centerX : int
+    - centerY : int
+  }
+
+  class TextMessage {
+    - text : String
+    - initMs : long
+    - currentMs : long
+    + {static} LIFETIME : long
+    + getTimeElapsed() : long
+  }
+
+  class TextMessageManager {
+    - {static} allTextMessages : ArrayList<TextMessage>
+    + {static} addTextMessage(TextMessage) : void
+    + {static} removeTextMessage(TextMessage) : void
+  }
+}
+
+' Asociación
+
+' Composición
+
+' Agregación
+
+' Implementación
+
+Unblockable <|.. FoodArea
+
+Updatable <|.. Animal
+Updatable <|.. Habitat
+Updatable <|.. EscenaZoo
+Updatable <|.. TextMessage
+Updatable <|.. TextMessageManager
+Updatable <|.. Zoo
+
+Drawable <|.. Animal
+Drawable <|.. Habitat
+Drawable <|.. FoodArea
+Drawable <|.. FoodDisplay
+Drawable <|.. AnimalPlacementManager
+Drawable <|.. FoodPlacementManager
+Drawable <|.. HabitatPlacementManager
+Drawable <|.. TextMessage
+Drawable <|.. TextMessageManager
+Drawable <|.. Zoo
+
+MenuItem <|.. EnumAnimal
+MenuItem <|.. EnumFood
+MenuItem <|.. EnumHabitat
+
+AnimalState <|.. IdleAnimalState 
+AnimalState <|.. WalkingAnimalState
+AnimalState <|.. StarvingAnimalState
+AnimalState <|.. GatheringAnimalState
+AnimalState <|.. EatingAnimalState
+AnimalState <|.. DeadAnimalState
+
+' Nesting
+
+FoodArea +-- FoodDisplay
+
+' Dependencia
+
+Visitable ..> Visitor
+
+' Herencia/Generalización
+
+Animal <|-- Cat
+Animal <|-- Elephant
+Animal <|-- Lion 
+Animal <|-- Monkey 
+Animal <|-- Panda 
+Animal <|-- Penguin
+
+Habitat <|-- MeadowHabitat
+Habitat <|-- ForestHabitat
+Habitat <|-- SavannaHabitat
+Habitat <|-- SnowyHabitat
+
+PlacementManager <|-- AnimalPlacementManager
+PlacementManager <|-- FoodPlacementManager
+PlacementManager <|-- HabitatPlacementManager
+
+Visitable <|-- Drawable
+Positionable <|-- Drawable
+
+@enduml

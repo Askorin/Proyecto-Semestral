@@ -6,7 +6,7 @@ import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.states.*;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
-import org.zoo.vista.Drawable;
+import org.zoo.modelo.characteristics.Drawable;
 import org.zoo.visitor.Visitor;
 
 /**
@@ -103,6 +103,7 @@ public abstract class Animal implements Updatable, Drawable {
         hungerCurrentMs = initMs;
     }
 
+    @Override
     public void accept(Visitor v) {
         v.visitAnimal(this);
     }
@@ -112,10 +113,12 @@ public abstract class Animal implements Updatable, Drawable {
         return x + ownerHabitat.getAbsX();
     }
 
+    @Override
     public int getAbsY() {
         return y + ownerHabitat.getAbsY();
     }
 
+    @Override
     public void update() {
         currentState.stateUpdate();
 
