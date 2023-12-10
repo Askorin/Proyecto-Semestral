@@ -2,7 +2,7 @@ package org.zoo.vista;
 import org.zoo.modelo.EscenaZoo;
 import org.zoo.modelo.placementmanager.PlacementManager;
 import org.zoo.vista.sidepanels.*;
-import org.zoo.vista.visitor.DrawVisitor;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;

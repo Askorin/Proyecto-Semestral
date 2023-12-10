@@ -7,7 +7,7 @@ import org.zoo.modelo.states.*;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
 import org.zoo.vista.Drawable;
-import org.zoo.vista.visitor.Visitor;
+import org.zoo.visitor.Visitor;
 
 /**
  * Clase que modela un animal en el zoologico.

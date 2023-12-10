@@ -1,0 +1,150 @@
+@startuml
+hide empty methods
+hide empty fields
+skinparam legendBackgroundColor #ffffff
+legend
+
+|= field |= method |=  |
+|  <img:http://s.plantuml.com/private-field.png>     |   <img:http://s.plantuml.com/private-method.png>     | private |
+|  <img:http://s.plantuml.com/protected-field.png>   |   <img:http://s.plantuml.com/protected-method.png>   | protected |
+|  <img:http://s.plantuml.com/package-private-field.png>     |   <img:http://s.plantuml.com/package-private-method.png>    | package private |
+|  <img:http://s.plantuml.com/public-field.png>     |   <img:http://s.plantuml.com/public-method.png>     | public |
+
+endlegend
+
+
+package "Vista" {
+  class VistaEscenaZoo {
+
+  }
+
+  class ZooListener {
+
+  }
+
+  class PanelListener {
+
+  }
+
+  class DrawVisitor {
+    {field} - g : Graphics
+    {field} textCounter : int
+    {field} - cameraX : int
+    {field} - cameraY : int
+    {field} - cameraWidth: int
+    {field} - cameraHeight : int
+    {field} - cameraWidthTol : int
+    {field} - cameraHeightTol : int
+    {field} - cameraSpeed : int
+    {field} - mouseX : int
+    {field} - mouseY : int
+    {field} - isDragging : boolean
+    {field} - prevMousePos : ZooPoint
+    {method} - updateCamera() : void
+
+  }
+
+  class Layer {
+    
+  }
+
+  class PanelContainer {
+    {method} + switchPanel(NavArrowOrientation) : void
+  }
+
+  class ItemPanel<T extends Enum<T> & MenuItem> {
+    {field} - clazz : Class<T>
+    {field} - background : BufferedImage
+    {field} - bgDim : Dimension
+    {field} - BORDER_MARGIN : int
+    {field} - ITEM_SPACING : int
+    {method} - values() : T[]
+    {method} - createLabels(int, PanelListener, JPanel) : void
+    {method} - addNavArrowR(int, PanelListener) : void
+    {method} - addNavArrowL(int, PanelListener) : void
+  }
+  
+  class ItemLabel<T extends MenuItem> {
+    {field} - itemEnum: T
+    {field} - defaultIcon : ImageIcon
+    {field} - hoverIcon : ImageIcon
+    {field} - hoverState : boolean
+  }
+
+  class LabelNavArrow {
+    {field} - hoverState : boolean
+    {field} - defaultIcon : ImageIcon
+    {field} - hoverIcon : ImageIcon
+    {field} - imgDim : Dimension
+  }
+
+  enum NavArrowOrientation {
+    {field} - path: String
+  }
+
+  interface HoverVisuals {
+    {method} setHoverState(boolean) : void
+  }  
+}
+
+
+interface Visitor
+
+package "Modelo" {
+  class EscenaZoo
+  class Zoo
+}
+
+
+package "Swing" {
+  class CardLayout
+  interface MouseInputListener
+  interface MouseMotionListener
+}
+
+
+' Asociación
+LabelNavArrow --> NavArrowOrientation
+VistaEscenaZoo --> EscenaZoo
+DrawVisitor --> Layer
+DrawVisitor --> EscenaZoo
+DrawVisitor --> Zoo
+
+
+
+' Composición
+VistaEscenaZoo *-- DrawVisitor
+VistaEscenaZoo *-- PanelContainer
+PanelContainer *-- ItemPanel
+
+
+' Agregación
+PanelContainer --> CardLayout
+
+' Implementación
+HoverVisuals <|.. ItemLabel
+HoverVisuals <|.. LabelNavArrow
+MouseInputListener <|.. ZooListener
+MouseInputListener <|.. PanelListener
+MouseMotionListener <|.. ZooListener
+Visitor <|.. DrawVisitor
+
+' Nesting
+VistaEscenaZoo +-- ZooListener
+LabelNavArrow +-- NavArrowOrientation
+DrawVisitor +-- Layer
+
+' Dependencia
+ItemPanel ..> PanelListener
+PanelContainer ..> PanelListener
+PanelContainer ..> NavArrowOrientation
+
+
+' Herencia/Generalización no Swing
+
+
+' Herencia/Generalización Swing
+
+
+
+@enduml

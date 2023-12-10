@@ -1,4 +1,4 @@
-package org.zoo.vista.visitor;
+package org.zoo.vista;
 import org.zoo.App;
 import org.zoo.modelo.*;
 import org.zoo.modelo.food.EnumFood;
@@ -12,6 +12,7 @@ import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.placementmanager.AnimalPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
+import org.zoo.visitor.Visitor;
 import org.zoo.vista.Drawable;
 import org.zoo.vista.RenderedSprite;
 import javax.swing.*;

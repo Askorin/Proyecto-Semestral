@@ -19,17 +19,16 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
     /* Margen entre borde de panel y elemento más externo (flechas de nav) */
     private final int BORDER_MARGIN = 35;
     private final int ITEM_SPACING = 35;
-    private JPanel labelPanel;
     public ItemPanel(VistaEscenaZoo.PanelListener panelListener, Class<T> clazz) {
         super();
         this.clazz = clazz;
         setLayout(new BorderLayout());
 
-        labelPanel = new JPanel();
+        JPanel labelPanel = new JPanel();
         labelPanel.setLayout(new BoxLayout(labelPanel, BoxLayout.X_AXIS));
         labelPanel.setOpaque(false);
         labelPanel.add(Box.createHorizontalGlue());
-        createLabels((int) (60 * App.SCALE_FACTOR), panelListener);
+        createLabels((int) (60 * App.SCALE_FACTOR), panelListener, labelPanel);
         labelPanel.add(Box.createHorizontalGlue());
 
         if (App.SEE_HITBOX) {
@@ -59,7 +58,7 @@ public class ItemPanel<T extends Enum<T> & MenuItem> extends JPanel {
      * @param height La altura de los labels.
      * @param panelListener El listener de eventos para panel.
      */
-    private void createLabels(int height, VistaEscenaZoo.PanelListener panelListener) {
+    private void createLabels(int height, VistaEscenaZoo.PanelListener panelListener, JPanel labelPanel) {
         for (T itemEnum : values())  {
             ItemLabel<T> itemLabel = new ItemLabel<>(height, itemEnum);
 

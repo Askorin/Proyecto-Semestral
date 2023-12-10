@@ -1,4 +1,4 @@
-package org.zoo.vista.visitor;
+package org.zoo.visitor;
 import org.zoo.modelo.*;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.food.FoodArea;

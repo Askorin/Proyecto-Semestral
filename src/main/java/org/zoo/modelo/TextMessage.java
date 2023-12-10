@@ -1,13 +1,8 @@
 package org.zoo.modelo;
 
-import org.zoo.modelo.characteristics.Positionable;
 import org.zoo.modelo.characteristics.Updatable;
-import org.zoo.modelo.habitat.Habitat;
 import org.zoo.vista.Drawable;
-import org.zoo.vista.visitor.Visitor;
-
-import java.sql.SQLOutput;
-import java.util.ArrayList;
+import org.zoo.visitor.Visitor;
 
 public class TextMessage implements Updatable, Drawable {
     private final String text;
