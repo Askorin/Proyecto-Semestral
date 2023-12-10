@@ -44,6 +44,9 @@ public class Hitbox {
          * - y2 >= y1
          *
          */
+
+        System.out.println(hitbox1);
+        System.out.println(hitbox2);
         boolean cond1 = hitbox2.x + hitbox2.width <= hitbox1.x + hitbox1.width;
         boolean cond2 = hitbox2.y + hitbox2.height <= hitbox1.y + hitbox1.height;
         boolean cond3 = hitbox2.x >= hitbox1.x;
@@ -120,7 +123,7 @@ public class Hitbox {
      * @param targetHitbox La <code>HitBox</code> que no se mueve.
      * @return El <code>ZooPoint</code> mas cercano al que se debe mover movableHitbox
      */
-    static public ZooPoint getCloserPointToHitbox(Hitbox movableHitbox, Hitbox targetHitbox) {
+    static public ZooPoint getClosestPointToHitbox(Hitbox movableHitbox, Hitbox targetHitbox) {
         int targetX;
         if (movableHitbox.x + movableHitbox.width < targetHitbox.x) {
             targetX = targetHitbox.x - movableHitbox.width;
@@ -152,5 +155,14 @@ public class Hitbox {
                 ", width=" + width +
                 ", height=" + height +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Hitbox hb) {
+            return hb.x == x && hb.y == y && hb.width == width && hb.height == height;
+        } else {
+            return false;
+        }
     }
 }

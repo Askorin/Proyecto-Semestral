@@ -40,7 +40,7 @@ public class GatheringAnimalState implements AnimalState {
         else {
             Hitbox animalHitbox = new Hitbox(animal.x, animal.y, animal.getWidth(), animal.getHeight());
             Hitbox foodHitbox = targetFood.getHitbox();
-            targetPoint = Hitbox.getCloserPointToHitbox(animalHitbox, foodHitbox);
+            targetPoint = Hitbox.getClosestPointToHitbox(animalHitbox, foodHitbox);
         }
 
 

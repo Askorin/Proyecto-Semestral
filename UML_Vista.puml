@@ -1,5 +1,6 @@
 @startuml
 hide empty methods
+skinparam linetype ortho
 hide empty fields
 skinparam legendBackgroundColor #ffffff
 legend
@@ -88,6 +89,32 @@ package "vista" {
 }
 
 
+package "utilities" {
+  class Hitbox {
+    {field} + x : int
+    {field} + y : int
+    {field} + width : int
+    {field} + height : int
+    {method} {static} + isHitboxContained(Hitbox, Hitbox) : boolean
+    {method} {static} + checkPointHitboxCollision(Hitbox, ZooPoint) : boolean
+    {method} {static} + checkHitboxCollision(Hitbox, Hitbox) : boolean
+    {method} {static} + getClosestPointToHitbox(Hitbox, Hitbox) : ZooPoint
+  }
+  
+  class ZooPoint {
+    {field} + x : int
+    {field} + y : int
+    {method} {static} + getDifference(ZooPoint, ZooPoint) : ZooPoint
+  }
+
+  class Utilities {
+    {method} {static} + getNormalizedVector(ZooPoint) : ZooPoint
+    {method} {static} + getNormalizedVector(ZooPoint, int) : ZooPoint
+    {method} {static} + loadImage(String) : Image
+    {method} {static} + loadImage(String, int) : Image
+  }
+}
+
 
 package "visitor" {
   interface Visitor {
@@ -157,6 +184,8 @@ ItemPanel ..> PanelListener
 PanelContainer ..> PanelListener
 PanelContainer ..> NavArrowOrientation
 Visitable ..> Visitor
+Hitbox ..> ZooPoint
+Utilities ..> ZooPoint
 
 
 ' Herencia/Generalización no Swing
