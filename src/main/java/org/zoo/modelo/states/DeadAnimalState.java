@@ -3,7 +3,7 @@ package org.zoo.modelo.states;
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.animal.Animal;
 import org.zoo.modelo.exception.AlreadyInitializedStateException;
-import org.zoo.modelo.exception.NoInitializedStateException;
+import org.zoo.modelo.exception.NotInitializedStateException;
 
 /**
  * Estado que describe el comportamiento de un <code>Animal</code>
@@ -44,10 +44,10 @@ public class DeadAnimalState implements AnimalState {
     }
 
     @Override
-    public void stateUpdate() throws NoInitializedStateException {
+    public void stateUpdate() throws NotInitializedStateException {
         /* Revisamos si el estado se ha inicializado */
         if (!hasBeenInitialized) {
-            throw new NoInitializedStateException();
+            throw new NotInitializedStateException();
         }
 
         currentMs = System.currentTimeMillis();

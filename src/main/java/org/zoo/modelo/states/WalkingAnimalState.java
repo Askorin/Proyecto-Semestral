@@ -1,7 +1,7 @@
 package org.zoo.modelo.states;
 
 import org.zoo.modelo.exception.AlreadyInitializedStateException;
-import org.zoo.modelo.exception.NoInitializedStateException;
+import org.zoo.modelo.exception.NotInitializedStateException;
 import org.zoo.utilities.Utilities;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
@@ -69,10 +69,10 @@ public class WalkingAnimalState implements AnimalState {
     }
 
     @Override
-    public void stateUpdate() throws NoInitializedStateException {
+    public void stateUpdate() throws NotInitializedStateException {
         /* Revisamos si el estado se ha inicializado */
         if (!hasBeenInitialized) {
-            throw new NoInitializedStateException();
+            throw new NotInitializedStateException();
         }
         /* Revisamos si el animal tiene hambre */
         if (animal.getHungerTimeElapsed() >= animal.getHungerLimitMs()) {

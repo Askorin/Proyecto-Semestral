@@ -10,12 +10,12 @@ import org.zoo.utilities.ZooPoint;
  * cada elemento de la enumeración hace referencia a un <code>Animal</code> en especifico.
  */
 public enum EnumAnimal implements MenuItem {
-    CAT("Gato", Cat.class, Sprite.CAT_IDLE, "/CatIdle1.png"),
-    ELEPHANT("Elefante", Elephant.class, Sprite.ELEPHANT_IDLE, "/ElephantIdle1.png"),
-    LION("León", Lion.class, Sprite.LION_IDLE, "/LionIdle1.png"),
-    MONKEY("Mono", Monkey.class, Sprite.MONKEY_IDLE, "/MonkeyIdle.png"),
-    PANDA("Panda", Panda.class, Sprite.PANDA_IDLE, "/PandaIdle.png"),
-    PENGUIN("Pingüino", Penguin.class, Sprite.PENGUIN_IDLE, "/PenguinIdle.png");
+    CAT("Gato", Cat.class, Sprite.CAT_IDLE, "/animal/cat/CatIdle1.png"),
+    ELEPHANT("Elefante", Elephant.class, Sprite.ELEPHANT_IDLE, "/animal/elephant/ElephantIdle1.png"),
+    LION("León", Lion.class, Sprite.LION_IDLE, "/animal/lion/LionIdle1.png"),
+    MONKEY("Mono", Monkey.class, Sprite.MONKEY_IDLE, "/animal/monkey/MonkeyIdle.png"),
+    PANDA("Panda", Panda.class, Sprite.PANDA_IDLE, "/animal/panda/PandaIdle.png"),
+    PENGUIN("Pingüino", Penguin.class, Sprite.PENGUIN_IDLE, "/animal/penguin/PenguinIdle.png");
     /**
      * Nombre del <code>Animal</code>, util para imprimirlo al usuario
      */

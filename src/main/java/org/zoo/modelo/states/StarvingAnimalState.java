@@ -1,7 +1,7 @@
 package org.zoo.modelo.states;
 
 import org.zoo.modelo.exception.AlreadyInitializedStateException;
-import org.zoo.modelo.exception.NoInitializedStateException;
+import org.zoo.modelo.exception.NotInitializedStateException;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.animal.Animal;
 
@@ -33,10 +33,10 @@ public class StarvingAnimalState implements AnimalState {
     }
 
     @Override
-    public void stateUpdate() throws NoInitializedStateException {
+    public void stateUpdate() throws NotInitializedStateException {
         /* Revisamos si el estado se ha inicializado */
         if (!hasBeenInitialized) {
-            throw new NoInitializedStateException();
+            throw new NotInitializedStateException();
         }
         /* Este estado se termina si se encuentra comida */
         if (searchForFood()) {

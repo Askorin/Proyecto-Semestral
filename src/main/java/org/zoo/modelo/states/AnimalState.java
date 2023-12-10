@@ -1,11 +1,11 @@
 package org.zoo.modelo.states;
 
 import org.zoo.modelo.exception.AlreadyInitializedStateException;
-import org.zoo.modelo.exception.NoInitializedStateException;
+import org.zoo.modelo.exception.NotInitializedStateException;
 
 /**
  * Interfaz que implementan las clases que describen el comportamiento
- * de <code>Animal</code> en una determinado estado
+ * de <code>Animal</code> en un determinado estado
  */
 public interface AnimalState {
     //método que se debe ejecutar INMEDIATAMENTE DESPUES de crear un estado, con el objetivo de separar
@@ -21,7 +21,7 @@ public interface AnimalState {
     /**
      * Describe el comportamiento de <code>Animal</code> propio del estado
      * que se ejecuta en cada frame logico del programa
-     * @throws NoInitializedStateException En caso de no haber llamado antes <code>stateinit()</code>
+     * @throws NotInitializedStateException En caso de no haber llamado antes <code>stateinit()</code>
      */
-    public void stateUpdate() throws NoInitializedStateException;
+    public void stateUpdate() throws NotInitializedStateException;
 }

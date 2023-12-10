@@ -2,7 +2,7 @@ package org.zoo.modelo.animal;
 import org.zoo.modelo.*;
 import org.zoo.modelo.characteristics.Updatable;
 import org.zoo.modelo.exception.AlreadyInitializedStateException;
-import org.zoo.modelo.exception.NoInitializedStateException;
+import org.zoo.modelo.exception.NotInitializedStateException;
 import org.zoo.modelo.food.EnumFood;
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.modelo.states.*;
@@ -125,7 +125,7 @@ public abstract class Animal implements Updatable, Drawable {
         try {
             currentState.stateUpdate();
         }
-        catch (NoInitializedStateException e) {
+        catch (NotInitializedStateException e) {
             System.err.println(e);
             ownerHabitat.getContainables().removeComponent(this);
         }
