@@ -9,13 +9,36 @@ import org.zoo.modelo.placementmanager.FoodPlacementManager;
 import org.zoo.modelo.placementmanager.HabitatPlacementManager;
 import org.zoo.modelo.placementmanager.PlacementManager;
 
+/**
+ * Clase que contiene la parte logica de la escena principal (y unica actualmente)
+ * de la aplicación. Contiene el modelo del zoologico y los eventos que ocurren en el
+ * como lo son manejadores de Habitats, Animales, etc.
+ */
 public class EscenaZoo implements Updatable {
+    /**
+     * <code>Zoo</code>> contenido en la escena
+     */
     private final Zoo zoo;
 
     // TODO: Esto no tiene tanto sentido si se puede hacer zoo.getPlacement..
+    /**
+     * Manejador de <code>Habitat</code> de la escena
+     * Es el intermediario que permite colocar habitats en la escena
+     */
     private final HabitatPlacementManager habitatPlacementManager;
+    /**
+     * Manejador de <code>Animal</code> de la escena
+     * Es el intermediario que permite colocar animales en la escena
+     */
     private final AnimalPlacementManager animalPlacementManager;
+    /**
+     * Manejador de <code>TextMessage</code> de la escana
+     */
     private final TextMessageManager textMessageManager;
+    /**
+     * Manejador de tipos de comida de la escena
+     * Es el intermediario que permite colocar comida en la escena
+     */
     private final FoodPlacementManager foodPlacementManager;
     public EscenaZoo() {
         /*
@@ -43,10 +66,19 @@ public class EscenaZoo implements Updatable {
         textMessageManager = new TextMessageManager();
     }
 
+    /**
+     * Permite obtener el <code>Zoo</code> contenido en la escena
+     * @return <code>Zoo</code> contenido en la escena
+     */
     public Zoo getZoo() {
         return zoo;
     }
 
+    /**
+     * Permite obtener los manejadores contenidos en la escena
+     * @param itemEnum Qué tipo de item maneja el manejador deseado
+     * @return Devuelve el manejador deseado
+     */
     public PlacementManager getPlacementManager(MenuItem itemEnum) {
         if (itemEnum instanceof EnumHabitat) {
             return habitatPlacementManager;
@@ -60,21 +92,37 @@ public class EscenaZoo implements Updatable {
         return null;
     }
 
+    /**
+     * Permite obtener el majeador de <code>Habitat</code> de la escena
+     * @return Devuelve el <code>HabitatPlacementManager</code> que usa la escena
+     */
     public HabitatPlacementManager getHabitatPlacementManager() {
         return habitatPlacementManager;
     }
 
+    /**
+     * Permite obtener el majeador de <code>Animal</code> de la escena
+     * @return Devuelve el <code>AnimalPlacementManager</code> que usa la escena
+     */
     public AnimalPlacementManager getAnimalPlacementManager() {
         return animalPlacementManager;
     }
+    /**
+     * Permite obtener el majeador de tipos de comida de la escena
+     * @return Devuelve el <code>FoodPlacementManager</code> que usa la escena
+     */
     public FoodPlacementManager getFoodPlacementManager() {
         return foodPlacementManager;
     }
-
+    /**
+     * Permite obtener el majeador de <code>TextMessage</code> de la escena
+     * @return Devuelve el <code>TextMessageManager</code> que usa la escena
+     */
     public TextMessageManager getTextMessageManager() {
         return textMessageManager;
     }
 
+    @Override
     public void update() {
         zoo.update();
         textMessageManager.update();

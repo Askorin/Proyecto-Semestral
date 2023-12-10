@@ -6,12 +6,21 @@ import org.zoo.utilities.ZooPoint;
 import org.zoo.modelo.characteristics.Unblockable;
 import org.zoo.modelo.animal.Animal;
 
-//Este estado corresponde a caminar a un punto aleatorio
-//es util para tener un comportamiente "por defecto" y no quedarse quieto
+/**
+ * Estado que describe el comportamiento de un <code>Animal</code>
+ * cuando este esta caminando como accion por defecto.
+ * Basicamente, en este estado el animal toma un punto aleatorio y se deplaza a el.
+ */
 public class WalkingAnimalState implements AnimalState {
     private boolean hasBeenInitialized;
     private final Animal animal;
-    private ZooPoint targetPoint; //punto aleatorio el cual es a donde se dirige el animal
+    /**
+     * Punto aleatorio el cual es a donde se dirige <code>Animal</code>
+     */
+    private ZooPoint targetPoint;
+    /**
+     * La velocidad con que se mueve es aleatoria y constante para la duracion del estado
+     */
     private final int speed = (int) (Math.random()*3 + 3); // entre 3 y 6;
     public WalkingAnimalState(Animal animal) {
         this.animal = animal;

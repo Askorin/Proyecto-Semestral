@@ -7,14 +7,40 @@ import org.zoo.modelo.states.WalkingAnimalState;
 import org.zoo.utilities.Hitbox;
 import org.zoo.utilities.ZooPoint;
 
+/**
+ * Modelo logico de un mono en el zoologico, dentro de un <code>Habitat</code>
+ * Es hijo de la clase <code>Animal</code>
+ * @see Animal
+ * @see EnumAnimal
+ */
 public class Monkey extends Animal {
     public static int width = 50;
     public static int height = 50;
+    /**
+     * Temperatura minima de <code>Habitat</code> que el <code>Animal</code> acepta
+     */
     public static float minTemperature = 0;
+    /**
+     * Temperatura maxima de <code>Habitat</code> que el <code>Animal</code> acepta
+     */
     public static float maxTemperature = 35;
+    /**
+     * Lista de comida que el <code>Animal</code> consume
+     * El orden importa, las comidas preferidas deberian ir pimero.
+     */
     public static EnumFood[] prefferedFood = {EnumFood.BANANA, EnumFood.FISH, EnumFood.MEAT, EnumFood.LEAVES};
+    /**
+     * Lista de animales con cuales el <code>Animal</code> no puede compartir habitat.
+     * No es necesario ser simetrico: A no convive con B, B si convive con A.
+     */
     public static EnumAnimal[] invalidCompanion = {EnumAnimal.LION};
+    /**
+     * Tiempo (en ms) maximo que pasa sin estar hambriento
+     */
     private final long HUNGER_LIMIT_MS = 18000;
+    /**
+     * Tiempo (en ms) que puede pasar sin comer, antes de morir
+     */
     private final long HUNGER_MAX_LIMIT_MS = 50000;
     public Monkey(Habitat habitat, ZooPoint p) {
         super(habitat, p);

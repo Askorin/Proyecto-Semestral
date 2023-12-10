@@ -1,6 +1,10 @@
 package org.zoo.modelo;
 
-//Almacena información de una animación, pero sin cargarla graficamente
+/**
+ * Almacena informacion sobre la animacion actual que cursa un objeto,
+ * esta orientado a ser un componente solo de la parte logica del programa,
+ * por lo tanto, no contiene ni carga graficos.
+ */
 public enum Sprite {
     CAT_IDLE("src/main/resources/CatIdle.png", 6, 150, 13*4, 9*4),
     CAT_WALK("src/main/resources/CatWalk.png", 2, 90, 15*4, 9*4),
@@ -38,10 +42,25 @@ public enum Sprite {
     BANANA_INGAME("src/main/resources/BananaIngame.png", 1, 1, 2*4, 4*4),
     HUNGER_BUBBLE("src/main/resources/HungerBubble.png", 1, 1, 8*4, 6*4),
     ZOO_BACKGROUND("src/main/resources/ZooBackground.png", 1, 1, 1024*4, 1024*4);
+    /**
+     * Ruta del archivo de la animacion
+     */
     private final String path;
-    private final int framesNumber; //Numero de frames
-    private final int timePerFrame; //Velocidad (mas bien el reciproco) de la animacion
+    /**
+     * Cuantos cuadros tiene la animacion
+     */
+    private final int framesNumber;
+    /**
+     * Cuando tiempo (en ms) dura un cuadro de la animacion
+     */
+    private final int timePerFrame;
+    /**
+     * Centro de la animacion
+     */
     private int centerX; //Centro de la animacion, es util para casos que el centro del sprite no es en la mitad
+    /**
+     * Centro de la animacion
+     */
     private int centerY;
 
     Sprite(String path, int framesNumber, int timePerFrame) {
@@ -59,18 +78,42 @@ public enum Sprite {
         this.centerX = centerX;
         this.centerY = centerY;
     }
+
+    /**
+     * Permite obtener el centro de la animacion
+     * @return Coordenada x del centro de la animacion
+     */
     public int getCenterX() {
         return centerX;
     }
+    /**
+     * Permite obtener el centro de la animacion
+     * @return Coordenada y del centro de la animacion
+     */
     public int getCenterY() {
         return centerY;
     }
+
+    /**
+     * Permite obtener la cantidad de cuadros que tiene la animacion
+     * @return Cantidad de cuadros que tiene la animacion
+     */
     public int getFramesNumber() {
         return framesNumber;
     }
+
+    /**
+     * Permite obtener la ruta de archivo de la animacion
+     * @return String que contiene la ruta de archivo de la animacion
+     */
     public String getPath() {
         return path;
     }
+
+    /**
+     * Permite obtener cuanto dura (en ms) un cuadro de la animacion
+     * @return Tiempo (en ms) dura un cuadro de la animacion
+     */
     public int getTimePerFrame() {
         return timePerFrame;
     }
