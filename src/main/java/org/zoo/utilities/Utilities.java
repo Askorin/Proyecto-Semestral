@@ -41,7 +41,7 @@ public class Utilities {
             buffImage = ImageIO.read(new File(path));
         }
         catch (IOException e) {
-            System.out.println(e);
+            System.err.println(e);
         }
         int width = buffImage.getWidth() * scaleFactor;
         int height = buffImage.getHeight() * scaleFactor;
