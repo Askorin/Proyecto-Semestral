@@ -15,6 +15,10 @@ de estos, y sus compatibilidades con otros animales / entornos. Todo mediante un
 
 ------------------------------------------------
 
+## <a href = "https://github.com/Askorin/Proyecto-Semestral/blob/main/informe.pdf">Informe</a>
+
+------------------------------------------------
+
 ## <a href = "https://askorin.github.io/Proyecto-Semestral/">Documentación</a>
 
 ------------------------------------------------
@@ -27,4 +31,6 @@ de estos, y sus compatibilidades con otros animales / entornos. Todo mediante un
 ![Casos de uso de la aplicación](/imagenes_interfaz/interfaz1.png?raw=true?)
 ![Casos de uso de la aplicación](/imagenes_interfaz/interfaz2.png?raw=true?)
 ![Casos de uso de la aplicación](/imagenes_interfaz/interfaz3.png?raw=true?)
+
+
 
