@@ -6,26 +6,26 @@ package org.zoo.modelo;
  * por lo tanto, no contiene ni carga graficos.
  */
 public enum Sprite {
-    CAT_IDLE("src/main/resources/animal/cat/CatIdle.png", 6, 150, 13*4, 9*4),
-    CAT_WALK("src/main/resources/animal/cat/CatWalk.png", 2, 90, 15*4, 9*4),
-    CAT_EAT("src/main/resources/animal/cat/CatEat.png", 4, 90, 16*4, 2*4),
-    CAT_HUNGRY("src/main/resources/animal/cat/CatHungry.png", 6, 220, 13*4, 9*4),
+    CAT_IDLE("src/main/resources/animal/cat/CatIdle.png", 6, 150, 13*3, 9*3, 3),
+    CAT_WALK("src/main/resources/animal/cat/CatWalk.png", 2, 90, 15*3, 9*3, 3),
+    CAT_EAT("src/main/resources/animal/cat/CatEat.png", 4, 90, 16*3, 2*3,3),
+    CAT_HUNGRY("src/main/resources/animal/cat/CatHungry.png", 6, 220, 13*3, 9*3,3),
     ELEPHANT_IDLE("src/main/resources/animal/elephant/ElephantIdle.png", 2, 350, 11*4, 11*4),
     ELEPHANT_WALK("src/main/resources/animal/elephant/ElephantWalk.png", 3, 130, 16*4, 9*4),
     ELEPHANT_EAT("src/main/resources/animal/elephant/ElephantEat.png", 4, 100, 16*4, 10*4),
     ELEPHANT_HUNGRY("src/main/resources/animal/elephant/ElephantHungry.png", 2, 500, 11*4, 11*4),
-    LION_IDLE("src/main/resources/animal/lion/LionIdle.png", 2, 250, 8*4, 7*4),
-    LION_WALK("src/main/resources/animal/lion/LionWalk.png", 4, 120, 8*4, 7*4),
-    LION_HUNGRY("src/main/resources/animal/lion/LionIdle.png", 2, 350, 8*4, 7*4),
-    LION_EAT("src/main/resources/animal/lion/LionEat.png", 2, 100, 8*4, 7*4),
-    MONKEY_IDLE("src/main/resources/animal/monkey/MonkeyIdle.png", 1, 1, 3*4, 5*4),
-    MONKEY_WALK("src/main/resources/animal/monkey/MonkeyWalk.png", 4, 100, 5*4, 5*4),
-    MONKEY_HUNGRY("src/main/resources/animal/monkey/MonkeyIdle.png", 1, 1, 3*4, 5*4),
-    MONKEY_EAT("src/main/resources/animal/monkey/MonkeyEat.png", 2, 120, 3*4, 5*4),
-    PANDA_IDLE("src/main/resources/animal/panda/PandaIdle.png", 1, 1, 6*4, 6*4),
-    PANDA_WALK("src/main/resources/animal/panda/PandaWalk.png", 4, 150, 6*4, 6*4),
-    PANDA_HUNGRY("src/main/resources/animal/panda/PandaIdle.png", 1, 1, 6*4, 6*4),
-    PANDA_EAT("src/main/resources/animal/panda/PandaEat.png", 4, 120, 5*4, 6*4),
+    LION_IDLE("src/main/resources/animal/lion/LionIdle.png", 1, 250, 14*4, 9*4),
+    LION_WALK("src/main/resources/animal/lion/LionWalk.png", 4, 120, 14*4, 9*4),
+    LION_HUNGRY("src/main/resources/animal/lion/LionIdle.png", 1, 350, 14*4, 9*4),
+    LION_EAT("src/main/resources/animal/lion/LionEat.png", 2, 100, 14*4, 9*4),
+    MONKEY_IDLE("src/main/resources/animal/monkey/MonkeyIdle.png", 1, 1, 7*4, 9*4),
+    MONKEY_WALK("src/main/resources/animal/monkey/MonkeyWalk.png", 4, 100, 9*4, 8*4),
+    MONKEY_HUNGRY("src/main/resources/animal/monkey/MonkeyIdle.png", 1, 1, 7*4, 9*4),
+    MONKEY_EAT("src/main/resources/animal/monkey/MonkeyEat.png", 4, 100, 8*4, 7*4),
+    PANDA_IDLE("src/main/resources/animal/panda/PandaIdle.png", 2, 400, 11*4, 9*4),
+    PANDA_WALK("src/main/resources/animal/panda/PandaWalk.png", 4, 105, 12*4, 9*4),
+    PANDA_HUNGRY("src/main/resources/animal/panda/PandaIdle.png", 2, 400, 11*4, 9*4),
+    PANDA_EAT("src/main/resources/animal/panda/PandaEat.png", 4, 120, 13*4, 9*4),
     PENGUIN_IDLE("src/main/resources/animal/penguin/PenguinIdle.png", 1, 1, 3*4, 7*4),
     PENGUIN_WALK("src/main/resources/animal/penguin/PenguinWalk.png", 4, 90, 4*4, 7*4),
     PENGUIN_HUNGRY("src/main/resources/animal/penguin/PenguinIdle.png", 1, 1, 3*4, 7*4),
@@ -62,21 +62,22 @@ public enum Sprite {
      * Centro de la animacion
      */
     private int centerY;
+    /**
+     * Cuanto se estira la imagen en pantalla
+     */
+    private int scaleFactor;
 
-    Sprite(String path, int framesNumber, int timePerFrame) {
+    //Por defecto, el scaleFactor es 4
+    Sprite(String path, int framesNumber, int timePerFrame, int centerX, int centerY) {
+        this(path, framesNumber, timePerFrame, centerX, centerY, 4);
+    }
+    Sprite(String path, int framesNumber, int timePerFrame, int centerX, int centerY, int scaleFactor) {
         this.path = path;
         this.framesNumber = framesNumber;
         this.timePerFrame = timePerFrame;
-
-        centerX = 5;
-        centerY = 5;
-    }
-
-    //Por defecto, el centro de un sprite es al medio, pero podemos entregarle un centro personalizado
-    Sprite(String path, int framesNumber, int timePerFrame, int centerX, int centerY) {
-        this(path, framesNumber, timePerFrame);
         this.centerX = centerX;
         this.centerY = centerY;
+        this.scaleFactor = scaleFactor;
     }
 
     /**
@@ -116,5 +117,13 @@ public enum Sprite {
      */
     public int getTimePerFrame() {
         return timePerFrame;
+    }
+
+    /**
+     * Permite obtener el factor con el que se escalara la imagen en pantalla
+     * @return Factor de escalado
+     */
+    public int getScaleFactor() {
+        return scaleFactor;
     }
 }

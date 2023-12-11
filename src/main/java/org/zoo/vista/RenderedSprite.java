@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public class RenderedSprite {
     private static boolean loaded = false;
-    public static final int SCALE_FACTOR = 4; // Util si queremos hacer pixelart
     private static ArrayList<ArrayList<BufferedImage>> frames; //Conjunto de las imagenes individuales de todos los Sprites
     private RenderedSprite() {}
 
@@ -28,7 +27,7 @@ public class RenderedSprite {
                 Sprite spr = Sprite.values()[i];
                 for (int j = 0; j < spr.getFramesNumber(); j++) {
                     for (String p : getPaths(spr.getPath(), spr.getFramesNumber())) {
-                        Image img = Utilities.loadImage(p, SCALE_FACTOR);
+                        Image img = Utilities.loadImage(p, spr.getScaleFactor());
                         frames.get(i).add(toBufferedImage(img));
                     }
                 }
