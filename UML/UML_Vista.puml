@@ -19,6 +19,18 @@ package "vista" {
 
   }
 
+  class RenderedSprite {
+      {field} {static} - loaded : boolean
+      {field} {static} - frames : ArrayList
+      {method} {static} + loadSprites() : void
+      {method} {static} + toBufferedImage(Image) : BufferedImage
+      {method} {static} + getFrame(Sprite, long) : BufferedImage
+      {method} {static} + draw(Graphics, Hitbox, long, float, boolean) : void
+      {method} {static} + draw(Sprite, Graphics, Hitbox, long) : void
+      {method} {static} + draw(Sprite, Graphics, int, int) : void
+      {method} {static} + getPaths(String, int) : ArrayList
+  }
+
   class ZooListener {
 
   }
@@ -186,6 +198,7 @@ PanelContainer ..> NavArrowOrientation
 Visitable ..> Visitor
 Hitbox ..> ZooPoint
 Utilities ..> ZooPoint
+ItemLabel ..> RenderedSprite
 
 
 ' Herencia/Generalización no Swing
