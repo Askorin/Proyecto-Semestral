@@ -251,6 +251,7 @@ package "modelo" {
     - timePerFrame : int
     - centerX : int
     - centerY : int
+    - scaleFactor : int
   }
 
   class TextMessage {
