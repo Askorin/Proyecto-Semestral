@@ -14,8 +14,8 @@ import org.zoo.utilities.ZooPoint;
  * @see EnumAnimal
  */
 public class Monkey extends Animal {
-    public static int width = 50;
-    public static int height = 50;
+    public static int width = 70;
+    public static int height = 90;
     /**
      * Temperatura minima de <code>Habitat</code> que el <code>Animal</code> acepta
      */

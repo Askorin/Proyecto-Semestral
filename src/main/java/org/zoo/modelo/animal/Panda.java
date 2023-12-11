@@ -15,8 +15,8 @@ import org.zoo.utilities.ZooPoint;
  * @see EnumAnimal
  */
 public class Panda extends Animal {
-    public static int width = 70;
-    public static int height = 50;
+    public static int width = 100;
+    public static int height = 80;
     /**
      * Temperatura minima de <code>Habitat</code> que el <code>Animal</code> acepta
      */
