@@ -1,5 +1,4 @@
 package org.zoo.modelo.food;
-
 import org.zoo.modelo.MenuItem;
 import org.zoo.modelo.Sprite;
 

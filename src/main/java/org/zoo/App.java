@@ -53,7 +53,6 @@ public final class App {
 
         frame = new JFrame("Zoo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // Ratio 16:9
         frame.setSize(App.SCREEN_WIDTH, App.SCREEN_HEIGHT);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(vistaEscenaZoo);

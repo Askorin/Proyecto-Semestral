@@ -47,7 +47,7 @@ public class AnimalPlacementManager extends PlacementManager<EnumAnimal> impleme
 
         Habitat habitat = getZoo().getHabitatFromPoint(new ZooPoint(getAbsX(), getAbsY()));
 
-        // Coordenadas en las que se posicionará el gato.
+        // Coordenadas en las que se posicionará el gato (animal).
         int posX = getAbsX() - width / 2;
         int posY = getAbsY() - height / 2;
 

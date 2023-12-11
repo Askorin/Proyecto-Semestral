@@ -22,7 +22,6 @@ public class Zoo
     private final int width = 2048;
     private final int height = 2048;
     private final Sprite backgroundSprite = Sprite.ZOO_BACKGROUND;
-    // TODO: Se podría tener una arraylist de habitats? // y los habitats podrian tener un arrayList de animales?
     /**
      * <code>Zoo</code> contiene una instancia de <code>Containables</code>,
      * es donde se almacenaran los elementos contenidos en el <code>Zoo</code>
@@ -51,8 +50,6 @@ public class Zoo
         this.animalPlacementManager = animalPlacementManager;
         this.foodPlacementManager = foodPlacementManager;
     }
-
-    // TODO: Chequear si habitat esa fuera de zoologico, imprimir texto warning en casos fallidos.
 
     /***
      * Metodo que permite agregar un <code>Habitat</code> al <code>Zoo</code>

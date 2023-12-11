@@ -1,5 +1,4 @@
 package org.zoo.modelo.habitat;
-
 import org.zoo.modelo.Sprite;
 import org.zoo.modelo.food.FoodArea;
 import org.zoo.modelo.characteristics.Positionable;
