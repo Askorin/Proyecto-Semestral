@@ -1,5 +1,4 @@
 package org.zoo.modelo.food;
-
 import org.zoo.modelo.habitat.Habitat;
 import org.zoo.utilities.Hitbox;
 import org.zoo.modelo.characteristics.Unblockable;

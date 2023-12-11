@@ -50,7 +50,7 @@ public enum EnumHabitat implements MenuItem {
         try {
             habitat = (Habitat) tipo.getDeclaredConstructor(Positionable.class, ZooPoint.class).newInstance(owner, p);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return habitat;
     }
